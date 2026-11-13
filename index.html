@@ -83,11 +83,12 @@
         }
         .action-btn:active { transform: translateY(5px); box-shadow: none; }
 
-        /* Giao diện Trò Chơi (Memory Game) */
+        /* Header Trò chơi */
         .game-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .back-btn { background: #dfe6e9; border: none; padding: 8px 15px; border-radius: 15px; font-weight: bold; cursor: pointer; color: #2d3436; box-shadow: 0 4px 0 #b2bec3; }
         .back-btn:active { transform: translateY(4px); box-shadow: none; }
         
+        /* Memory Game */
         .memory-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
         .memory-card { 
             height: 70px; background: #74b9ff; border-radius: 15px; 
@@ -98,8 +99,16 @@
         .memory-card.flipped { background: #fff; color: #000; border: 3px solid #74b9ff; box-shadow: none; transform: rotateY(180deg); }
         .memory-card.matched { background: #55efc4; color: #000; border: 3px solid #00b894; box-shadow: none; cursor: default; }
 
-        @keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        /* Find Odd Game */
+        .odd-board { display: grid; gap: 10px; margin-top: 20px; }
+        .odd-card {
+            background: #fff; border: 3px solid #ffeaa7; border-radius: 15px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 45px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 0 #fdcb6e; aspect-ratio: 1;
+        }
+        .odd-card:active { transform: translateY(4px); box-shadow: none; }
 
+        @keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         @media (max-width: 480px) { .options { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -114,7 +123,17 @@
         <button class="subject-btn btn-tuduy" onclick="startGame('ToanTuDuy')">🧠 Toán Tư Duy (Nâng cao)</button>
         <button class="subject-btn btn-tv" onclick="startGame('TiengViet')">📖 Khám phá Tiếng Việt</button>
         <button class="subject-btn btn-dovui" onclick="startGame('DoVui')">🎯 Đố Vui Có Thưởng</button>
-        <button class="subject-btn btn-game" onclick="startMiniGame()">🎮 Khu Vui Chơi (Giải trí)</button>
+        <button class="subject-btn btn-game" onclick="openGameMenu()">🎮 Khu Vui Chơi (Giải trí)</button>
+    </div>
+
+    <!-- MÀN HÌNH CHỌN TRÒ CHƠI -->
+    <div id="gamemenu-screen" style="display: none;">
+        <div class="game-nav">
+            <button class="back-btn" onclick="goHome()">🔙 Quay lại</button>
+            <h3 style="margin:0; color:#0984e3;">Khu Vui Chơi 🎡</h3>
+        </div>
+        <button class="subject-btn btn-tv" style="margin-top: 30px;" onclick="startMemoryGame()">🐯 Lật Hình Động Vật</button>
+        <button class="subject-btn btn-tuduy" onclick="startFindOddGame()">👁️ Mắt Cú Tinh Anh</button>
     </div>
 
     <!-- MÀN HÌNH HỌC TẬP (QUIZ) -->
@@ -139,25 +158,61 @@
         <button class="action-btn" style="display: inline-block; background: #00cec9; box-shadow: 0 5px 0 #00b894;" onclick="goHome()">🏠 Về trang chính</button>
     </div>
 
-    <!-- MÀN HÌNH TRÒ CHƠI (MINI GAME) -->
-    <div id="minigame-screen" style="display: none;">
+    <!-- MÀN HÌNH LẬT HÌNH (MEMORY GAME) -->
+    <div id="memory-screen" style="display: none;">
         <div class="game-nav">
-            <button class="back-btn" onclick="goHome()">🔙 Thoát</button>
+            <button class="back-btn" onclick="openGameMenu()">🔙 Trở lại</button>
             <h3 style="margin:0; color:#e17055;">Lật Hình Động Vật 🐯</h3>
         </div>
         <p style="color:#636e72; font-size: 16px; margin-top:0;">Tìm 2 hình giống nhau để ghi điểm nhé!</p>
         
         <div class="memory-board" id="memory-board"></div>
         
-        <div id="game-win-msg" style="display: none; margin-top: 20px;">
-            <h2 style="color: #00b894;">🎉 Khang, Dũng, Huy siêu quá! 🎉</h2>
-            <button class="action-btn" style="display: inline-block; background:#fdcb6e; box-shadow: 0 5px 0 #e17055; color:#d63031" onclick="startMiniGame()">🔄 Chơi ván nữa</button>
+        <div id="memory-win-msg" style="display: none; margin-top: 20px;">
+            <h2 style="color: #00b894;">🎉 Các con siêu quá! 🎉</h2>
+            <button class="action-btn" style="display: inline-block; background:#fdcb6e; box-shadow: 0 5px 0 #e17055; color:#d63031" onclick="startMemoryGame()">🔄 Chơi ván nữa</button>
+        </div>
+    </div>
+
+    <!-- MÀN HÌNH TÌM ĐIỂM KHÁC BIỆT (FIND ODD GAME) -->
+    <div id="findodd-screen" style="display: none;">
+        <div class="game-nav">
+            <button class="back-btn" onclick="openGameMenu()">🔙 Trở lại</button>
+            <span style="font-size: 20px; font-weight: bold; color: #e17055;">Điểm: <span id="odd-score">0</span></span>
+        </div>
+        <h3 style="margin:10px 0 0 0; color:#0984e3;">Mắt Cú Tinh Anh 👁️</h3>
+        <p style="color:#636e72; font-size: 16px; margin-top:5px;">Hãy tìm ra 1 hình KHÁC với các hình còn lại nhé!</p>
+        
+        <div class="odd-board" id="odd-board"></div>
+        
+        <div id="odd-win-msg" style="display: none; margin-top: 20px;">
+            <h2 style="color: #00b894;">🏆 Tuyệt vời! Mắt tinh như cú mèo! 🏆</h2>
+            <button class="action-btn" style="display: inline-block; background:#a29bfe; box-shadow: 0 5px 0 #6c5ce7;" onclick="startFindOddGame()">🔄 Thử thách lại</button>
         </div>
     </div>
 </div>
 
 <script src="questions.js"></script>
 <script>
+    function hideAllScreens() {
+        document.getElementById('home-screen').style.display = 'none';
+        document.getElementById('gamemenu-screen').style.display = 'none';
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'none';
+        document.getElementById('memory-screen').style.display = 'none';
+        document.getElementById('findodd-screen').style.display = 'none';
+    }
+
+    function goHome() {
+        hideAllScreens();
+        document.getElementById('home-screen').style.display = 'block';
+    }
+
+    function openGameMenu() {
+        hideAllScreens();
+        document.getElementById('gamemenu-screen').style.display = 'block';
+    }
+
     /* =============================
        PHẦN 1: XỬ LÝ HỌC TẬP (QUIZ)
        ============================= */
@@ -165,21 +220,13 @@
     let currentIndex = 0;
     let stars = 0;
 
-    function goHome() {
-        document.getElementById('quiz-screen').style.display = 'none';
-        document.getElementById('result-screen').style.display = 'none';
-        document.getElementById('minigame-screen').style.display = 'none';
-        document.getElementById('home-screen').style.display = 'block';
-    }
-
     function startGame(subjectKey) {
-        // Trộn câu hỏi và lấy 10 câu ngẫu nhiên từ file questions.js
         let shuffled = [...nganHangCauHoi[subjectKey]].sort(() => Math.random() - 0.5);
         currentSubject = shuffled.slice(0, 10); 
         currentIndex = 0;
         stars = 0;
         
-        document.getElementById('home-screen').style.display = 'none';
+        hideAllScreens();
         document.getElementById('quiz-screen').style.display = 'block';
         loadQuestion();
     }
@@ -250,28 +297,26 @@
     }
 
     /* =============================
-       PHẦN 2: TRÒ CHƠI LẬT HÌNH
+       PHẦN 2: LẬT HÌNH (MEMORY GAME)
        ============================= */
     const emojiList = ['🐶','🐱','🐭','🦊','🐻','🐼','🐸','🐒'];
     let memoryCards = [];
     let flippedCards = [];
     let matchedCount = 0;
 
-    function startMiniGame() {
-        document.getElementById('home-screen').style.display = 'none';
-        document.getElementById('minigame-screen').style.display = 'block';
-        document.getElementById('game-win-msg').style.display = 'none';
+    function startMemoryGame() {
+        hideAllScreens();
+        document.getElementById('memory-screen').style.display = 'block';
+        document.getElementById('memory-win-msg').style.display = 'none';
         
         const board = document.getElementById('memory-board');
         board.innerHTML = '';
         flippedCards = [];
         matchedCount = 0;
 
-        // Tạo bộ bài x2 hình và xáo trộn
         memoryCards = [...emojiList, ...emojiList];
         memoryCards.sort(() => Math.random() - 0.5);
 
-        // Render bài
         memoryCards.forEach((emoji, index) => {
             const card = document.createElement('div');
             card.className = 'memory-card';
@@ -283,7 +328,6 @@
     }
 
     function flipCard(card) {
-        // Chỉ cho lật nếu chưa lật, chưa được ghép và không quá 2 thẻ đang mở
         if (flippedCards.length < 2 && !card.classList.contains('flipped') && !card.classList.contains('matched')) {
             card.classList.add('flipped');
             flippedCards.push(card);
@@ -302,13 +346,78 @@
             matchedCount += 2;
             
             if (matchedCount === memoryCards.length) {
-                document.getElementById('game-win-msg').style.display = 'block';
+                document.getElementById('memory-win-msg').style.display = 'block';
             }
         } else {
             card1.classList.remove('flipped');
             card2.classList.remove('flipped');
         }
         flippedCards = [];
+    }
+
+    /* =============================
+       PHẦN 3: MẮT CÚ TINH ANH (FIND ODD GAME)
+       ============================= */
+    let oddLevel = 1;
+    let oddScore = 0;
+    const oddThemes = [
+        {normal: '🍎', odd: '🍅'}, {normal: '😀', odd: '😃'}, 
+        {normal: '🐶', odd: '🦊'}, {normal: '🚗', odd: '🚙'}, 
+        {normal: '⭐', odd: '🌟'}, {normal: '🌲', odd: '🌳'}, 
+        {normal: '🌞', odd: '🌝'}, {normal: '🍔', odd: '🌭'},
+        {normal: '⚽', odd: '🏀'}, {normal: '🍓', odd: '🍒'}
+    ];
+
+    function startFindOddGame() {
+        hideAllScreens();
+        document.getElementById('findodd-screen').style.display = 'block';
+        document.getElementById('odd-win-msg').style.display = 'none';
+        oddLevel = 1;
+        oddScore = 0;
+        loadOddLevel();
+    }
+
+    function loadOddLevel() {
+        const board = document.getElementById('odd-board');
+        board.innerHTML = '';
+        document.getElementById('odd-score').innerText = oddScore;
+
+        // Tăng độ khó: Cấp 1-3 (4 ô), Cấp 4-7 (9 ô), Cấp 8-10 (16 ô)
+        let size = oddLevel <= 3 ? 4 : (oddLevel <= 7 ? 9 : 16); 
+        let cols = Math.sqrt(size);
+        board.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+
+        let theme = oddThemes[Math.floor(Math.random() * oddThemes.length)];
+        let oddIndex = Math.floor(Math.random() * size);
+
+        for(let i=0; i<size; i++) {
+            let btn = document.createElement('div');
+            btn.className = 'odd-card';
+            // Căn chỉnh chữ theo số ô để không bị tràn
+            btn.style.fontSize = cols === 2 ? '60px' : (cols === 3 ? '45px' : '35px');
+            btn.innerText = i === oddIndex ? theme.odd : theme.normal;
+            
+            btn.onclick = () => {
+                if(i === oddIndex) {
+                    oddScore += 10;
+                    oddLevel++;
+                    if(oddLevel > 10) {
+                        document.getElementById('odd-score').innerText = oddScore;
+                        document.getElementById('odd-board').innerHTML = '';
+                        document.getElementById('odd-win-msg').style.display = 'block';
+                    } else {
+                        loadOddLevel();
+                    }
+                } else {
+                    // Trừ điểm nhẹ nếu ấn sai để tăng tính thử thách
+                    if(oddScore > 0) oddScore -= 2; 
+                    document.getElementById('odd-score').innerText = oddScore;
+                    btn.style.background = '#fab1a0'; // Báo đỏ khi nhấp sai
+                    setTimeout(() => btn.style.background = '#fff', 300);
+                }
+            };
+            board.appendChild(btn);
+        }
     }
 </script>
 
