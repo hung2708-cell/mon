@@ -2,22 +2,16 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <!-- Cấu hình Viewport cực kỳ quan trọng cho Mobile Game -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Đảo Tri Thức Lớp 2</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap');
         
-        * {
-            box-sizing: border-box;
-            /* Tối ưu cảm ứng: chặn double-tap zoom làm giật màn hình */
-            touch-action: manipulation; 
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Nunito', sans-serif;
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a1c4fd 100%);
             min-height: 100vh;
             margin: 0;
             display: flex;
@@ -28,116 +22,116 @@
         }
 
         .game-container {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             width: 100%;
             max-width: 600px;
-            border-radius: 25px;
+            border-radius: 35px;
             padding: 25px 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             text-align: center;
-            border: 5px solid #fff;
+            border: 6px solid #fff;
+            position: relative;
         }
 
-        h1 { color: #ff6b6b; font-size: clamp(24px, 6vw, 32px); text-shadow: 2px 2px 0px #ffeaa7; margin-top: 0;}
-        h2 { color: #0984e3; font-size: clamp(18px, 4.5vw, 24px); margin-bottom: 20px; }
+        /* Hiệu ứng lấp lánh tiêu đề */
+        h1 { 
+            color: #ff4757; font-size: clamp(26px, 7vw, 36px); 
+            text-shadow: 3px 3px 0px #fffa65, 5px 5px 0px rgba(0,0,0,0.1); 
+            margin-top: 5px; animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
-        /* Nút ở Màn hình chính */
+        h2 { color: #2e86de; font-size: clamp(18px, 4.5vw, 22px); margin-bottom: 20px; }
+
+        /* Mascot hoạt hình ở góc */
+        .mascot-box {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: #fff3f3; border: 3px solid #ff6b81; border-radius: 20px;
+            padding: 8px 15px; margin-bottom: 15px; font-weight: bold; color: #ff4757;
+            font-size: clamp(14px, 3.5vw, 16px); box-shadow: 0 5px 15px rgba(255,107,129,0.2);
+        }
+        .mascot-avatar { font-size: 28px; animation: bounce 1s infinite alternate; }
+        @keyframes bounce { 0% { transform: scale(1); } 100% { transform: scale(1.15) rotate(5deg); } }
+
+        /* Nút menu chính */
         .subject-btn {
-            display: block;
-            width: 100%;
-            padding: 15px 10px;
-            margin: 12px 0;
-            font-size: clamp(18px, 5vw, 22px);
-            font-weight: 900;
-            border: none;
-            border-radius: 18px;
-            cursor: pointer;
-            transition: transform 0.1s;
-            color: white;
-            box-shadow: 0 6px 0 rgba(0,0,0,0.1);
+            display: block; width: 100%; padding: 15px; margin: 12px 0;
+            font-size: clamp(18px, 5vw, 22px); font-weight: 900; border: none;
+            border-radius: 20px; cursor: pointer; transition: transform 0.1s, box-shadow 0.1s;
+            color: white; box-shadow: 0 7px 0 rgba(0,0,0,0.15);
         }
-        .subject-btn:active { transform: translateY(6px); box-shadow: none; }
-        .btn-toan { background: #fdcb6e; color: #d63031; }
-        .btn-tuduy { background: #a29bfe; color: white; border: 3px dashed #6c5ce7; }
-        .btn-tv { background: #74b9ff; color: #0984e3; }
-        .btn-dovui { background: #55efc4; color: #00b894; }
-        .btn-game { background: #ff7675; color: white; border: 3px dashed #fab1a0; }
+        .subject-btn:active { transform: translateY(7px); box-shadow: none; }
+        .btn-toan { background: #ffa502; color: #fff; }
+        .btn-tuduy { background: #9b59b6; color: white; border: 3px dashed #8e44ad; }
+        .btn-tv { background: #2ed573; color: #fff; }
+        .btn-dovui { background: #ff4757; color: #fff; }
+        .btn-game { background: #3742fa; color: white; border: 3px dashed #5352ed; }
 
-        /* Lưới Game Menu - Tự co giãn cột */
-        .game-menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            margin-top: 25px;
-        }
-        .game-menu-grid .subject-btn { margin: 0; font-size: clamp(16px, 4vw, 18px); }
+        .game-menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 20px; }
+        .game-menu-grid .subject-btn { margin: 0; font-size: 17px; }
 
-        /* Giao diện Học Tập */
-        .game-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 10px;}
-        .game-nav h3 { font-size: clamp(18px, 4.5vw, 22px); margin: 0; }
-        .back-btn { background: #dfe6e9; border: none; padding: 8px 12px; border-radius: 12px; font-weight: bold; cursor: pointer; color: #2d3436; box-shadow: 0 4px 0 #b2bec3; font-size: 14px; white-space: nowrap;}
+        /* Giao diện Học */
+        .game-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .back-btn { background: #f1f2f6; border: none; padding: 8px 14px; border-radius: 12px; font-weight: bold; cursor: pointer; color: #2f3542; box-shadow: 0 4px 0 #ced6e0; font-size: 15px; }
         .back-btn:active { transform: translateY(4px); box-shadow: none; }
         
-        .stars { color: #f1c40f; font-size: 20px; font-weight: bold; white-space: nowrap;}
+        .stars { color: #f1c40f; font-size: 22px; font-weight: bold; text-shadow: 1px 1px 0px #d4ac0d; }
         
-        .lesson-tag { background: #ffeaa7; color: #d63031; padding: 6px 15px; border-radius: 20px; display: inline-block; font-size: 15px; margin-bottom: 15px; font-weight: bold;}
-        .question { font-size: clamp(18px, 5vw, 22px); color: #2d3436; margin-bottom: 20px; line-height: 1.4; font-weight: bold; }
+        .lesson-tag { background: #fffa65; color: #e74c3c; padding: 6px 16px; border-radius: 20px; display: inline-block; font-size: 16px; margin-bottom: 15px; font-weight: 900; box-shadow: 0 4px 0 #f1c40f;}
+        .question { font-size: clamp(19px, 5vw, 23px); color: #2f3542; margin-bottom: 20px; line-height: 1.4; font-weight: 900; }
         
         .options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .option-btn {
-            padding: 12px; font-size: clamp(16px, 4.5vw, 18px); font-weight: bold; font-family: 'Nunito', sans-serif;
-            border: 3px solid #dfe6e9; border-radius: 15px; background: white;
+            padding: 14px; font-size: clamp(16px, 4.5vw, 19px); font-weight: 900; font-family: 'Nunito', sans-serif;
+            border: 3px solid #dfe4ea; border-radius: 18px; background: white;
             cursor: pointer; transition: all 0.2s; display: flex; justify-content: center; align-items: center; text-align: center;
+            box-shadow: 0 5px 0 #ced6e0;
         }
-        .option-btn:active { transform: scale(0.95); }
-        .option-btn:hover { border-color: #74b9ff; background: #f1f8ff; }
+        .option-btn:active { transform: translateY(5px); box-shadow: none; }
+        .option-btn:hover { border-color: #70a1ff; background: #f1f8ff; }
 
-        .feedback { margin-top: 20px; font-size: clamp(16px, 4vw, 18px); display: none; padding: 12px; border-radius: 12px; animation: pop 0.3s ease-out; line-height: 1.3;}
-        .correct { background: #55efc4; color: #00b894; border: 3px solid #00b894; }
-        .wrong { background: #fab1a0; color: #d63031; border: 3px solid #e17055; }
+        .feedback { margin-top: 20px; font-size: clamp(16px, 4vw, 18px); display: none; padding: 15px; border-radius: 15px; animation: pop 0.3s ease-out; line-height: 1.4; font-weight: bold;}
+        .correct { background: #2ed573; color: white; border: 3px solid #26af5f; box-shadow: 0 4px 0 #20bf6b; }
+        .wrong { background: #ff4757; color: white; border: 3px solid #ff3838; box-shadow: 0 4px 0 #eb2f06; }
 
         .action-btn {
-            margin-top: 20px; padding: 12px 25px; font-size: 18px; font-weight: bold;
-            background: #a29bfe; color: white; border: none; border-radius: 18px;
-            cursor: pointer; display: none; box-shadow: 0 5px 0 #6c5ce7; width: 100%;
+            margin-top: 20px; padding: 14px 25px; font-size: 20px; font-weight: 900;
+            background: #ffa502; color: white; border: none; border-radius: 20px;
+            cursor: pointer; display: none; box-shadow: 0 6px 0 #e67e22; width: 100%;
         }
-        .action-btn:active { transform: translateY(5px); box-shadow: none; }
+        .action-btn:active { transform: translateY(6px); box-shadow: none; }
 
-        /* GAME 1: Lật Hình */
+        @keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+        /* Game mini elements */
         .memory-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; width: 100%; }
         .memory-card { 
-            background: #74b9ff; border-radius: 12px; display: flex; justify-content: center; align-items: center; 
-            font-size: clamp(30px, 8vw, 40px); cursor: pointer; transition: 0.3s; color: transparent; box-shadow: 0 4px 0 #0984e3; aspect-ratio: 1;
+            background: #70a1ff; border-radius: 14px; display: flex; justify-content: center; align-items: center; 
+            font-size: clamp(30px, 8vw, 42px); cursor: pointer; transition: 0.3s; color: transparent; box-shadow: 0 5px 0 #1e90ff; aspect-ratio: 1;
         }
-        .memory-card.flipped { background: #fff; color: #000; border: 3px solid #74b9ff; box-shadow: none; transform: rotateY(180deg); }
-        .memory-card.matched { background: #55efc4; color: #000; border: 3px solid #00b894; box-shadow: none; cursor: default; }
+        .memory-card.flipped { background: #fff; color: #000; border: 3px solid #70a1ff; box-shadow: none; transform: rotateY(180deg); }
+        .memory-card.matched { background: #2ed573; color: #000; border: 3px solid #20bf6b; box-shadow: none; cursor: default; }
 
-        /* GAME 2: Mắt Cú Tinh Anh */
         .odd-board { display: grid; gap: 8px; margin-top: 15px; width: 100%; }
         .odd-card {
-            background: #fff; border: 3px solid #ffeaa7; border-radius: 12px; display: flex; justify-content: center; align-items: center;
-            cursor: pointer; transition: 0.1s; box-shadow: 0 4px 0 #fdcb6e; aspect-ratio: 1; user-select: none;
+            background: #fff; border: 3px solid #ffeaa7; border-radius: 14px; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: 0.1s; box-shadow: 0 5px 0 #fdcb6e; aspect-ratio: 1; user-select: none;
         }
-        .odd-card:active { transform: translateY(4px); box-shadow: none; background: #ffeaa7 !important; }
+        .odd-card:active { transform: translateY(5px); box-shadow: none; background: #ffeaa7 !important; }
 
-        /* GAME 3: Đập Chuột */
         .whack-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 15px auto; max-width: 320px; width: 100%;}
         .whack-hole { 
             background: #8b5a2b; border-radius: 50%; aspect-ratio: 1; display: flex; justify-content: center; align-items: center; 
-            font-size: clamp(40px, 10vw, 55px); cursor: pointer; box-shadow: inset 0 8px 12px rgba(0,0,0,0.6); border: 4px solid #a0522d; user-select: none;
+            font-size: clamp(40px, 10vw, 55px); cursor: pointer; box-shadow: inset 0 8px 12px rgba(0,0,0,0.6); border: 5px solid #a0522d; user-select: none;
         }
         .whack-hole:active { background: #a0522d; }
 
-        /* GAME 4: Oẳn Tù Tì */
-        .rps-arena { display: flex; justify-content: space-evenly; align-items: center; font-size: clamp(50px, 12vw, 70px); margin: 20px 0; background: #f1f2f6; border-radius: 20px; padding: 15px;}
+        .rps-arena { display: flex; justify-content: space-evenly; align-items: center; font-size: clamp(50px, 12vw, 75px); margin: 20px 0; background: #f1f2f6; border-radius: 20px; padding: 15px;}
         .rps-controls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .rps-btn { font-size: clamp(16px, 4vw, 20px); padding: 12px 5px; border-radius: 12px; border: 3px solid #dfe6e9; background: white; cursor: pointer; transition: 0.2s; font-family: 'Nunito', sans-serif; font-weight:bold; display: flex; flex-direction: column; align-items: center;}
-        .rps-btn:active { background: #74b9ff; color: white; border-color: #0984e3; transform: scale(0.95); }
-        #rps-result { font-size: clamp(20px, 5vw, 24px); font-weight: bold; color: #d63031; margin-bottom: 20px; height: 35px;}
+        .rps-btn { font-size: clamp(16px, 4vw, 20px); padding: 12px 5px; border-radius: 15px; border: 3px solid #dfe4ea; background: white; cursor: pointer; transition: 0.2s; font-family: 'Nunito', sans-serif; font-weight:900; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 0 #ced6e0;}
+        .rps-btn:active { background: #70a1ff; color: white; border-color: #1e90ff; transform: scale(0.95); box-shadow: none;}
 
-        @keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        
-        /* Chuyển 1 cột trên điện thoại cỡ nhỏ */
         @media (max-width: 450px) { 
             .options { grid-template-columns: 1fr; } 
             .game-menu-grid { grid-template-columns: 1fr; }
@@ -152,19 +146,25 @@
     <!-- MÀN HÌNH CHÍNH -->
     <div id="home-screen">
         <h1>🏝️ ĐẢO TRI THỨC 🏝️</h1>
-        <h2>Hôm nay các con muốn làm gì nào?</h2>
+        <h2>Cùng nhau chinh phục kiến thức lớp 2 nhé!</h2>
+        
+        <div class="mascot-box">
+            <span class="mascot-avatar">🐶</span>
+            <span id="mascot-text">Chào các bạn nhỏ, hôm nay chúng mình học môn gì nào?</span>
+        </div>
+
         <button class="subject-btn btn-toan" onclick="startGame('Toan')">🧮 Thử thách Toán Học</button>
-        <button class="subject-btn btn-tuduy" onclick="startGame('ToanTuDuy')">🧠 Toán Tư Duy</button>
-        <button class="subject-btn btn-tv" onclick="startGame('TiengViet')">📖 Khám phá Tiếng Việt</button>
-        <button class="subject-btn btn-dovui" onclick="startGame('DoVui')">🎯 Đố Vui Có Thưởng</button>
-        <button class="subject-btn btn-game" onclick="openGameMenu()">🎮 Khu Vui Chơi</button>
+        <button class="subject-btn btn-tuduy" onclick="startGame('ToanTuDuy')">🧠 Toán Tư Duy Nâng Cao</button>
+        <button class="subject-btn btn-tv" onclick="startGame('TiengViet')">📖 Khám Phá Tiếng Việt</button>
+        <button class="subject-btn btn-dovui" onclick="startGame('DoVui')">🎯 Đố Vui Dân Gian</button>
+        <button class="subject-btn btn-game" onclick="openGameMenu()">🎮 Góc Giải Trí & Trò Chơi</button>
     </div>
 
     <!-- MÀN HÌNH CHỌN TRÒ CHƠI -->
     <div id="gamemenu-screen" style="display: none;">
         <div class="game-nav">
             <button class="back-btn" onclick="goHome()">🔙 Trở lại</button>
-            <h3 style="color:#0984e3;">Khu Vui Chơi 🎡</h3>
+            <h3 style="color:#2ed573; margin:0;">Khu Vui Chơi 🎡</h3>
         </div>
         <div class="game-menu-grid">
             <button class="subject-btn btn-tv" onclick="startMemoryGame()">🐯 Lật Hình<br>Động Vật</button>
@@ -180,7 +180,7 @@
             <button class="back-btn" onclick="goHome()">🔙 Thoát</button>
             <span class="stars">⭐ x<span id="star-count">0</span></span>
         </div>
-        <div style="font-weight:bold; color:#0984e3; margin-bottom: 10px; font-size: 18px;">Câu: <span id="q-counter">1/10</span></div>
+        <div style="font-weight:900; color:#2e86de; margin-bottom: 5px; font-size: 17px;">Câu hỏi: <span id="q-counter">1/10</span></div>
         <div class="lesson-tag" id="lesson-name">Bài học</div>
         <div class="question" id="question-text">Câu hỏi ở đây</div>
         <div class="options" id="options-area"></div>
@@ -190,23 +190,27 @@
 
     <!-- MÀN HÌNH HOÀN THÀNH -->
     <div id="result-screen" style="display: none;">
-        <h1>🎉 TUYỆT VỜI! 🎉</h1>
-        <h2>Đã hoàn thành chuyến thám hiểm!</h2>
-        <div class="stars" style="font-size: 45px; margin: 20px 0;">⭐ x<span id="final-stars">0</span></div>
-        <button class="action-btn" style="display: block; background: #00cec9; box-shadow: 0 5px 0 #00b894;" onclick="goHome()">🏠 Về trang chính</button>
+        <h1>🎉 XUẤT SẮC! 🎉</h1>
+        <h2>Đã vượt qua thử thách thành công!</h2>
+        <div class="stars" style="font-size: 50px; margin: 20px 0;">⭐ x<span id="final-stars">0</span></div>
+        <div class="mascot-box" style="margin-bottom: 20px;">
+            <span class="mascot-avatar">🐱</span>
+            <span>Các bạn quá siêu! Thưởng cho mỗi bạn một tràng pháo tay 👏👏</span>
+        </div>
+        <button class="action-btn" style="display: block;" onclick="goHome()">🏠 Về trang chính</button>
     </div>
 
     <!-- GAME 1: LẬT HÌNH -->
     <div id="memory-screen" style="display: none;">
         <div class="game-nav">
             <button class="back-btn" onclick="openGameMenu()">🔙 Trở lại</button>
-            <h3 style="color:#e17055;">Lật Hình 🐯</h3>
+            <h3 style="color:#ff4757; margin:0;">Lật Hình 🐯</h3>
         </div>
-        <p style="color:#636e72; font-size: 14px; margin-top:0;">Tìm 2 hình giống nhau để ghi điểm nhé!</p>
+        <p style="color:#636e72; font-size: 14px; margin-top:0; font-weight:bold;">Tìm 2 hình giống nhau để ghi điểm nhé!</p>
         <div class="memory-board" id="memory-board"></div>
         <div id="memory-win-msg" style="display: none; margin-top: 20px;">
-            <h2 style="color: #00b894; font-size: 22px;">🎉 Siêu quá! 🎉</h2>
-            <button class="action-btn" style="display: block; background:#fdcb6e; box-shadow: 0 5px 0 #e17055; color:#d63031" onclick="startMemoryGame()">🔄 Chơi ván nữa</button>
+            <h2 style="color: #2ed573; font-size: 22px;">🎉 Siêu quá! 🎉</h2>
+            <button class="action-btn" style="display: block; background:#ffa502;" onclick="startMemoryGame()">🔄 Chơi ván nữa</button>
         </div>
     </div>
 
@@ -214,14 +218,14 @@
     <div id="findodd-screen" style="display: none;">
         <div class="game-nav">
             <button class="back-btn" onclick="openGameMenu()">🔙 Trở lại</button>
-            <span style="font-size: 18px; font-weight: bold; color: #e17055;">Điểm: <span id="odd-score">0</span></span>
+            <span style="font-size: 18px; font-weight: 900; color: #ff4757;">Điểm: <span id="odd-score">0</span></span>
         </div>
-        <h3 style="margin:5px 0 0 0; color:#0984e3;">Mắt Cú Tinh Anh 👁️</h3>
-        <p style="color:#636e72; font-size: 14px; margin-top:5px;">Tìm ra 1 hình KHÁC với các hình còn lại!</p>
+        <h3 style="margin:5px 0 0 0; color:#2e86de;">Mắt Cú Tinh Anh 👁️</h3>
+        <p style="color:#636e72; font-size: 14px; margin-top:5px; font-weight:bold;">Tìm ra 1 hình KHÁC với các hình còn lại!</p>
         <div class="odd-board" id="odd-board"></div>
         <div id="odd-win-msg" style="display: none; margin-top: 20px;">
-            <h2 style="color: #00b894; font-size: 20px;">🏆 Mắt tinh như cú mèo! 🏆</h2>
-            <button class="action-btn" style="display: block; background:#a29bfe; box-shadow: 0 5px 0 #6c5ce7;" onclick="startFindOddGame()">🔄 Thử thách lại</button>
+            <h2 style="color: #2ed573; font-size: 20px;">🏆 Mắt tinh như cú mèo! 🏆</h2>
+            <button class="action-btn" style="display: block; background:#9b59b6;" onclick="startFindOddGame()">🔄 Thử thách lại</button>
         </div>
     </div>
 
@@ -229,11 +233,11 @@
     <div id="whack-screen" style="display: none;">
         <div class="game-nav">
             <button class="back-btn" onclick="openGameMenu()">🔙 Trở lại</button>
-            <h3 style="color:#d63031;">Đập Chuột 🐹</h3>
+            <h3 style="color:#ff4757; margin:0;">Đập Chuột 🐹</h3>
         </div>
-        <p style="font-size: 16px; font-weight:bold; color:#0984e3; margin-top: 5px;">
-            Điểm: <span id="whack-score" style="color:#e17055; font-size:22px;">0</span> | 
-            Giờ: <span id="whack-time" style="color:#d63031; font-size:22px;">20</span>s
+        <p style="font-size: 16px; font-weight:900; color:#2e86de; margin-top: 5px;">
+            Điểm: <span id="whack-score" style="color:#ff4757; font-size:22px;">0</span> | 
+            Giờ: <span id="whack-time" style="color:#e74c3c; font-size:22px;">20</span>s
         </p>
         <div class="whack-board">
             <div class="whack-hole" id="hole-0"></div><div class="whack-hole" id="hole-1"></div><div class="whack-hole" id="hole-2"></div>
@@ -247,11 +251,11 @@
     <div id="rps-screen" style="display: none;">
         <div class="game-nav">
             <button class="back-btn" onclick="openGameMenu()">🔙 Trở lại</button>
-            <h3 style="color:#6c5ce7;">Oẳn Tù Tì ✌️✊✋</h3>
+            <h3 style="color:#3742fa; margin:0;">Oẳn Tù Tì ✌️✊✋</h3>
         </div>
         <div class="rps-arena">
             <div id="rps-player">❔</div>
-            <div style="font-size: clamp(24px, 6vw, 30px); font-weight:bold; color:#b2bec3;">VS</div>
+            <div style="font-size: clamp(24px, 6vw, 30px); font-weight:900; color:#b2bec3;">VS</div>
             <div id="rps-bot">🤖</div>
         </div>
         <div id="rps-result">Mời ra chiêu!</div>
@@ -266,20 +270,76 @@
 
 <script src="questions.js"></script>
 <script>
+    /* =============================
+       HỆ THỐNG ÂM THANH (WEB AUDIO API)
+       ============================= */
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playSound(type) {
+        if (!audioCtx) return;
+        if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+        
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        let now = audioCtx.currentTime;
+        if (type === 'correct') { // Tiếng tinh tinh vui nhộn
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(587.33, now); // D5
+            osc.frequency.setValueAtTime(880, now + 0.1); // A5
+            gainNode.gain.setValueAtTime(0.3, now);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+            osc.start(now);
+            osc.stop(now + 0.4);
+        } else if (type === 'wrong') { // Tiếng bíp trầm
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(150, now);
+            osc.frequency.setValueAtTime(100, now + 0.15);
+            gainNode.gain.setValueAtTime(0.2, now);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+            osc.start(now);
+            osc.stop(now + 0.3);
+        } else if (type === 'click') { // Tiếng click nhẹ
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(400, now);
+            gainNode.gain.setValueAtTime(0.1, now);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+            osc.start(now);
+            osc.stop(now + 0.05);
+        }
+    }
+
+    const mascotQuotes = [
+        "Cố lên nào, tớ tin các bạn làm được!",
+        "Hôm nay học chăm chỉ, mai nhận điểm 10 nhé!",
+        "Chinh phục thử thách cùng tớ nào!",
+        "Kiến thức lớp 2 thật là vui đúng không nào?"
+    ];
+
+    function changeMascotQuote() {
+        const textEl = document.getElementById('mascot-text');
+        const randomQuote = mascotQuotes[Math.floor(Math.random() * mascotQuotes.length)];
+        textEl.innerText = randomQuote;
+    }
+    setInterval(changeMascotQuote, 7000);
+
     function hideAllScreens() {
         const screens = ['home-screen', 'gamemenu-screen', 'quiz-screen', 'result-screen', 'memory-screen', 'findodd-screen', 'whack-screen', 'rps-screen'];
         screens.forEach(s => document.getElementById(s).style.display = 'none');
-        // Clear timers if navigating away
         clearInterval(whackTimer);
         clearTimeout(moleTimer);
     }
 
     function goHome() {
+        playSound('click');
         hideAllScreens();
         document.getElementById('home-screen').style.display = 'block';
     }
 
     function openGameMenu() {
+        playSound('click');
         hideAllScreens();
         document.getElementById('gamemenu-screen').style.display = 'block';
     }
@@ -292,6 +352,7 @@
     let stars = 0;
 
     function startGame(subjectKey) {
+        playSound('click');
         let shuffled = [...nganHangCauHoi[subjectKey]].sort(() => Math.random() - 0.5);
         currentSubject = shuffled.slice(0, 10); 
         currentIndex = 0;
@@ -320,7 +381,10 @@
             const btn = document.createElement('button');
             btn.className = 'option-btn';
             btn.innerText = dapAn;
-            btn.onclick = () => checkAnswer(dapAn, q.dapAnDung, q.giaiThich, btn);
+            btn.onclick = () => {
+                playSound('click');
+                checkAnswer(dapAn, q.dapAnDung, q.giaiThich, btn);
+            };
             optionsArea.appendChild(btn);
         });
     }
@@ -333,23 +397,27 @@
         feedback.style.display = 'block';
 
         if (selected === correct) {
-            btnElement.style.background = '#55efc4';
-            btnElement.style.color = '#2d3436';
-            btnElement.style.borderColor = '#00b894';
+            playSound('correct');
+            btnElement.style.background = '#2ed573';
+            btnElement.style.color = 'white';
+            btnElement.style.borderColor = '#20bf6b';
             feedback.className = 'feedback correct';
-            feedback.innerHTML = `✨ <b>Chính xác!</b> Thưởng 1 ⭐ <br><small style="color:#2d3436; margin-top:5px; display:block">${explanation}</small>`;
+            feedback.innerHTML = `✨ <b>Chính xác!</b> Thưởng 1 ⭐ <br><small style="margin-top:5px; display:block">${explanation}</small>`;
             stars++;
             document.getElementById('star-count').innerText = stars;
         } else {
-            btnElement.style.background = '#fab1a0';
-            btnElement.style.borderColor = '#e17055';
+            playSound('wrong');
+            btnElement.style.background = '#ff4757';
+            btnElement.style.color = 'white';
+            btnElement.style.borderColor = '#eb2f06';
             feedback.className = 'feedback wrong';
-            feedback.innerHTML = `💦 <b>Chưa đúng rồi!</b> Đáp án là: <b>${correct}</b> <br><small style="color:#2d3436; margin-top:5px; display:block">${explanation}</small>`;
+            feedback.innerHTML = `💦 <b>Chưa đúng rồi!</b> Đáp án đúng là: <b>${correct}</b> <br><small style="margin-top:5px; display:block">${explanation}</small>`;
             
             buttons.forEach(b => {
                 if(b.innerText === correct) {
-                    b.style.background = '#55efc4';
-                    b.style.borderColor = '#00b894';
+                    b.style.background = '#2ed573';
+                    b.style.color = 'white';
+                    b.style.borderColor = '#20bf6b';
                 }
             });
         }
@@ -357,6 +425,7 @@
     }
 
     function nextQuestion() {
+        playSound('click');
         currentIndex++;
         if (currentIndex < currentSubject.length) {
             loadQuestion();
@@ -376,6 +445,7 @@
     let matchedCount = 0;
 
     function startMemoryGame() {
+        playSound('click');
         hideAllScreens();
         document.getElementById('memory-screen').style.display = 'block';
         document.getElementById('memory-win-msg').style.display = 'none';
@@ -388,12 +458,15 @@
         memoryCards = [...emojiList, ...emojiList];
         memoryCards.sort(() => Math.random() - 0.5);
 
-        memoryCards.forEach((emoji, index) => {
+        memoryCards.forEach((emoji) => {
             const card = document.createElement('div');
             card.className = 'memory-card';
             card.dataset.emoji = emoji;
             card.innerText = emoji;
-            card.onclick = () => flipCard(card);
+            card.onclick = () => {
+                playSound('click');
+                flipCard(card);
+            };
             board.appendChild(card);
         });
     }
@@ -404,7 +477,7 @@
             flippedCards.push(card);
 
             if (flippedCards.length === 2) {
-                setTimeout(checkMatch, 600); // Rút ngắn tgian chờ giúp lướt nhanh hơn
+                setTimeout(checkMatch, 600);
             }
         }
     }
@@ -412,6 +485,7 @@
     function checkMatch() {
         const [card1, card2] = flippedCards;
         if (card1.dataset.emoji === card2.dataset.emoji) {
+            playSound('correct');
             card1.classList.replace('flipped', 'matched');
             card2.classList.replace('flipped', 'matched');
             matchedCount += 2;
@@ -439,6 +513,7 @@
     ];
 
     function startFindOddGame() {
+        playSound('click');
         hideAllScreens();
         document.getElementById('findodd-screen').style.display = 'block';
         document.getElementById('odd-win-msg').style.display = 'none';
@@ -462,12 +537,12 @@
         for(let i=0; i<size; i++) {
             let btn = document.createElement('div');
             btn.className = 'odd-card';
-            // Auto scale emoji size based on columns & screen width (vw)
             btn.style.fontSize = cols === 2 ? 'clamp(40px, 15vw, 70px)' : (cols === 3 ? 'clamp(30px, 10vw, 50px)' : 'clamp(25px, 8vw, 40px)');
             btn.innerText = i === oddIndex ? theme.odd : theme.normal;
             
             btn.onclick = () => {
                 if(i === oddIndex) {
+                    playSound('correct');
                     oddScore += 10;
                     oddLevel++;
                     if(oddLevel > 10) {
@@ -478,9 +553,10 @@
                         loadOddLevel();
                     }
                 } else {
+                    playSound('wrong');
                     if(oddScore > 0) oddScore -= 2; 
                     document.getElementById('odd-score').innerText = oddScore;
-                    btn.style.background = '#fab1a0';
+                    btn.style.background = '#ff4757';
                     setTimeout(() => btn.style.background = '#fff', 300);
                 }
             };
@@ -497,6 +573,7 @@
     let moleTimer;
 
     function startWhackGame() {
+        playSound('click');
         hideAllScreens();
         document.getElementById('whack-screen').style.display = 'block';
         document.getElementById('whack-start-btn').style.display = 'block';
@@ -509,6 +586,7 @@
     }
 
     function runWhackGame() {
+        playSound('click');
         whackScore = 0;
         whackTime = 20;
         document.getElementById('whack-score').innerText = whackScore;
@@ -545,6 +623,7 @@
         let hole = document.getElementById('hole-'+idx);
         hole.innerHTML = '🐹';
         hole.onclick = () => {
+            playSound('correct');
             whackScore += 10;
             document.getElementById('whack-score').innerText = whackScore;
             hole.innerHTML = '💥';
@@ -559,15 +638,17 @@
        GAME 4: OẲN TÙ TÌ
        ============================= */
     function startRPSGame() {
+        playSound('click');
         hideAllScreens();
         document.getElementById('rps-screen').style.display = 'block';
         document.getElementById('rps-player').innerText = '❔';
         document.getElementById('rps-bot').innerText = '🤖';
         document.getElementById('rps-result').innerText = 'Mời ra chiêu!';
-        document.getElementById('rps-result').style.color = '#2d3436';
+        document.getElementById('rps-result').style.color = '#2f3542';
     }
 
     function playRPS(playerChoice) {
+        playSound('click');
         const choices = ['✌️', '✊', '✋'];
         const botChoice = choices[Math.floor(Math.random() * choices.length)];
         
@@ -579,17 +660,19 @@
         
         if (playerChoice === botChoice) {
             resultTxt = 'Hòa nhau rồi! 🤝';
-            resultColor = '#0984e3';
+            resultColor = '#2e86de';
         } else if (
             (playerChoice === '✌️' && botChoice === '✋') ||
             (playerChoice === '✊' && botChoice === '✌️') ||
             (playerChoice === '✋' && botChoice === '✊')
         ) {
+            playSound('correct');
             resultTxt = '🎉 Thắng rồi! 🎉';
-            resultColor = '#00b894';
+            resultColor = '#2ed573';
         } else {
+            playSound('wrong');
             resultTxt = 'Thua mất rồi! 😢';
-            resultColor = '#d63031';
+            resultColor = '#ff4757';
         }
         
         let resEl = document.getElementById('rps-result');
