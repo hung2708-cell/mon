@@ -88,25 +88,37 @@
         .back-btn { background: #dfe6e9; border: none; padding: 8px 15px; border-radius: 15px; font-weight: bold; cursor: pointer; color: #2d3436; box-shadow: 0 4px 0 #b2bec3; }
         .back-btn:active { transform: translateY(4px); box-shadow: none; }
         
-        /* Memory Game */
+        /* 1. Memory Game */
         .memory-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
         .memory-card { 
-            height: 70px; background: #74b9ff; border-radius: 15px; 
-            display: flex; justify-content: center; align-items: center; 
-            font-size: 35px; cursor: pointer; transition: 0.3s; color: transparent; 
-            box-shadow: 0 4px 0 #0984e3;
+            height: 70px; background: #74b9ff; border-radius: 15px; display: flex; justify-content: center; align-items: center; 
+            font-size: 35px; cursor: pointer; transition: 0.3s; color: transparent; box-shadow: 0 4px 0 #0984e3;
         }
         .memory-card.flipped { background: #fff; color: #000; border: 3px solid #74b9ff; box-shadow: none; transform: rotateY(180deg); }
         .memory-card.matched { background: #55efc4; color: #000; border: 3px solid #00b894; box-shadow: none; cursor: default; }
 
-        /* Find Odd Game */
+        /* 2. Find Odd Game */
         .odd-board { display: grid; gap: 10px; margin-top: 20px; }
         .odd-card {
-            background: #fff; border: 3px solid #ffeaa7; border-radius: 15px;
-            display: flex; justify-content: center; align-items: center;
+            background: #fff; border: 3px solid #ffeaa7; border-radius: 15px; display: flex; justify-content: center; align-items: center;
             font-size: 45px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 0 #fdcb6e; aspect-ratio: 1;
         }
         .odd-card:active { transform: translateY(4px); box-shadow: none; }
+
+        /* 3. Whack-a-Mole Game */
+        .whack-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px auto; max-width: 300px; }
+        .whack-hole { 
+            background: #8b5a2b; border-radius: 50%; aspect-ratio: 1; display: flex; justify-content: center; align-items: center; 
+            font-size: 50px; cursor: pointer; box-shadow: inset 0 10px 15px rgba(0,0,0,0.5); border: 5px solid #a0522d; user-select: none;
+        }
+        .whack-hole:active { background: #a0522d; }
+
+        /* 4. Rock Paper Scissors Game */
+        .rps-arena { display: flex; justify-content: space-around; align-items: center; font-size: 60px; margin: 30px 0; background: #f1f2f6; border-radius: 20px; padding: 20px;}
+        .rps-controls { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;}
+        .rps-btn { font-size: 24px; padding: 15px 25px; border-radius: 15px; border: 3px solid #dfe6e9; background: white; cursor: pointer; transition: 0.2s; font-family: 'Nunito', sans-serif; font-weight:bold;}
+        .rps-btn:hover { background: #74b9ff; color: white; border-color: #0984e3; }
+        #rps-result { font-size: 24px; font-weight: bold; color: #d63031; margin-bottom: 20px; height: 35px;}
 
         @keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         @media (max-width: 480px) { .options { grid-template-columns: 1fr; } }
@@ -118,7 +130,7 @@
     <!-- MÀN HÌNH CHÍNH -->
     <div id="home-screen">
         <h1>🏝️ ĐẢO TRI THỨC LỚP 2 🏝️</h1>
-        <h2>Hôm nay con muốn làm gì nào?</h2>
+        <h2>Hôm nay các bạn nhỏ muốn làm gì nào?</h2>
         <button class="subject-btn btn-toan" onclick="startGame('Toan')">🧮 Thử thách Toán Học</button>
         <button class="subject-btn btn-tuduy" onclick="startGame('ToanTuDuy')">🧠 Toán Tư Duy (Nâng cao)</button>
         <button class="subject-btn btn-tv" onclick="startGame('TiengViet')">📖 Khám phá Tiếng Việt</button>
@@ -132,8 +144,12 @@
             <button class="back-btn" onclick="goHome()">🔙 Quay lại</button>
             <h3 style="margin:0; color:#0984e3;">Khu Vui Chơi 🎡</h3>
         </div>
-        <button class="subject-btn btn-tv" style="margin-top: 30px;" onclick="startMemoryGame()">🐯 Lật Hình Động Vật</button>
-        <button class="subject-btn btn-tuduy" onclick="startFindOddGame()">👁️ Mắt Cú Tinh Anh</button>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px;">
+            <button class="subject-btn btn-tv" style="margin:0; font-size: 18px;" onclick="startMemoryGame()">🐯 Lật Hình<br>Động Vật</button>
+            <button class="subject-btn btn-tuduy" style="margin:0; font-size: 18px;" onclick="startFindOddGame()">👁️ Mắt Cú<br>Tinh Anh</button>
+            <button class="subject-btn btn-dovui" style="margin:0; font-size: 18px;" onclick="startWhackGame()">🐹 Đập Chuột<br>Nhắt</button>
+            <button class="subject-btn btn-game" style="margin:0; border:none; font-size: 18px;" onclick="startRPSGame()">✌️ Oẳn Tù Tì<br>Kéo Búa Bao</button>
+        </div>
     </div>
 
     <!-- MÀN HÌNH HỌC TẬP (QUIZ) -->
@@ -153,28 +169,26 @@
     <!-- MÀN HÌNH HOÀN THÀNH -->
     <div id="result-screen" style="display: none;">
         <h1>🎉 TUYỆT VỜI! 🎉</h1>
-        <h2>Con đã hoàn thành chuyến thám hiểm!</h2>
+        <h2>Đã hoàn thành chuyến thám hiểm!</h2>
         <div class="stars" style="font-size: 50px; margin: 20px 0;">⭐ x<span id="final-stars">0</span></div>
         <button class="action-btn" style="display: inline-block; background: #00cec9; box-shadow: 0 5px 0 #00b894;" onclick="goHome()">🏠 Về trang chính</button>
     </div>
 
-    <!-- MÀN HÌNH LẬT HÌNH (MEMORY GAME) -->
+    <!-- GAME 1: LẬT HÌNH (MEMORY GAME) -->
     <div id="memory-screen" style="display: none;">
         <div class="game-nav">
             <button class="back-btn" onclick="openGameMenu()">🔙 Trở lại</button>
-            <h3 style="margin:0; color:#e17055;">Lật Hình Động Vật 🐯</h3>
+            <h3 style="margin:0; color:#e17055;">Lật Hình 🐯</h3>
         </div>
         <p style="color:#636e72; font-size: 16px; margin-top:0;">Tìm 2 hình giống nhau để ghi điểm nhé!</p>
-        
         <div class="memory-board" id="memory-board"></div>
-        
         <div id="memory-win-msg" style="display: none; margin-top: 20px;">
-            <h2 style="color: #00b894;">🎉 Các con siêu quá! 🎉</h2>
+            <h2 style="color: #00b894;">🎉 Siêu quá! 🎉</h2>
             <button class="action-btn" style="display: inline-block; background:#fdcb6e; box-shadow: 0 5px 0 #e17055; color:#d63031" onclick="startMemoryGame()">🔄 Chơi ván nữa</button>
         </div>
     </div>
 
-    <!-- MÀN HÌNH TÌM ĐIỂM KHÁC BIỆT (FIND ODD GAME) -->
+    <!-- GAME 2: MẮT CÚ TINH ANH (FIND ODD GAME) -->
     <div id="findodd-screen" style="display: none;">
         <div class="game-nav">
             <button class="back-btn" onclick="openGameMenu()">🔙 Trở lại</button>
@@ -182,14 +196,50 @@
         </div>
         <h3 style="margin:10px 0 0 0; color:#0984e3;">Mắt Cú Tinh Anh 👁️</h3>
         <p style="color:#636e72; font-size: 16px; margin-top:5px;">Hãy tìm ra 1 hình KHÁC với các hình còn lại nhé!</p>
-        
         <div class="odd-board" id="odd-board"></div>
-        
         <div id="odd-win-msg" style="display: none; margin-top: 20px;">
-            <h2 style="color: #00b894;">🏆 Tuyệt vời! Mắt tinh như cú mèo! 🏆</h2>
+            <h2 style="color: #00b894;">🏆 Mắt tinh như cú mèo! 🏆</h2>
             <button class="action-btn" style="display: inline-block; background:#a29bfe; box-shadow: 0 5px 0 #6c5ce7;" onclick="startFindOddGame()">🔄 Thử thách lại</button>
         </div>
     </div>
+
+    <!-- GAME 3: ĐẬP CHUỘT (WHACK-A-MOLE) -->
+    <div id="whack-screen" style="display: none;">
+        <div class="game-nav">
+            <button class="back-btn" onclick="openGameMenu()">🔙 Trở lại</button>
+            <h3 style="margin:0; color:#d63031;">Đập Chuột 🐹</h3>
+        </div>
+        <p style="font-size: 18px; font-weight:bold; color:#0984e3;">
+            Điểm: <span id="whack-score" style="color:#e17055; font-size:24px;">0</span> | 
+            Giờ: <span id="whack-time" style="color:#d63031; font-size:24px;">20</span>s
+        </p>
+        <div class="whack-board">
+            <div class="whack-hole" id="hole-0"></div><div class="whack-hole" id="hole-1"></div><div class="whack-hole" id="hole-2"></div>
+            <div class="whack-hole" id="hole-3"></div><div class="whack-hole" id="hole-4"></div><div class="whack-hole" id="hole-5"></div>
+            <div class="whack-hole" id="hole-6"></div><div class="whack-hole" id="hole-7"></div><div class="whack-hole" id="hole-8"></div>
+        </div>
+        <button class="action-btn" id="whack-start-btn" style="display: inline-block;" onclick="runWhackGame()">▶️ Bắt đầu</button>
+    </div>
+
+    <!-- GAME 4: OẲN TÙ TÌ (ROCK PAPER SCISSORS) -->
+    <div id="rps-screen" style="display: none;">
+        <div class="game-nav">
+            <button class="back-btn" onclick="openGameMenu()">🔙 Trở lại</button>
+            <h3 style="margin:0; color:#6c5ce7;">Oẳn Tù Tì ✌️✊✋</h3>
+        </div>
+        <div class="rps-arena">
+            <div id="rps-player">❔</div>
+            <div style="font-size:30px; font-weight:bold; color:#b2bec3;">VS</div>
+            <div id="rps-bot">🤖</div>
+        </div>
+        <div id="rps-result">Mời ra chiêu!</div>
+        <div class="rps-controls">
+            <button class="rps-btn" onclick="playRPS('✌️')">✌️ Kéo</button>
+            <button class="rps-btn" onclick="playRPS('✊')">✊ Búa</button>
+            <button class="rps-btn" onclick="playRPS('✋')">✋ Bao</button>
+        </div>
+    </div>
+
 </div>
 
 <script src="questions.js"></script>
@@ -201,6 +251,8 @@
         document.getElementById('result-screen').style.display = 'none';
         document.getElementById('memory-screen').style.display = 'none';
         document.getElementById('findodd-screen').style.display = 'none';
+        document.getElementById('whack-screen').style.display = 'none';
+        document.getElementById('rps-screen').style.display = 'none';
     }
 
     function goHome() {
@@ -266,7 +318,7 @@
             btnElement.style.color = '#2d3436';
             btnElement.style.borderColor = '#00b894';
             feedback.className = 'feedback correct';
-            feedback.innerHTML = `✨ <b>Chính xác!</b> Con được thưởng 1 ⭐ <br><small style="color:#2d3436; margin-top:5px; display:block">${explanation}</small>`;
+            feedback.innerHTML = `✨ <b>Chính xác!</b> Thưởng 1 ⭐ <br><small style="color:#2d3436; margin-top:5px; display:block">${explanation}</small>`;
             stars++;
             document.getElementById('star-count').innerText = stars;
         } else {
@@ -297,7 +349,7 @@
     }
 
     /* =============================
-       PHẦN 2: LẬT HÌNH (MEMORY GAME)
+       GAME 1: LẬT HÌNH (MEMORY GAME)
        ============================= */
     const emojiList = ['🐶','🐱','🐭','🦊','🐻','🐼','🐸','🐒'];
     let memoryCards = [];
@@ -344,7 +396,6 @@
             card1.classList.replace('flipped', 'matched');
             card2.classList.replace('flipped', 'matched');
             matchedCount += 2;
-            
             if (matchedCount === memoryCards.length) {
                 document.getElementById('memory-win-msg').style.display = 'block';
             }
@@ -356,7 +407,7 @@
     }
 
     /* =============================
-       PHẦN 3: MẮT CÚ TINH ANH (FIND ODD GAME)
+       GAME 2: MẮT CÚ TINH ANH (FIND ODD GAME)
        ============================= */
     let oddLevel = 1;
     let oddScore = 0;
@@ -382,7 +433,6 @@
         board.innerHTML = '';
         document.getElementById('odd-score').innerText = oddScore;
 
-        // Tăng độ khó: Cấp 1-3 (4 ô), Cấp 4-7 (9 ô), Cấp 8-10 (16 ô)
         let size = oddLevel <= 3 ? 4 : (oddLevel <= 7 ? 9 : 16); 
         let cols = Math.sqrt(size);
         board.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
@@ -393,7 +443,6 @@
         for(let i=0; i<size; i++) {
             let btn = document.createElement('div');
             btn.className = 'odd-card';
-            // Căn chỉnh chữ theo số ô để không bị tràn
             btn.style.fontSize = cols === 2 ? '60px' : (cols === 3 ? '45px' : '35px');
             btn.innerText = i === oddIndex ? theme.odd : theme.normal;
             
@@ -409,15 +458,123 @@
                         loadOddLevel();
                     }
                 } else {
-                    // Trừ điểm nhẹ nếu ấn sai để tăng tính thử thách
                     if(oddScore > 0) oddScore -= 2; 
                     document.getElementById('odd-score').innerText = oddScore;
-                    btn.style.background = '#fab1a0'; // Báo đỏ khi nhấp sai
+                    btn.style.background = '#fab1a0';
                     setTimeout(() => btn.style.background = '#fff', 300);
                 }
             };
             board.appendChild(btn);
         }
+    }
+
+    /* =============================
+       GAME 3: ĐẬP CHUỘT (WHACK-A-MOLE)
+       ============================= */
+    let whackScore = 0;
+    let whackTime = 20;
+    let whackTimer;
+    let moleTimer;
+
+    function startWhackGame() {
+        hideAllScreens();
+        document.getElementById('whack-screen').style.display = 'block';
+        document.getElementById('whack-start-btn').style.display = 'inline-block';
+        document.getElementById('whack-start-btn').innerText = '▶️ Bắt đầu';
+        document.getElementById('whack-score').innerText = '0';
+        document.getElementById('whack-time').innerText = '20';
+        clearMoles();
+        clearInterval(whackTimer);
+        clearTimeout(moleTimer);
+    }
+
+    function runWhackGame() {
+        whackScore = 0;
+        whackTime = 20;
+        document.getElementById('whack-score').innerText = whackScore;
+        document.getElementById('whack-time').innerText = whackTime;
+        document.getElementById('whack-start-btn').style.display = 'none';
+
+        whackTimer = setInterval(() => {
+            whackTime--;
+            document.getElementById('whack-time').innerText = whackTime;
+            if (whackTime <= 0) {
+                clearInterval(whackTimer);
+                clearTimeout(moleTimer);
+                clearMoles();
+                alert("Hết giờ! Điểm của con là: " + whackScore);
+                document.getElementById('whack-start-btn').style.display = 'inline-block';
+                document.getElementById('whack-start-btn').innerText = '🔄 Chơi lại';
+            }
+        }, 1000);
+        peepMole();
+    }
+
+    function clearMoles() {
+        for(let i=0; i<9; i++) {
+            let hole = document.getElementById('hole-'+i);
+            hole.innerHTML = '';
+            hole.onclick = null;
+        }
+    }
+
+    function peepMole() {
+        if (whackTime <= 0) return;
+        clearMoles();
+        let idx = Math.floor(Math.random() * 9);
+        let hole = document.getElementById('hole-'+idx);
+        hole.innerHTML = '🐹';
+        hole.onclick = () => {
+            whackScore += 10;
+            document.getElementById('whack-score').innerText = whackScore;
+            hole.innerHTML = '💥';
+            hole.onclick = null;
+        };
+        
+        let speed = Math.max(400, 1000 - (whackScore * 5)); // Càng nhiều điểm chuột lên càng nhanh
+        moleTimer = setTimeout(peepMole, speed);
+    }
+
+    /* =============================
+       GAME 4: OẲN TÙ TÌ (ROCK PAPER SCISSORS)
+       ============================= */
+    function startRPSGame() {
+        hideAllScreens();
+        document.getElementById('rps-screen').style.display = 'block';
+        document.getElementById('rps-player').innerText = '❔';
+        document.getElementById('rps-bot').innerText = '🤖';
+        document.getElementById('rps-result').innerText = 'Mời ra chiêu!';
+        document.getElementById('rps-result').style.color = '#2d3436';
+    }
+
+    function playRPS(playerChoice) {
+        const choices = ['✌️', '✊', '✋'];
+        const botChoice = choices[Math.floor(Math.random() * choices.length)];
+        
+        document.getElementById('rps-player').innerText = playerChoice;
+        document.getElementById('rps-bot').innerText = botChoice;
+        
+        let resultTxt = '';
+        let resultColor = '';
+        
+        if (playerChoice === botChoice) {
+            resultTxt = 'Hòa nhau rồi! 🤝';
+            resultColor = '#0984e3';
+        } else if (
+            (playerChoice === '✌️' && botChoice === '✋') ||
+            (playerChoice === '✊' && botChoice === '✌️') ||
+            (playerChoice === '✋' && botChoice === '✊')
+        ) {
+            resultTxt = '🎉 Thắng rồi! 🎉';
+            resultColor = '#00b894';
+        } else {
+            resultTxt = 'Thua mất rồi! 😢';
+            resultColor = '#d63031';
+        }
+        
+        let resEl = document.getElementById('rps-result');
+        resEl.innerText = resultTxt;
+        resEl.style.color = resultColor;
     }
 </script>
 
