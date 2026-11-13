@@ -3,304 +3,567 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vườn Trí Tuệ Lớp 2 - Vừa Học Vừa Chơi</title>
-    <!-- Tailwind CSS -->
+    <title>Vườn Trí Tuệ Lớp 2 - Học Mà Chơi, Chơi Mà Học</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Font Fredoka -->
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Be Vietnam Pro / Comfortaa -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            pink: '#FF6B9B',
+                            yellow: '#FFC837',
+                            green: '#2ECC71',
+                            blue: '#4D96FF',
+                            purple: '#9B51E0',
+                            orange: '#FF7846'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                        heading: ['Comfortaa', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         body {
-            font-family: 'Fredoka', cursive, sans-serif;
-            background: linear-gradient(135deg, #a8ff78 0%, #78ffd6 100%);
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #E0F7FA 0%, #FFF9C4 50%, #FCE4EC 100%);
             min-height: 100vh;
             user-select: none;
         }
-        .btn-bounce:active {
-            transform: scale(0.92);
+        .bounce-hover:hover {
+            transform: translateY(-4px) scale(1.02);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .card-shadow {
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        .bounce-click:active {
+            transform: scale(0.95);
         }
-        .text-stroke {
-            -webkit-text-stroke: 2px #2d3748;
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        /* Confetti canvas */
-        #confetti-canvas {
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FFB74D;
+            border-radius: 10px;
+        }
+        /* Glow animation */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 200, 55, 0.6); }
+            50% { box-shadow: 0 0 30px rgba(255, 200, 55, 1); }
+        }
+        .glow-star {
+            animation: pulse-glow 2s infinite;
+        }
+        /* Confetti Canvas overlay */
+        #fx-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             pointer-events: none;
-            z-index: 99;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
+            z-index: 100;
         }
     </style>
 </head>
-<body class="p-2 sm:p-4 text-slate-800">
-    <!-- Canvas pháo hoa mừng chiến thắng -->
-    <canvas id="confetti-canvas"></canvas>
+<body class="text-slate-800 pb-12">
+    <!-- Fireworks Canvas -->
+    <canvas id="fx-canvas"></canvas>
 
-    <!-- Header & Navigation TopBar -->
-    <div class="max-w-4xl mx-auto bg-white/90 backdrop-blur-md rounded-3xl p-4 mb-4 card-shadow flex flex-wrap items-center justify-between gap-3 border-4 border-yellow-300">
-        <div class="flex items-center gap-3">
-            <span class="text-4xl animate-float">🌟</span>
-            <div>
-                <h1 class="text-xl sm:text-2xl font-bold text-emerald-600">VƯỜN TRÍ TUỆ LỚP 2</h1>
-                <p class="text-xs sm:text-sm text-slate-500 font-semibold">Học mà chơi - Chơi mà học!</p>
-            </div>
-        </div>
-
-        <!-- Dashboard điểm & Nút chức năng -->
-        <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
-            <div class="bg-yellow-100 border-2 border-yellow-400 px-3 py-1.5 rounded-full flex items-center gap-2">
-                <span class="text-2xl">⭐</span>
-                <span id="star-count" class="text-xl font-bold text-yellow-700">0</span>
-            </div>
-            
-            <button id="sound-btn" onclick="toggleSound()" class="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 p-2.5 rounded-full border-2 border-indigo-300 btn-bounce" title="Bật/Tắt Âm Thanh">
-                <span id="sound-icon" class="text-xl">🔊</span>
-            </button>
-
-            <button onclick="openModal('github-modal')" class="bg-slate-800 hover:bg-slate-900 text-white px-3 py-2 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-1.5 btn-bounce">
-                <span>🚀</span> Up GitHub
-            </button>
-        </div>
-    </div>
-
-    <!-- Navigation Tabs -->
-    <div class="max-w-4xl mx-auto flex flex-wrap justify-center gap-2 mb-6">
-        <button onclick="switchTab('toan')" id="tab-toan" class="nav-tab px-4 py-2.5 rounded-2xl font-bold text-base sm:text-lg bg-yellow-400 text-yellow-950 shadow-lg border-b-4 border-yellow-600 btn-bounce flex items-center gap-2">
-            <span>🧮</span> Toán Học
-        </button>
-        <button onclick="switchTab('tieng-viet')" id="tab-tieng-viet" class="nav-tab px-4 py-2.5 rounded-2xl font-bold text-base sm:text-lg bg-white text-slate-600 shadow-md border-b-4 border-slate-200 btn-bounce flex items-center gap-2">
-            <span>📚</span> Tiếng Việt
-        </button>
-        <button onclick="switchTab('tu-nhien')" id="tab-tu-nhien" class="nav-tab px-4 py-2.5 rounded-2xl font-bold text-base sm:text-lg bg-white text-slate-600 shadow-md border-b-4 border-slate-200 btn-bounce flex items-center gap-2">
-            <span>🌿</span> Tự Nhiên & Xã Hội
-        </button>
-        <button onclick="switchTab('huy-hieu')" id="tab-huy-hieu" class="nav-tab px-4 py-2.5 rounded-2xl font-bold text-base sm:text-lg bg-white text-slate-600 shadow-md border-b-4 border-slate-200 btn-bounce flex items-center gap-2">
-            <span>🏆</span> Kho Huy Hiệu
-        </button>
-    </div>
-
-    <!-- MAIN CONTENT CONTAINER -->
-    <div class="max-w-4xl mx-auto">
-
-        <!-- ================= MÔN TOÁN HỌC ================= -->
-        <div id="view-toan" class="tab-content bg-white rounded-3xl p-4 sm:p-6 card-shadow border-4 border-yellow-300">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-4 border-b pb-3">
-                <h2 class="text-xl sm:text-2xl font-bold text-yellow-600 flex items-center gap-2">
-                    <span>🧮</span> Thử Tài Toán Học Lớp 2
-                </h2>
-                <!-- Chọn chế độ toán -->
-                <select id="math-mode" onchange="generateMathQuestion()" class="bg-yellow-50 border-2 border-yellow-300 text-yellow-900 rounded-xl px-3 py-1.5 font-bold text-sm outline-none cursor-pointer">
-                    <option value="cong-tru-100">Cộng/Trừ trong phạm vi 100</option>
-                    <option value="cong-tru-1000">Cộng/Trừ trong phạm vi 1000</option>
-                    <option value="nhan-chia">Bảng Nhân & Bảng Chia (2,3,4,5)</option>
-                    <option value="tong-hop">Thử thách Tổng Hợp 🔥</option>
-                </select>
-            </div>
-
-            <!-- Khung câu hỏi toán -->
-            <div class="text-center py-6 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border-2 border-amber-200 mb-6">
-                <span id="math-streak" class="inline-block bg-orange-400 text-white text-xs px-3 py-1 rounded-full font-bold mb-2">🔥 Chuỗi đúng: 0</span>
-                <div id="math-question" class="text-4xl sm:text-6xl font-extrabold text-orange-600 tracking-wider my-2">
-                    25 + 37 = ?
+    <!-- Top Navigation Header -->
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b-4 border-amber-400 shadow-md">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <!-- App Logo & Title -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-12 h-12 bg-gradient-to-tr from-amber-400 to-red-400 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg transform -rotate-3">
+                    <i class="fa-solid fa-graduation-cap"></i>
                 </div>
-                <p class="text-slate-500 text-sm font-semibold">Bé hãy chọn câu trả lời đúng nhất nhé!</p>
-            </div>
-
-            <!-- Các nút đáp án toán -->
-            <div id="math-options" class="grid grid-cols-2 gap-3 sm:gap-4">
-                <!-- JS Inject Answers -->
-            </div>
-        </div>
-
-        <!-- ================= MÔN TIẾNG VIỆT ================= -->
-        <div id="view-tieng-viet" class="tab-content hidden bg-white rounded-3xl p-4 sm:p-6 card-shadow border-4 border-sky-300">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-4 border-b pb-3">
-                <h2 class="text-xl sm:text-2xl font-bold text-sky-600 flex items-center gap-2">
-                    <span>📚</span> Khám Phá Tiếng Việt
-                </h2>
-                <div class="flex gap-2">
-                    <button onclick="setTvGame('chinh-ta')" id="btn-tv-1" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-500 text-white">Chính Tả</button>
-                    <button onclick="setTvGame('dau-cau')" id="btn-tv-2" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-100 text-sky-700">Dấu Câu</button>
-                    <button onclick="setTvGame('loai-tu')" id="btn-tv-3" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-100 text-sky-700">Phân Loại Từ</button>
+                <div>
+                    <h1 class="font-heading font-extrabold text-xl md:text-2xl text-amber-600 leading-tight">VƯỜN TRÍ TUỆ LỚP 2</h1>
+                    <p class="text-xs font-bold text-slate-500">Học vui mỗi ngày • Tích sao đổi quà</p>
                 </div>
             </div>
 
-            <!-- Khung game Tiếng Việt -->
-            <div class="bg-sky-50 rounded-2xl p-5 border-2 border-sky-200 text-center mb-6 min-h-[160px] flex flex-col justify-center items-center">
-                <span id="tv-tag" class="bg-sky-400 text-white text-xs px-3 py-1 rounded-full font-bold mb-2">Đúng chính tả</span>
-                <div id="tv-question-text" class="text-xl sm:text-2xl font-bold text-sky-900 my-2">
-                    Từ nào dưới đây viết đúng chính tả?
+            <!-- Score & Badges Status Bar -->
+            <div class="flex items-center gap-3 bg-amber-50 px-4 py-2 rounded-full border-2 border-amber-300 shadow-inner">
+                <!-- Stars count -->
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-star text-amber-500 text-xl animate-spin-slow"></i>
+                    <span id="user-stars" class="font-black text-amber-700 text-xl">0</span>
+                    <span class="text-xs text-amber-600 font-bold">Sao</span>
                 </div>
-            </div>
-
-            <!-- Các đáp án Tiếng Việt -->
-            <div id="tv-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                <!-- JS Inject Answers -->
+                <div class="h-6 w-0.5 bg-amber-300"></div>
+                <!-- Badge icon preview -->
+                <div class="flex items-center gap-1.5 cursor-pointer" onclick="switchTab('store')" title="Xem kho báu">
+                    <span id="user-badge-icon" class="text-2xl">🌱</span>
+                    <span id="user-badge-title" class="text-xs font-extrabold text-slate-700 hidden sm:inline">Mầm Non Trí Tuệ</span>
+                </div>
             </div>
         </div>
 
-        <!-- ================= TỰ NHIÊN VÀ XÃ HỘI ================= -->
-        <div id="view-tu-nhien" class="tab-content hidden bg-white rounded-3xl p-4 sm:p-6 card-shadow border-4 border-emerald-300">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-4 border-b pb-3">
-                <h2 class="text-xl sm:text-2xl font-bold text-emerald-600 flex items-center gap-2">
-                    <span>🌿</span> Thế Giới Tự Nhiên & Xã Hội
-                </h2>
-                <div class="flex gap-2">
-                    <button onclick="setTnGame('phan-loai')" id="btn-tn-1" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-500 text-white">Phân Loại Động Vật</button>
-                    <button onclick="setTnGame('do-vui')" id="btn-tn-2" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-700">Đố Vui Môi Trường</button>
+        <!-- Tab Navigation Bar -->
+        <nav class="bg-amber-100 border-t border-amber-200">
+            <div class="max-w-6xl mx-auto px-2 flex justify-around md:justify-center md:gap-4 overflow-x-auto py-2 text-sm font-extrabold">
+                <button onclick="switchTab('home')" id="tab-btn-home" class="nav-tab px-4 py-2 rounded-xl flex items-center gap-2 bg-amber-500 text-white shadow-md transition-all">
+                    <i class="fa-solid fa-house"></i> <span>Trang Chủ</span>
+                </button>
+                <button onclick="switchTab('review')" id="tab-btn-review" class="nav-tab px-4 py-2 rounded-xl flex items-center gap-2 text-slate-700 hover:bg-amber-200 transition-all">
+                    <i class="fa-solid fa-book-open text-purple-600"></i> <span>Góc Ôn Tập</span>
+                </button>
+                <button onclick="switchTab('math')" id="tab-btn-math" class="nav-tab px-4 py-2 rounded-xl flex items-center gap-2 text-slate-700 hover:bg-amber-200 transition-all">
+                    <i class="fa-solid fa-calculator text-blue-600"></i> <span>Toán Học</span>
+                </button>
+                <button onclick="switchTab('vietnamese')" id="tab-btn-vietnamese" class="nav-tab px-4 py-2 rounded-xl flex items-center gap-2 text-slate-700 hover:bg-amber-200 transition-all">
+                    <i class="fa-solid fa-pen-nib text-red-500"></i> <span>Tiếng Việt</span>
+                </button>
+                <button onclick="switchTab('society')" id="tab-btn-society" class="nav-tab px-4 py-2 rounded-xl flex items-center gap-2 text-slate-700 hover:bg-amber-200 transition-all">
+                    <i class="fa-solid fa-tree text-emerald-600"></i> <span>Tự Nhiên & Xã Hội</span>
+                </button>
+                <button onclick="switchTab('store')" id="tab-btn-store" class="nav-tab px-4 py-2 rounded-xl flex items-center gap-2 text-slate-700 hover:bg-amber-200 transition-all">
+                    <i class="fa-solid fa-gem text-amber-600"></i> <span>Kho Báu & Quà</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-6xl mx-auto px-4 mt-6">
+
+        <!-- ================= PAGE 1: HOME PAGE ================= -->
+        <section id="page-home" class="tab-page space-y-6">
+            <!-- Banner Welcome -->
+            <div class="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 inline-block">Dành riêng cho học sinh Lớp 2 🌟</span>
+                    <h2 class="font-heading font-black text-2xl md:text-4xl mb-3 leading-tight">Chào mừng em đến với Vườn Trí Tuệ!</h2>
+                    <p class="text-blue-100 text-sm md:text-base font-semibold mb-6">Hãy chọn một môn học yêu thích, ôn lại kiến thức và tham gia các thử thách để nhận hàng trăm Sao Thưởng rực rỡ nhé!</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="switchTab('review')" class="bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-extrabold px-5 py-3 rounded-2xl shadow-lg bounce-hover bounce-click flex items-center gap-2">
+                            <i class="fa-solid fa-book-bookmark text-lg"></i> Xem Lý Thuyết Trước
+                        </button>
+                        <button onclick="switchTab('math')" class="bg-emerald-400 hover:bg-emerald-300 text-slate-900 font-extrabold px-5 py-3 rounded-2xl shadow-lg bounce-hover bounce-click flex items-center gap-2">
+                            <i class="fa-solid fa-play text-lg"></i> Thử Thách Ngay
+                        </button>
+                    </div>
+                </div>
+                <!-- Banner Decoration -->
+                <div class="absolute -right-6 -bottom-10 opacity-20 md:opacity-40 text-9xl pointer-events-none select-none">
+                    🎨
                 </div>
             </div>
 
-            <!-- Sub-game 1: Phân loại Động Vật -->
-            <div id="tn-phan-loai-area" class="space-y-4">
-                <div class="text-center bg-emerald-50 p-4 rounded-2xl border border-emerald-200">
-                    <p class="text-sm text-emerald-800 font-bold">Hãy bấm chọn nơi sống đúng cho loài vật dưới đây:</p>
-                    <div id="tn-animal-card" class="my-4">
-                        <span id="tn-animal-emoji" class="text-6xl animate-bounce inline-block">🐬</span>
-                        <h3 id="tn-animal-name" class="text-2xl font-bold text-emerald-900 mt-2">Cá Heo</h3>
+            <!-- Subject Cards Grid -->
+            <h3 class="font-heading font-bold text-2xl text-slate-800 pt-4 flex items-center gap-2">
+                <i class="fa-solid fa-compass text-amber-500"></i> Chọn Góc Học Tập
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Math Card -->
+                <div onclick="switchTab('math')" class="bg-white rounded-3xl p-6 border-4 border-blue-200 shadow-md hover:shadow-xl transition-all bounce-hover cursor-pointer group">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 text-3xl mb-4 group-hover:scale-110 transition-transform">
+                        📐
+                    </div>
+                    <span class="bg-blue-100 text-blue-700 font-extrabold text-xs px-3 py-1 rounded-full">Sân Chơi Số 1</span>
+                    <h4 class="font-heading font-bold text-xl text-slate-800 mt-2 mb-2">Toán Học Kì Diệu</h4>
+                    <ul class="text-xs text-slate-600 space-y-1.5 font-semibold">
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Cộng trừ có nhớ phạm vi 100, 1000</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Bảng nhân & chia (2, 3, 4, 5)</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Đo lường (cm, dm, m, kg, lít)</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Đố vui xem đồng hồ</li>
+                    </ul>
+                    <div class="mt-5 text-blue-600 font-bold text-sm flex items-center justify-between">
+                        <span>Vào thử thách</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <button onclick="checkAnimalHabitat('nuoc')" class="bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-2xl font-bold text-lg border-b-4 border-blue-700 btn-bounce text-center flex flex-col items-center gap-1">
-                        <span class="text-3xl">🌊</span>
-                        <span>Dưới Nước</span>
-                    </button>
-                    <button onclick="checkAnimalHabitat('can')" class="bg-amber-600 hover:bg-amber-700 text-white p-4 rounded-2xl font-bold text-lg border-b-4 border-amber-800 btn-bounce text-center flex flex-col items-center gap-1">
-                        <span class="text-3xl">🏞️</span>
-                        <span>Trên Cạn</span>
-                    </button>
+                <!-- Vietnamese Card -->
+                <div onclick="switchTab('vietnamese')" class="bg-white rounded-3xl p-6 border-4 border-rose-200 shadow-md hover:shadow-xl transition-all bounce-hover cursor-pointer group">
+                    <div class="w-16 h-16 bg-rose-100 rounded-2xl flex items-center justify-center text-rose-600 text-3xl mb-4 group-hover:scale-110 transition-transform">
+                        ✏️
+                    </div>
+                    <span class="bg-rose-100 text-rose-700 font-extrabold text-xs px-3 py-1 rounded-full">Sân Chơi Số 2</span>
+                    <h4 class="font-heading font-bold text-xl text-slate-800 mt-2 mb-2">Tiếng Việt Rực Rỡ</h4>
+                    <ul class="text-xs text-slate-600 space-y-1.5 font-semibold">
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Chính tả đúng (s/x, l/n, ch/tr)</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Phân loại từ chỉ Sự vật / Hoạt động / Đặc điểm</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Lựa chọn dấu câu (Dấu chấm, phẩy, hỏi)</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Giải câu đố Tiếng Việt vui</li>
+                    </ul>
+                    <div class="mt-5 text-rose-600 font-bold text-sm flex items-center justify-between">
+                        <span>Vào thử thách</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                    </div>
+                </div>
+
+                <!-- Society Card -->
+                <div onclick="switchTab('society')" class="bg-white rounded-3xl p-6 border-4 border-emerald-200 shadow-md hover:shadow-xl transition-all bounce-hover cursor-pointer group">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600 text-3xl mb-4 group-hover:scale-110 transition-transform">
+                        🌿
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 font-extrabold text-xs px-3 py-1 rounded-full">Sân Chơi Số 3</span>
+                    <h4 class="font-heading font-bold text-xl text-slate-800 mt-2 mb-2">Tự Nhiên & Xã Hội</h4>
+                    <ul class="text-xs text-slate-600 space-y-1.5 font-semibold">
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Phân loại Thực vật & Động vật</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Môi trường sống (Dưới nước, Trên cạn, Bay)</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Quy tắc An toàn giao thông đường bộ</li>
+                        <li><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Thời tiết & 4 Mùa trong năm</li>
+                    </ul>
+                    <div class="mt-5 text-emerald-600 font-bold text-sm flex items-center justify-between">
+                        <span>Vào thử thách</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                    </div>
                 </div>
             </div>
 
-            <!-- Sub-game 2: Đố Vui -->
-            <div id="tn-do-vui-area" class="hidden space-y-4">
-                <div class="bg-emerald-50 p-6 rounded-2xl border border-emerald-200 text-center">
-                    <span class="bg-emerald-400 text-white text-xs px-3 py-1 rounded-full font-bold">Câu hỏi khám phá</span>
-                    <h3 id="tn-quiz-question" class="text-lg sm:text-xl font-bold text-emerald-900 mt-3 mb-2">
-                        Bộ phận nào của cây giúp hút nước và chất dinh dưỡng từ lòng đất?
-                    </h3>
+            <!-- Quick Stats & Trophy Section -->
+            <div class="bg-amber-50 rounded-3xl border-2 border-amber-200 p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="text-5xl">🏆</div>
+                    <div>
+                        <h4 class="font-heading font-bold text-lg text-amber-900">Mục tiêu hôm nay</h4>
+                        <p class="text-xs text-amber-700 font-semibold">Trả lời đúng các câu hỏi để đạt Huy Hiệu "Siêu Sao Trí Tuệ"!</p>
+                    </div>
                 </div>
-                <div id="tn-quiz-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <!-- JS options -->
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= KHO HUY HIỆU ================= -->
-        <div id="view-huy-hieu" class="tab-content hidden bg-white rounded-3xl p-4 sm:p-6 card-shadow border-4 border-purple-300">
-            <div class="flex items-center justify-between mb-4 border-b pb-3">
-                <h2 class="text-xl sm:text-2xl font-bold text-purple-600 flex items-center gap-2">
-                    <span>🏆</span> Bộ Sưu Tập Huy Hiệu
-                </h2>
-                <span class="text-xs text-slate-500 font-semibold">Dùng ⭐ để tích lũy huy hiệu!</span>
-            </div>
-
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4" id="badge-container">
-                <!-- Badges injected by JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL HƯỚNG DẪN GITHUB PAGES -->
-    <div id="github-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 card-shadow border-4 border-indigo-400 max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-4 border-b pb-2">
-                <h3 class="text-xl font-bold text-indigo-700 flex items-center gap-2">
-                    <span>🚀</span> Hướng Dẫn Đưa Web Lên GitHub Pages (Miễn Phí)
-                </h3>
-                <button onclick="closeModal('github-modal')" class="text-slate-400 hover:text-slate-600 text-2xl font-bold">✕</button>
-            </div>
-            
-            <div class="space-y-4 text-sm text-slate-700 leading-relaxed">
-                <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200">
-                    <p class="font-bold text-indigo-900 mb-1">📌 Bước 1: Lưu mã nguồn</p>
-                    <p>Lưu toàn bộ mã nguồn của trang web này thành một tệp có tên chính xác là: <code class="bg-white px-2 py-0.5 rounded border border-indigo-300 font-bold text-indigo-600">index.html</code></p>
-                </div>
-
-                <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200">
-                    <p class="font-bold text-indigo-900 mb-1">📌 Bước 2: Tạo Repository trên GitHub</p>
-                    <ol class="list-disc list-inside space-y-1">
-                        <li>Truy cập <a href="https://github.com" target="_blank" class="text-blue-600 underline font-bold">github.com</a> và đăng nhập tài khoản.</li>
-                        <li>Bấm nút <strong>New</strong> (hoặc dấu <strong>+</strong> ở góc trên bên phải) để tạo Kho lưu trữ (Repository) mới.</li>
-                        <li>Đặt tên gợi nhớ (ví dụ: <code class="bg-white px-1.5 py-0.5 rounded border">hoc-vui-lop-2</code>), chọn <strong>Public</strong> rồi bấm <strong>Create repository</strong>.</li>
-                    </ol>
-                </div>
-
-                <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200">
-                    <p class="font-bold text-indigo-900 mb-1">📌 Bước 3: Tải tệp lên GitHub</p>
-                    <ol class="list-disc list-inside space-y-1">
-                        <li>Tại trang Repository vừa tạo, chọn link <strong>"uploading an existing file"</strong>.</li>
-                        <li>Kéo thả tệp <code class="bg-white px-1.5 py-0.5 rounded border">index.html</code> vào trang web.</li>
-                        <li>Bấm nút màu xanh <strong>Commit changes</strong> ở phía dưới.</li>
-                    </ol>
-                </div>
-
-                <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200">
-                    <p class="font-bold text-indigo-900 mb-1">📌 Bước 4: Kích hoạt GitHub Pages</p>
-                    <ol class="list-disc list-inside space-y-1">
-                        <li>Vào tab <strong>Settings</strong> của Repository đó.</li>
-                        <li>Tìm mục <strong>Pages</strong> ở danh sách menu bên trái.</li>
-                        <li>Tại phần <em>Build and deployment</em> -> <em>Branch</em>, chọn nhánh <strong>main</strong> (hoặc <em>master</em>) và thư mục <strong>/(root)</strong>.</li>
-                        <li>Bấm <strong>Save</strong>.</li>
-                    </ol>
-                </div>
-
-                <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-200">
-                    <p class="font-bold text-emerald-900 mb-1">🎉 Bước 5: Hoàn tất & Chia sẻ!</p>
-                    <p>Đợi khoảng 1 - 2 phút, GitHub sẽ cấp cho bạn một đường link dạng: <br>
-                    <code class="text-xs bg-white p-1 rounded font-mono font-bold text-emerald-700">https://ten-tai-khoan.github.io/hoc-vui-lop-2/</code><br>
-                    Bây giờ bé có thể truy cập đường dẫn này trên điện thoại, máy tính bảng hoặc máy tính để học rồi!</p>
-                </div>
-            </div>
-
-            <div class="mt-6 text-center">
-                <button onclick="closeModal('github-modal')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2.5 rounded-2xl btn-bounce">
-                    Đã Hiểu Rồi!
+                <button onclick="switchTab('store')" class="bg-amber-500 hover:bg-amber-600 text-white font-extrabold px-6 py-3 rounded-2xl shadow-md bounce-click">
+                    Khám Phá Kho Báu 🎁
                 </button>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- AUDIO SYNTHESIS & GAME LOGIC -->
+        <!-- ================= PAGE 2: GÓC ÔN TẬP (LÝ THUYẾT) ================= -->
+        <section id="page-review" class="tab-page hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-purple-200">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600 text-2xl">
+                        📘
+                    </div>
+                    <div>
+                        <h2 class="font-heading font-bold text-2xl text-purple-800">Góc Ôn Tập Lý Thuyết</h2>
+                        <p class="text-xs text-slate-500 font-semibold">Tóm tắt ngắn gọn, dễ nhớ trước khi vào làm thử thách!</p>
+                    </div>
+                </div>
+
+                <!-- Theory Sub-Tabs -->
+                <div class="flex border-b border-slate-200 gap-2 mb-6">
+                    <button onclick="switchReviewTab('math-rev')" id="rev-tab-math-rev" class="rev-tab-btn border-b-4 border-blue-500 text-blue-600 font-extrabold px-4 py-2 text-sm">Toán Học</button>
+                    <button onclick="switchReviewTab('tv-rev')" id="rev-tab-tv-rev" class="rev-tab-btn border-b-4 border-transparent text-slate-500 hover:text-slate-700 font-extrabold px-4 py-2 text-sm">Tiếng Việt</button>
+                    <button onclick="switchReviewTab('tnxh-rev')" id="rev-tab-tnxh-rev" class="rev-tab-btn border-b-4 border-transparent text-slate-500 hover:text-slate-700 font-extrabold px-4 py-2 text-sm">Tự Nhiên & Xã Hội</button>
+                </div>
+
+                <!-- Math Theory Content -->
+                <div id="rev-content-math-rev" class="rev-content space-y-6">
+                    <!-- Tables 2 to 5 Cheat Sheet -->
+                    <div class="bg-blue-50 p-4 rounded-2xl border border-blue-200">
+                        <h4 class="font-bold text-blue-900 text-lg mb-3">1. Bảng Nhân 2, 3, 4, 5 (Mẹo tính nhanh)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs font-semibold text-slate-700">
+                            <div class="bg-white p-3 rounded-xl border border-blue-100 shadow-sm">
+                                <span class="font-bold text-blue-600 block text-sm mb-1">Bảng Nhân 2</span>
+                                2×1=2 | 2×2=4 | 2×3=6<br>
+                                2×4=8 | 2×5=10 | 2×6=12<br>
+                                2×7=14 | 2×8=16 | 2×9=18
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-blue-100 shadow-sm">
+                                <span class="font-bold text-blue-600 block text-sm mb-1">Bảng Nhân 3</span>
+                                3×1=3 | 3×2=6 | 3×3=9<br>
+                                3×4=12 | 3×5=15 | 3×6=18<br>
+                                3×7=21 | 3×8=24 | 3×9=27
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-blue-100 shadow-sm">
+                                <span class="font-bold text-blue-600 block text-sm mb-1">Bảng Nhân 4</span>
+                                4×1=4 | 4×2=8 | 4×3=12<br>
+                                4×4=16 | 4×5=20 | 4×6=24<br>
+                                4×7=28 | 4×8=32 | 4×9=36
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-blue-100 shadow-sm">
+                                <span class="font-bold text-blue-600 block text-sm mb-1">Bảng Nhân 5</span>
+                                5×1=5 | 5×2=10 | 5×3=15<br>
+                                5×4=20 | 5×5=25 | 5×6=30<br>
+                                5×7=35 | 5×8=40 | 5×9=45
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Measurement Units -->
+                    <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200">
+                        <h4 class="font-bold text-amber-900 text-lg mb-3">2. Các Đơn Vị Đo Lường Cần Nhớ</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm font-semibold">
+                            <div class="bg-white p-3 rounded-xl border border-amber-100">
+                                <p class="text-amber-700 font-bold">📏 Chiều dài:</p>
+                                <p class="text-slate-700 text-xs mt-1">1 mét (m) = 10 đề-xi-mét (dm)</p>
+                                <p class="text-slate-700 text-xs">1 đề-xi-mét (dm) = 10 xen-ti-mét (cm)</p>
+                                <p class="text-slate-700 text-xs">1 mét (m) = 100 xen-ti-mét (cm)</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-amber-100">
+                                <p class="text-amber-700 font-bold">⚖️ Khối lượng:</p>
+                                <p class="text-slate-700 text-xs mt-1">Ki-lô-gam (kg) dùng để đo độ nặng/nhẹ của vật thể (ví dụ: Túi gạo 5kg, em nặng 25kg).</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-amber-100">
+                                <p class="text-amber-700 font-bold">🥛 Dung tích:</p>
+                                <p class="text-slate-700 text-xs mt-1">Lít (l) dùng để đo lượng chất lỏng (ví dụ: Chai nước 1 lít, can sữa 2 lít).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Clock Reading -->
+                    <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-200">
+                        <h4 class="font-bold text-emerald-900 text-lg mb-2">3. Cách Xem Đồng Hồ</h4>
+                        <ul class="text-xs font-semibold text-slate-700 space-y-1">
+                            <li>• Kim ngắn chỉ **Giờ**, Kim dài chỉ **Phút**.</li>
+                            <li>• Kim dài chỉ số 12 là giờ đúng (ví dụ: Kim ngắn chỉ 3, kim dài chỉ 12 -> 3 giờ).</li>
+                            <li>• Kim dài chỉ số 3 là **15 phút**. Kim dài chỉ số 6 là **30 phút** (hoặc rưỡi).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Vietnamese Theory Content -->
+                <div id="rev-content-tv-rev" class="rev-content hidden space-y-6">
+                    <div class="bg-rose-50 p-4 rounded-2xl border border-rose-200">
+                        <h4 class="font-bold text-rose-900 text-lg mb-3">1. Phân Loại Từ Loại Lớp 2</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                            <div class="bg-white p-3 rounded-xl border border-rose-100">
+                                <h5 class="font-bold text-rose-600">📦 Từ chỉ Sự Vật</h5>
+                                <p class="text-xs text-slate-600 mt-1">Chỉ người, đồ vật, con vật, cây cối.</p>
+                                <p class="text-xs text-slate-500 italic mt-1">Ví dụ: Học sinh, cái bàn, con mèo, cây phượng.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-rose-100">
+                                <h5 class="font-bold text-rose-600">🏃 Từ chỉ Hoạt Động</h5>
+                                <p class="text-xs text-slate-600 mt-1">Chỉ cử động, hành động của người và vật.</p>
+                                <p class="text-xs text-slate-500 italic mt-1">Ví dụ: Chạy, nhảy, đọc sách, múa, hót.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-rose-100">
+                                <h5 class="font-bold text-rose-600">✨ Từ chỉ Đặc Điểm</h5>
+                                <p class="text-xs text-slate-600 mt-1">Chỉ màu sắc, hình dáng, tính nết.</p>
+                                <p class="text-xs text-slate-500 italic mt-1">Ví dụ: Đỏ rực, tròn xoe, chăm chỉ, ngoan ngoãn.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-indigo-50 p-4 rounded-2xl border border-indigo-200">
+                        <h4 class="font-bold text-indigo-900 text-lg mb-2">2. Sử Dụng Dấu Câu Đúng Cách</h4>
+                        <div class="space-y-2 text-xs font-semibold text-slate-700">
+                            <p><span class="font-bold text-indigo-600">Dấu chấm (.)</span> : Dùng ở cuối câu kể lại một sự việc.</p>
+                            <p><span class="font-bold text-indigo-600">Dấu chấm hỏi (?)</span> : Dùng ở cuối câu hỏi để hỏi ai đó về điều gì.</p>
+                            <p><span class="font-bold text-indigo-600">Dấu chấm cảm (!)</span> : Dùng ở cuối câu cảm xúc, bộc lộ sự ngạc nhiên, khen ngợi.</p>
+                            <p><span class="font-bold text-indigo-600">Dấu phẩy (,)</span> : Dùng để ngăn cách các từ cùng loại trong câu.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nature & Society Theory Content -->
+                <div id="rev-content-tnxh-rev" class="rev-content hidden space-y-6">
+                    <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-200">
+                        <h4 class="font-bold text-emerald-900 text-lg mb-3">1. Môi Trường Sống Của Động / Thực Vật</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs font-semibold">
+                            <div class="bg-white p-3 rounded-xl border border-emerald-100">
+                                <span class="font-bold text-emerald-700 block mb-1">🌊 Môi trường dưới nước</span>
+                                Cá, tôm, cua, rong biển, hoa súng, ốc...
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-emerald-100">
+                                <span class="font-bold text-emerald-700 block mb-1">🏞️ Môi trường trên cạn</span>
+                                Chó, mèo, thỏ, cây bàng, cây cam, voi...
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-emerald-100">
+                                <span class="font-bold text-emerald-700 block mb-1">🦅 Bay trên không</span>
+                                Chim chim chim én, đại bàng, bướm, ong...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200">
+                        <h4 class="font-bold text-amber-900 text-lg mb-2">2. An Toàn Giao Thông Đường Bộ</h4>
+                        <ul class="text-xs font-semibold text-slate-700 space-y-1">
+                            <li>🚥 **Đèn đỏ**: Dừng lại. **Đèn vàng**: Đi chậm lại. **Đèn xanh**: Được phép đi.</li>
+                            <li>🚶 Đi bộ trên vỉa hè; khi sang đường phải đi trên vạch kẻ đường dành cho người đi bộ.</li>
+                            <li>🛵 Đội mũ bảo hiểm khi ngồi trên xe máy, xe đạp điện.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 3: TOÁN HỌC ================= -->
+        <section id="page-math" class="tab-page hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-blue-200">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 text-2xl">
+                            📐
+                        </div>
+                        <div>
+                            <h2 class="font-heading font-bold text-2xl text-blue-900">Sân Chơi Toán Học Lớp 2</h2>
+                            <p class="text-xs text-slate-500 font-semibold">Chọn chủ đề thử thách bên dưới và hoàn thành các câu hỏi nhé!</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="loadMathTopic('cong_tru')" class="math-topic-btn text-xs font-extrabold px-3 py-2 rounded-xl bg-blue-600 text-white">Cộng Trừ Có Nhớ</button>
+                        <button onclick="loadMathTopic('nhan_chia')" class="math-topic-btn text-xs font-extrabold px-3 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200">Nhân & Chia (2-5)</button>
+                        <button onclick="loadMathTopic('do_luong')" class="math-topic-btn text-xs font-extrabold px-3 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200">Đo Lường & Giờ</button>
+                    </div>
+                </div>
+
+                <!-- Quiz Card Container -->
+                <div id="math-quiz-container" class="mt-6">
+                    <!-- Dynamic Question Box -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 4: TIẾNG VIỆT ================= -->
+        <section id="page-vietnamese" class="tab-page hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-rose-200">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-rose-100 rounded-2xl flex items-center justify-center text-rose-600 text-2xl">
+                            ✏️
+                        </div>
+                        <div>
+                            <h2 class="font-heading font-bold text-2xl text-rose-900">Sân Chơi Tiếng Việt</h2>
+                            <p class="text-xs text-slate-500 font-semibold">Chính tả, dấu câu, phân loại từ ngữ và đố vui dân gian!</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="loadVietTopic('chinh_ta')" class="tv-topic-btn text-xs font-extrabold px-3 py-2 rounded-xl bg-rose-600 text-white">Chính Tả</button>
+                        <button onclick="loadVietTopic('tu_loai')" class="tv-topic-btn text-xs font-extrabold px-3 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200">Phân Loại Từ</button>
+                        <button onclick="loadVietTopic('dau_cau')" class="tv-topic-btn text-xs font-extrabold px-3 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200">Dấu Câu & Đố Vui</button>
+                    </div>
+                </div>
+
+                <!-- Quiz Card Container -->
+                <div id="tv-quiz-container" class="mt-6">
+                    <!-- Dynamic Question Box -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 5: TỰ NHIÊN XÃ HỘI ================= -->
+        <section id="page-society" class="tab-page hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-emerald-200">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600 text-2xl">
+                            🌿
+                        </div>
+                        <div>
+                            <h2 class="font-heading font-bold text-2xl text-emerald-900">Tự Nhiên & Xã Hội</h2>
+                            <p class="text-xs text-slate-500 font-semibold">Khám phá thế giới động thực vật, thời tiết và an toàn giao thông!</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="loadTnxhTopic('dong_thuc_vat')" class="tnxh-topic-btn text-xs font-extrabold px-3 py-2 rounded-xl bg-emerald-600 text-white">Động Thực Vật</button>
+                        <button onclick="loadTnxhTopic('giao_thong')" class="tnxh-topic-btn text-xs font-extrabold px-3 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200">An Toàn Giao Thông</button>
+                        <button onclick="loadTnxhTopic('mua_thoi_tiet')" class="tnxh-topic-btn text-xs font-extrabold px-3 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200">Mùa & Thời Tiết</button>
+                    </div>
+                </div>
+
+                <!-- Quiz Card Container -->
+                <div id="tnxh-quiz-container" class="mt-6">
+                    <!-- Dynamic Question Box -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 6: KHO BÁU & QUÀ THƯỞNG ================= -->
+        <section id="page-store" class="tab-page hidden space-y-6">
+            <!-- Badges Progress Section -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-amber-200">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 text-2xl">
+                        🏆
+                    </div>
+                    <div>
+                        <h2 class="font-heading font-bold text-2xl text-amber-900">Bảng Vinh Danh Huy Hiệu</h2>
+                        <p class="text-xs text-slate-500 font-semibold">Tích lũy sao để mở khóa các danh hiệu cao quý nhé!</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <!-- Badge 1 -->
+                    <div id="badge-card-1" class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-4 text-center relative overflow-hidden">
+                        <div class="text-4xl mb-2">🌱</div>
+                        <h4 class="font-bold text-slate-800 text-sm">Mầm Non Trí Tuệ</h4>
+                        <p class="text-xs text-slate-500 mt-1 font-semibold">Yêu cầu: 0 Sao</p>
+                        <span class="inline-block mt-3 px-3 py-1 bg-emerald-100 text-emerald-700 text-xs font-extrabold rounded-full">Đã Đạt Được</span>
+                    </div>
+
+                    <!-- Badge 2 -->
+                    <div id="badge-card-2" class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-4 text-center opacity-75">
+                        <div class="text-4xl mb-2">🥉</div>
+                        <h4 class="font-bold text-slate-800 text-sm">Huy Hiệu Đồng</h4>
+                        <p class="text-xs text-slate-500 mt-1 font-semibold">Yêu cầu: 50 Sao</p>
+                        <span id="badge-status-2" class="inline-block mt-3 px-3 py-1 bg-slate-200 text-slate-600 text-xs font-extrabold rounded-full">Chưa Khóa</span>
+                    </div>
+
+                    <!-- Badge 3 -->
+                    <div id="badge-card-3" class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-4 text-center opacity-75">
+                        <div class="text-4xl mb-2">🥈</div>
+                        <h4 class="font-bold text-slate-800 text-sm">Huy Hiệu Bạc</h4>
+                        <p class="text-xs text-slate-500 mt-1 font-semibold">Yêu cầu: 150 Sao</p>
+                        <span id="badge-status-3" class="inline-block mt-3 px-3 py-1 bg-slate-200 text-slate-600 text-xs font-extrabold rounded-full">Chưa Khóa</span>
+                    </div>
+
+                    <!-- Badge 4 -->
+                    <div id="badge-card-4" class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-4 text-center opacity-75">
+                        <div class="text-4xl mb-2">👑</div>
+                        <h4 class="font-bold text-slate-800 text-sm">Siêu Sao Trí Tuệ</h4>
+                        <p class="text-xs text-slate-500 mt-1 font-semibold">Yêu cầu: 300 Sao</p>
+                        <span id="badge-status-4" class="inline-block mt-3 px-3 py-1 bg-slate-200 text-slate-600 text-xs font-extrabold rounded-full">Chưa Khóa</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avatar Shop -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-indigo-200">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 text-2xl">
+                        🎁
+                    </div>
+                    <div>
+                        <h2 class="font-heading font-bold text-2xl text-indigo-900">Cửa Hàng Đổi Sao Lấy Linh Vật</h2>
+                        <p class="text-xs text-slate-500 font-semibold">Dùng sao tích lũy để nhận bạn đồng hành đáng yêu!</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="shop-items-grid">
+                    <!-- Items rendered dynamically -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Sound & Interactive Logic -->
     <script>
-        /* -------------------------------------------------------------
-           1. ÂM THANH & PHÁO HOA (AUDIO & CONFETTI)
-        ------------------------------------------------------------- */
-        let soundEnabled = true;
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        let audioCtx = null;
+        /* ================= STATE MANAGEMENT ================= */
+        let state = {
+            stars: 0,
+            badgeLevel: 1,
+            unlockedAvatars: ['🐱'],
+            currentAvatar: '🐱'
+        };
 
-        function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new AudioContext();
-            }
-        }
+        // Audio Context Synthesizer for sound effects
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-        function toggleSound() {
-            soundEnabled = !soundEnabled;
-            document.getElementById('sound-icon').innerText = soundEnabled ? '🔊' : '🔇';
-        }
-
-        // Phát âm thanh tổng hợp không dùng file ngoài
         function playSound(type) {
-            if (!soundEnabled) return;
-            initAudio();
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume();
             }
-
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.connect(gain);
@@ -308,39 +571,44 @@
 
             const now = audioCtx.currentTime;
 
-            if (type === 'click') {
+            if (type === 'correct') {
+                // Happy high double beep
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(400, now);
-                gain.gain.setValueAtTime(0.1, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
-                osc.start(now);
-                osc.stop(now + 0.05);
-            } else if (type === 'correct') {
-                // Tiếng Chime đúng vui tươi
-                osc.type = 'triangle';
                 osc.frequency.setValueAtTime(523.25, now); // C5
                 osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
                 osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
-                osc.frequency.setValueAtTime(1046.50, now + 0.3); // C6
-                gain.gain.setValueAtTime(0.15, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
                 osc.start(now);
-                osc.stop(now + 0.5);
-                launchConfetti();
+                osc.stop(now + 0.4);
             } else if (type === 'wrong') {
-                // Tiếng Buzz sai
+                // Low buzz sound
                 osc.type = 'sawtooth';
                 osc.frequency.setValueAtTime(180, now);
-                osc.frequency.linearRampToValueAtTime(110, now + 0.25);
-                gain.gain.setValueAtTime(0.15, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+                osc.frequency.setValueAtTime(130, now + 0.15);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
                 osc.start(now);
-                osc.stop(now + 0.25);
+                osc.stop(now + 0.3);
+            } else if (type === 'win') {
+                // Arpeggio triumph
+                const notes = [440, 554.37, 659.25, 880];
+                notes.forEach((freq, idx) => {
+                    const o = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    o.connect(g);
+                    g.connect(audioCtx.destination);
+                    o.frequency.value = freq;
+                    g.gain.setValueAtTime(0.2, now + idx * 0.1);
+                    g.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.1 + 0.3);
+                    o.start(now + idx * 0.1);
+                    o.stop(now + idx * 0.1 + 0.3);
+                });
             }
         }
 
-        // Canvas Confetti
-        const canvas = document.getElementById('confetti-canvas');
+        /* ================= FIREWORKS CANVAS ================= */
+        const canvas = document.getElementById('fx-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
 
@@ -351,374 +619,414 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        function launchConfetti() {
-            for (let i = 0; i < 40; i++) {
+        function triggerFireworks() {
+            const colors = ['#FF6B9B', '#FFC837', '#2ECC71', '#4D96FF', '#9B51E0'];
+            for (let i = 0; i < 60; i++) {
                 particles.push({
-                    x: canvas.width / 2,
-                    y: canvas.height / 2,
+                    x: canvas.width / 2 + (Math.random() - 0.5) * 200,
+                    y: canvas.height / 3 + (Math.random() - 0.5) * 100,
                     vx: (Math.random() - 0.5) * 12,
-                    vy: (Math.random() - 0.7) * 14,
-                    size: Math.random() * 8 + 4,
-                    color: `hsl(${Math.random() * 360}, 90%, 60%)`,
-                    life: 100
+                    vy: (Math.random() - 0.5) * 12 - 2,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    radius: Math.random() * 6 + 3,
+                    alpha: 1,
+                    decay: Math.random() * 0.02 + 0.015
                 });
             }
         }
 
-        function updateConfetti() {
+        function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p, index) => {
+            particles.forEach((p, idx) => {
                 p.x += p.vx;
                 p.y += p.vy;
-                p.vy += 0.25; // Trọng lực
-                p.life -= 1.5;
+                p.vy += 0.15; // gravity
+                p.alpha -= p.decay;
 
-                ctx.fillStyle = p.color;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-
-                if (p.life <= 0) {
-                    particles.splice(index, 1);
+                if (p.alpha <= 0) {
+                    particles.splice(idx, 1);
+                } else {
+                    ctx.save();
+                    ctx.globalAlpha = p.alpha;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+                    ctx.restore();
                 }
             });
-            requestAnimationFrame(updateConfetti);
+            requestAnimationFrame(animateParticles);
         }
-        updateConfetti();
+        animateParticles();
 
-        /* -------------------------------------------------------------
-           2. QUẢN LÝ ĐIỂM SỐ & CHUYỂN TAB
-        ------------------------------------------------------------- */
-        let totalStars = parseInt(localStorage.getItem('lop2_stars') || '0');
-        document.getElementById('star-count').innerText = totalStars;
-
-        function addStars(amount) {
-            totalStars += amount;
-            localStorage.setItem('lop2_stars', totalStars);
-            document.getElementById('star-count').innerText = totalStars;
-            renderBadges();
-        }
-
+        /* ================= NAVIGATION ================= */
         function switchTab(tabId) {
-            playSound('click');
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.nav-tab').forEach(el => {
-                el.classList.remove('bg-yellow-400', 'text-yellow-950', 'bg-sky-400', 'text-sky-950', 'bg-emerald-400', 'text-emerald-950', 'bg-purple-400', 'text-purple-950');
-                el.classList.add('bg-white', 'text-slate-600');
+            document.querySelectorAll('.tab-page').forEach(page => page.classList.add('hidden'));
+            document.getElementById(`page-${tabId}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('bg-amber-500', 'text-white', 'shadow-md');
+                btn.classList.add('text-slate-700');
             });
-
-            const currentTabBtn = document.getElementById(`tab-${tabId}`);
-            document.getElementById(`view-${tabId}`).classList.remove('hidden');
-
-            if (tabId === 'toan') {
-                currentTabBtn.classList.add('bg-yellow-400', 'text-yellow-950');
-            } else if (tabId === 'tieng-viet') {
-                currentTabBtn.classList.add('bg-sky-400', 'text-sky-950');
-            } else if (tabId === 'tu-nhien') {
-                currentTabBtn.classList.add('bg-emerald-400', 'text-emerald-950');
-            } else if (tabId === 'huy-hieu') {
-                currentTabBtn.classList.add('bg-purple-400', 'text-purple-950');
-                renderBadges();
+            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-amber-500', 'text-white', 'shadow-md');
+                activeBtn.classList.remove('text-slate-700');
             }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function openModal(id) {
-            playSound('click');
-            document.getElementById(id).classList.remove('hidden');
-        }
+        function switchReviewTab(revId) {
+            document.querySelectorAll('.rev-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`rev-content-${revId}`).classList.remove('hidden');
 
-        function closeModal(id) {
-            playSound('click');
-            document.getElementById(id).classList.add('hidden');
-        }
-
-        /* -------------------------------------------------------------
-           3. LOGIC GAME TOÁN HỌC
-        ------------------------------------------------------------- */
-        let currentMathAnswer = 0;
-        let mathStreak = 0;
-
-        function generateMathQuestion() {
-            const mode = document.getElementById('math-mode').value;
-            let num1, num2, operator, questionText, answer;
-
-            if (mode === 'cong-tru-100') {
-                operator = Math.random() > 0.5 ? '+' : '-';
-                if (operator === '+') {
-                    num1 = Math.floor(Math.random() * 50) + 10;
-                    num2 = Math.floor(Math.random() * 40) + 5;
-                    answer = num1 + num2;
-                } else {
-                    num1 = Math.floor(Math.random() * 60) + 30;
-                    num2 = Math.floor(Math.random() * (num1 - 5)) + 5;
-                    answer = num1 - num2;
-                }
-                questionText = `${num1} ${operator} ${num2} = ?`;
-            } else if (mode === 'cong-tru-1000') {
-                operator = Math.random() > 0.5 ? '+' : '-';
-                if (operator === '+') {
-                    num1 = Math.floor(Math.random() * 400) + 100;
-                    num2 = Math.floor(Math.random() * 400) + 50;
-                    answer = num1 + num2;
-                } else {
-                    num1 = Math.floor(Math.random() * 500) + 400;
-                    num2 = Math.floor(Math.random() * (num1 - 100)) + 50;
-                    answer = num1 - num2;
-                }
-                questionText = `${num1} ${operator} ${num2} = ?`;
-            } else if (mode === 'nhan-chia') {
-                const multipliers = [2, 3, 4, 5];
-                const base = multipliers[Math.floor(Math.random() * multipliers.length)];
-                operator = Math.random() > 0.5 ? 'x' : ':';
-                if (operator === 'x') {
-                    num2 = Math.floor(Math.random() * 9) + 1;
-                    num1 = base;
-                    answer = num1 * num2;
-                    questionText = `${num1} × ${num2} = ?`;
-                } else {
-                    num2 = base;
-                    answer = Math.floor(Math.random() * 9) + 1;
-                    num1 = answer * num2;
-                    questionText = `${num1} : ${num2} = ?`;
-                }
-            } else {
-                // Tổng hợp
-                const modes = ['cong-tru-100', 'cong-tru-1000', 'nhan-chia'];
-                document.getElementById('math-mode').value = modes[Math.floor(Math.random() * modes.length)];
-                return generateMathQuestion();
-            }
-
-            currentMathAnswer = answer;
-            document.getElementById('math-question').innerText = questionText;
-
-            // Tạo các phương án sai
-            let options = [answer];
-            while (options.length < 4) {
-                let offset = (Math.floor(Math.random() * 5) + 1) * (Math.random() > 0.5 ? 1 : -1);
-                let wrongVal = answer + offset;
-                if (wrongVal >= 0 && !options.includes(wrongVal)) {
-                    options.push(wrongVal);
-                }
-            }
-            // Trộn ngẫu nhiên đáp án
-            options.sort(() => Math.random() - 0.5);
-
-            const optionsContainer = document.getElementById('math-options');
-            optionsContainer.innerHTML = '';
-            options.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.className = 'bg-yellow-100 hover:bg-yellow-200 text-yellow-950 border-2 border-yellow-400 p-4 rounded-2xl text-2xl font-bold btn-bounce transition-all';
-                btn.innerText = opt;
-                btn.onclick = () => checkMathAnswer(opt);
-                optionsContainer.appendChild(btn);
+            document.querySelectorAll('.rev-tab-btn').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'text-blue-600');
+                btn.classList.add('border-transparent', 'text-slate-500');
             });
+            const activeBtn = document.getElementById(`rev-tab-${revId}`);
+            activeBtn.classList.add('border-blue-500', 'text-blue-600');
+            activeBtn.classList.remove('border-transparent', 'text-slate-500');
         }
 
-        function checkMathAnswer(selected) {
-            if (selected === currentMathAnswer) {
-                playSound('correct');
-                mathStreak++;
-                addStars(1);
-                document.getElementById('math-streak').innerText = `🔥 Chuỗi đúng: ${mathStreak}`;
-                generateMathQuestion();
-            } else {
-                playSound('wrong');
-                mathStreak = 0;
-                document.getElementById('math-streak').innerText = `🔥 Chuỗi đúng: 0`;
-            }
-        }
-
-        /* -------------------------------------------------------------
-           4. LOGIC GAME TIẾNG VIỆT
-        ------------------------------------------------------------- */
-        let currentTvType = 'chinh-ta';
-        const tvData = {
-            'chinh-ta': [
-                { q: 'Từ nào viết ĐÚNG chính tả?', options: ['trinh thám', 'chinh thám'], correct: 0 },
-                { q: 'Từ nào viết ĐÚNG chính tả?', options: ['xinh xắn', 'sinh xắn'], correct: 0 },
-                { q: 'Từ nào viết ĐÚNG chính tả?', options: ['suy nghĩ', 'xuy nghĩ'], correct: 0 },
-                { q: 'Từ nào viết ĐÚNG chính tả?', options: ['dành dụm', 'giành dụm'], correct: 0 },
-                { q: 'Từ nào viết ĐÚNG chính tả?', options: ['trung thực', 'chung thực'], correct: 0 },
-                { q: 'Từ nào viết ĐÚNG chính tả?', options: ['nắng ấm', 'lắng ấm'], correct: 0 }
+        /* ================= QUESTION DATA & ENGINE ================= */
+        const mathQuestions = {
+            'cong_tru': [
+                { q: "Tính: 47 + 28 = ?", options: ["65", "75", "73", "85"], correct: 1, hint: "7 + 8 = 15, viết 5 nhớ 1. 4 + 2 = 6, thêm 1 bằng 7 -> 75" },
+                { q: "Tính: 92 - 46 = ?", options: ["46", "56", "36", "44"], correct: 0, hint: "2 không trừ được 6, lấy 12 - 6 = 6. Trả 1 vào 4 thành 5, 9 - 5 = 4." },
+                { q: "Tính: 350 + 240 = ?", options: ["580", "590", "600", "570"], correct: 1, hint: "35 chục + 24 chục = 59 chục = 590" },
+                { q: "Tính: 700 - 250 = ?", options: ["400", "450", "550", "500"], correct: 1, hint: "70 chục - 25 chục = 45 chục = 450" }
             ],
-            'dau-cau': [
-                { q: 'Bé điền dấu gì vào câu: "Em là học sinh lớp 2..."', options: ['Dấu chấm (.)', 'Dấu hỏi (?)', 'Dấu chấm cảm (!)'], correct: 0 },
-                { q: 'Bé điền dấu gì vào câu: "Hôm nay trời đẹp quá..."', options: ['Dấu chấm cảm (!)', 'Dấu chấm (.)', 'Dấu hỏi (?)'], correct: 0 },
-                { q: 'Bé điền dấu gì vào câu: "Mấy giờ rồi hả mẹ..."', options: ['Dấu hỏi (?)', 'Dấu chấm (.)', 'Dấu chấm cảm (!)'], correct: 0 }
+            'nhan_chia': [
+                { q: "Kết quả của 4 × 7 là bao nhiêu?", options: ["24", "28", "32", "26"], correct: 1, hint: "Bảng nhân 4: 4 × 7 = 28" },
+                { q: "Có 35 quả cam chia đều cho 5 bạn. Mỗi bạn nhận được mấy quả?", options: ["6 quả", "7 quả", "8 quả", "5 quả"], correct: 1, hint: "Ta thực hiện phép chia 35 : 5 = 7" },
+                { q: "Kết quả của 3 × 9 = ?", options: ["21", "24", "27", "30"], correct: 2, hint: "Bảng nhân 3: 3 × 9 = 27" },
+                { q: "Tính: 20 : 4 = ?", options: ["4", "5", "6", "3"], correct: 1, hint: "4 × 5 = 20 nên 20 : 4 = 5" }
             ],
-            'loai-tu': [
-                { q: 'Từ "con mèo" thuộc loại từ nào?', options: ['Từ chỉ sự vật', 'Từ chỉ hoạt động', 'Từ chỉ đặc điểm'], correct: 0 },
-                { q: 'Từ "chạy nhảy" thuộc loại từ nào?', options: ['Từ chỉ hoạt động', 'Từ chỉ sự vật', 'Từ chỉ đặc điểm'], correct: 0 },
-                { q: 'Từ "đẹp đẽ" thuộc loại từ nào?', options: ['Từ chỉ đặc điểm', 'Từ chỉ sự vật', 'Từ chỉ hoạt động'], correct: 0 }
+            'do_luong': [
+                { q: "Điền số thích hợp: 1m = ... cm", options: ["10 cm", "50 cm", "100 cm", "1000 cm"], correct: 2, hint: "1m = 10dm = 100cm" },
+                { q: "Mẹ mua 15kg gạo, sau đó mua thêm 10kg gạo. Hỏi mẹ có tất cả bao nhiêu ki-lô-gam gạo?", options: ["20kg", "25kg", "30kg", "35kg"], correct: 1, hint: "15 + 10 = 25 kg" },
+                { q: "Nếu kim ngắn chỉ số 4, kim dài chỉ số 12 thì đồng hồ chỉ mấy giờ?", options: ["4 giờ đúng", "12 giờ đúng", "4 giờ 15 phút", "4 giờ 30 phút"], correct: 0, hint: "Kim dài chỉ 12 là giờ đúng!" },
+                { q: "Rót 5 lít nước vào thùng đã có sẵn 7 lít nước. Thùng chứa bao nhiêu lít nước?", options: ["11 lít", "12 lít", "13 lít", "10 lít"], correct: 1, hint: "5 + 7 = 12 lít" }
             ]
         };
 
-        function setTvGame(type) {
-            playSound('click');
-            currentTvType = type;
-            document.querySelectorAll('#view-tieng-viet button[id^="btn-tv"]').forEach(btn => {
-                btn.className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-100 text-sky-700';
-            });
-            if(type === 'chinh-ta') document.getElementById('btn-tv-1').className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-500 text-white';
-            if(type === 'dau-cau') document.getElementById('btn-tv-2').className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-500 text-white';
-            if(type === 'loai-tu') document.getElementById('btn-tv-3').className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-500 text-white';
+        const vietQuestions = {
+            'chinh_ta': [
+                { q: "Điền từ đúng chính tả: 'Học sinh đang ___ bài'", options: ["viết", "riết", "diết"], correct: 0, hint: "Đúng chính tả là 'viết bài'" },
+                { q: "Chọn từ viết đúng chính tả:", options: ["xông xáo", "sông sáo", "xông sáo"], correct: 0, hint: "'Xông xáo' viết bằng chữ x" },
+                { q: "Điền s hay x: 'Ngôi ___ sáng rực trên bầu trời'", options: ["sao", "xao"], correct: 0, hint: "Ngôi sao trên trời dùng 's'" },
+                { q: "Chọn từ viết đúng chính tả:", options: ["tre che", "che tre", "cây tre", "cây che"], correct: 2, hint: "Cây tre viết bằng 'tr'" }
+            ],
+            'tu_loai': [
+                { q: "Từ nào sau đây là 'Từ chỉ sự vật'?", options: ["Mặt trời", "Rực rỡ", "Chạy nhảy", "Ngoan ngoãn"], correct: 0, hint: "Mặt trời là từ chỉ thiên thể (sự vật)." },
+                { q: "Từ nào sau đây là 'Từ chỉ hoạt động'?", options: ["Cái bàn", "Múa hát", "Xinh đẹp", "Bông hoa"], correct: 1, hint: "Múa hát là cử động/hành động." },
+                { q: "Từ nào là 'Từ chỉ đặc điểm'?", options: ["Con thỏ", "Ăn cỏ", "Trắng tinh", "Cái giỏ"], correct: 2, hint: "Trắng tinh miêu tả màu sắc (đặc điểm)." }
+            ],
+            'dau_cau': [
+                { q: "Điền dấu câu thích hợp vào cuối câu: 'Bạn tên là gì(___)'", options: ["Dấu chấm (.)", "Dấu chấm hỏi (?)", "Dấu chấm cảm (!)"], correct: 1, hint: "Đây là câu hỏi nên dùng dấu chấm hỏi (?)" },
+                { q: "Giải câu đố: 'Mùa gì nóng bức rộn rã tiếng ve?'", options: ["Mùa Xuân", "Mùa Hạ (Hè)", "Mùa Thu", "Mùa Đông"], correct: 1, hint: "Tiếng ve kêu rộn rã vào mùa Hạ!" },
+                { q: "Dấu câu nào dùng để bộc lộ cảm xúc khen ngợi: 'Ôi, bông hoa đẹp quá(___)'", options: ["Dấu chấm (.)", "Dấu phẩy (,)", "Dấu chấm cảm (!)"], correct: 2, hint: "Câu cảm thán bộc lộ cảm xúc dùng dấu chấm cảm (!)" }
+            ]
+        };
 
-            generateTvQuestion();
+        const tnxhQuestions = {
+            'dong_thuc_vat': [
+                { q: "Động vật nào sau đây sống ở môi trường dưới nước?", options: ["Con Thỏ", "Cá Cá Cá", "Chim Chim", "Con Con Hổ"], correct: 1, hint: "Cá bơi lội và thở bằng mang dưới nước!" },
+                { q: "Loài chim nào dưới đây biết bay trên bầu trời?", options: ["Chim Én", "Cá Thu", "Cua Đồng", "Mèo Mướp"], correct: 0, hint: "Chim Én có đôi cánh chao lượn trên trời." },
+                { q: "Cây nào sống và phát triển chủ yếu dưới nước?", options: ["Cây Bàng", "Hoa Súng", "Cây Cam", "Cây Thông"], correct: 1, hint: "Hoa súng nở ngát hương trên mặt nước ao hồ." }
+            ],
+            'giao_thong': [
+                { q: "Khi thấy đèn tín hiệu giao thông chuyển sang MÀU ĐỎ, người đi đường phải làm gì?", options: ["Đi thật nhanh", "Dừng lại", "Đi chậm lại", "Rẽ phải ngay"], correct: 1, hint: "Đèn đỏ thông báo phải dừng lại an toàn!" },
+                { q: "Người đi bộ muốn sang đường an toàn thì phải đi ở đâu?", options: ["Bất kỳ chỗ nào", "Đi trên vạch kẻ đường dành cho người đi bộ", "Đi giữa làn xe máy"], correct: 1, hint: "Vạch kẻ đường màu trắng là nơi sang đường an toàn cho người đi bộ." },
+                { q: "Khi ngồi trên xe máy cùng bố mẹ, em cần làm gì để an toàn?", options: ["Đội mũ bảo hiểm", "Đứng lên yên xe", "Buông hai tay"], correct: 0, hint: "Luôn đội mũ bảo hiểm đạt chuẩn để bảo vệ đầu." }
+            ],
+            'mua_thoi_tiet': [
+                { q: "Mùa nào trong năm cây cối đâm chồi nảy lộc, trăm hoa đua nở?", options: ["Mùa Xuân", "Mùa Thu", "Mùa Đông", "Mùa Hạ"], correct: 0, hint: "Mùa Xuân ấm áp là mùa của muôn hoa và chồi non!" },
+                { q: "Thời tiết mùa Đông ở miền Bắc nước ta thường như thế nào?", options: ["Nóng bức", "Lạnh giá", "Ấm áp", "Có bão lớn"], correct: 1, hint: "Mùa Đông rét lạnh, mọi người thường mặc áo ấm." },
+                { q: "Miền Nam Việt Nam có mấy mùa chính?", options: ["4 mùa (Xuân, Hạ, Thu, Đông)", "2 mùa (Mưa và Nắng)", "3 mùa", "1 mùa"], correct: 1, hint: "Miền Nam có 2 mùa rõ rệt: Mùa Mưa và Mùa Nắng." }
+            ]
+        };
+
+        // Current Active Quiz States
+        let currentMathTopic = 'cong_tru';
+        let currentMathIdx = 0;
+
+        let currentTvTopic = 'chinh_ta';
+        let currentTvIdx = 0;
+
+        let currentTnxhTopic = 'dong_thuc_vat';
+        let currentTnxhIdx = 0;
+
+        /* Render Math Quiz */
+        function loadMathTopic(topic) {
+            currentMathTopic = topic;
+            currentMathIdx = 0;
+            
+            document.querySelectorAll('.math-topic-btn').forEach(b => {
+                b.classList.remove('bg-blue-600', 'text-white');
+                b.classList.add('bg-slate-100', 'text-slate-700');
+            });
+            event.target.classList.add('bg-blue-600', 'text-white');
+            event.target.classList.remove('bg-slate-100', 'text-slate-700');
+
+            renderMathQuestion();
         }
 
-        function generateTvQuestion() {
-            const list = tvData[currentTvType];
-            const item = list[Math.floor(Math.random() * list.length)];
+        function renderMathQuestion() {
+            const container = document.getElementById('math-quiz-container');
+            const questions = mathQuestions[currentMathTopic];
+            const q = questions[currentMathIdx];
 
-            document.getElementById('tv-tag').innerText = currentTvType === 'chinh-ta' ? 'Chính Tả' : (currentTvType === 'dau-cau' ? 'Dấu Câu' : 'Phân Loại Từ');
-            document.getElementById('tv-question-text').innerText = item.q;
-
-            const optionsContainer = document.getElementById('tv-options');
-            optionsContainer.innerHTML = '';
-            item.options.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = 'bg-white hover:bg-sky-100 text-sky-900 border-2 border-sky-300 p-4 rounded-2xl text-lg font-bold btn-bounce shadow-sm transition-all';
-                btn.innerText = opt;
-                btn.onclick = () => {
-                    if (idx === item.correct) {
-                        playSound('correct');
-                        addStars(1);
-                        generateTvQuestion();
-                    } else {
-                        playSound('wrong');
-                    }
-                };
-                optionsContainer.appendChild(btn);
-            });
+            container.innerHTML = `
+                <div class="bg-blue-50/60 p-6 rounded-3xl border-2 border-blue-200">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="bg-blue-200 text-blue-800 text-xs font-extrabold px-3 py-1 rounded-full">Câu hỏi ${currentMathIdx + 1} / ${questions.length}</span>
+                        <span class="text-xs font-bold text-amber-600">Thưởng +10 ⭐</span>
+                    </div>
+                    <h3 class="font-heading font-black text-xl text-slate-800 mb-6">${q.q}</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        ${q.options.map((opt, i) => `
+                            <button onclick="checkAnswer('math', ${i})" class="bg-white hover:bg-blue-100 border-2 border-blue-300 text-slate-800 font-bold p-4 rounded-2xl text-left text-base shadow-sm transition-all bounce-click">
+                                <span class="w-8 h-8 rounded-full bg-blue-200 text-blue-800 inline-flex items-center justify-center mr-2 text-sm">${String.fromCharCode(65 + i)}</span> ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="math-feedback" class="mt-4 hidden p-4 rounded-2xl text-sm font-bold"></div>
+                </div>
+            `;
         }
 
-        /* -------------------------------------------------------------
-           5. LOGIC GAME TỰ NHIÊN VÀ XÃ HỘI
-        ------------------------------------------------------------- */
-        const animalsList = [
-            { name: 'Cá Heo', emoji: '🐬', habitat: 'nuoc' },
-            { name: 'Con Voi', emoji: '🐘', habitat: 'can' },
-            { name: 'Con Cua', emoji: '🦀', habitat: 'nuoc' },
-            { name: 'Con Chó', emoji: '🐕', habitat: 'can' },
-            { name: 'Bạch Tuộc', emoji: '🐙', habitat: 'nuoc' },
-            { name: 'Con Hổ', emoji: '🐅', habitat: 'can' },
-            { name: 'Cá Rồng', emoji: '🐠', habitat: 'nuoc' },
-            { name: 'Con Thỏ', emoji: '🐇', habitat: 'can' }
-        ];
+        /* Render TV Quiz */
+        function loadVietTopic(topic) {
+            currentTvTopic = topic;
+            currentTvIdx = 0;
 
-        let currentAnimal = null;
+            document.querySelectorAll('.tv-topic-btn').forEach(b => {
+                b.classList.remove('bg-rose-600', 'text-white');
+                b.classList.add('bg-slate-100', 'text-slate-700');
+            });
+            event.target.classList.add('bg-rose-600', 'text-white');
+            event.target.classList.remove('bg-slate-100', 'text-slate-700');
 
-        function setTnGame(mode) {
-            playSound('click');
-            if (mode === 'phan-loai') {
-                document.getElementById('tn-phan-loai-area').classList.remove('hidden');
-                document.getElementById('tn-do-vui-area').classList.add('hidden');
-                document.getElementById('btn-tn-1').className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-500 text-white';
-                document.getElementById('btn-tn-2').className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-700';
-                nextAnimal();
+            renderTvQuestion();
+        }
+
+        function renderTvQuestion() {
+            const container = document.getElementById('tv-quiz-container');
+            const questions = vietQuestions[currentTvTopic];
+            const q = questions[currentTvIdx];
+
+            container.innerHTML = `
+                <div class="bg-rose-50/60 p-6 rounded-3xl border-2 border-rose-200">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="bg-rose-200 text-rose-800 text-xs font-extrabold px-3 py-1 rounded-full">Câu hỏi ${currentTvIdx + 1} / ${questions.length}</span>
+                        <span class="text-xs font-bold text-amber-600">Thưởng +10 ⭐</span>
+                    </div>
+                    <h3 class="font-heading font-black text-xl text-slate-800 mb-6">${q.q}</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        ${q.options.map((opt, i) => `
+                            <button onclick="checkAnswer('tv', ${i})" class="bg-white hover:bg-rose-100 border-2 border-rose-300 text-slate-800 font-bold p-4 rounded-2xl text-left text-base shadow-sm transition-all bounce-click">
+                                <span class="w-8 h-8 rounded-full bg-rose-200 text-rose-800 inline-flex items-center justify-center mr-2 text-sm">${String.fromCharCode(65 + i)}</span> ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="tv-feedback" class="mt-4 hidden p-4 rounded-2xl text-sm font-bold"></div>
+                </div>
+            `;
+        }
+
+        /* Render TNXH Quiz */
+        function loadTnxhTopic(topic) {
+            currentTnxhTopic = topic;
+            currentTnxhIdx = 0;
+
+            document.querySelectorAll('.tnxh-topic-btn').forEach(b => {
+                b.classList.remove('bg-emerald-600', 'text-white');
+                b.classList.add('bg-slate-100', 'text-slate-700');
+            });
+            event.target.classList.add('bg-emerald-600', 'text-white');
+            event.target.classList.remove('bg-slate-100', 'text-slate-700');
+
+            renderTnxhQuestion();
+        }
+
+        function renderTnxhQuestion() {
+            const container = document.getElementById('tnxh-quiz-container');
+            const questions = tnxhQuestions[currentTnxhTopic];
+            const q = questions[currentTnxhIdx];
+
+            container.innerHTML = `
+                <div class="bg-emerald-50/60 p-6 rounded-3xl border-2 border-emerald-200">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="bg-emerald-200 text-emerald-800 text-xs font-extrabold px-3 py-1 rounded-full">Câu hỏi ${currentTnxhIdx + 1} / ${questions.length}</span>
+                        <span class="text-xs font-bold text-amber-600">Thưởng +10 ⭐</span>
+                    </div>
+                    <h3 class="font-heading font-black text-xl text-slate-800 mb-6">${q.q}</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        ${q.options.map((opt, i) => `
+                            <button onclick="checkAnswer('tnxh', ${i})" class="bg-white hover:bg-emerald-100 border-2 border-emerald-300 text-slate-800 font-bold p-4 rounded-2xl text-left text-base shadow-sm transition-all bounce-click">
+                                <span class="w-8 h-8 rounded-full bg-emerald-200 text-emerald-800 inline-flex items-center justify-center mr-2 text-sm">${String.fromCharCode(65 + i)}</span> ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="tnxh-feedback" class="mt-4 hidden p-4 rounded-2xl text-sm font-bold"></div>
+                </div>
+            `;
+        }
+
+        /* Answer Validation Engine */
+        function checkAnswer(module, selectedIdx) {
+            let q, feedbackEl;
+            if (module === 'math') {
+                q = mathQuestions[currentMathTopic][currentMathIdx];
+                feedbackEl = document.getElementById('math-feedback');
+            } else if (module === 'tv') {
+                q = vietQuestions[currentTvTopic][currentTvIdx];
+                feedbackEl = document.getElementById('tv-feedback');
+            } else if (module === 'tnxh') {
+                q = tnxhQuestions[currentTnxhTopic][currentTnxhIdx];
+                feedbackEl = document.getElementById('tnxh-feedback');
+            }
+
+            feedbackEl.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-rose-100', 'text-rose-800');
+
+            if (selectedIdx === q.correct) {
+                // Correct!
+                playSound('correct');
+                triggerFireworks();
+                state.stars += 10;
+                updateStateUI();
+
+                feedbackEl.classList.add('bg-emerald-100', 'text-emerald-800');
+                feedbackEl.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-base"><i class="fa-solid fa-circle-check text-emerald-600 mr-2"></i><strong>Chính xác rồi! Giỏi quá! 🎉 (+10 ⭐)</strong></p>
+                            <p class="text-xs text-emerald-700 mt-1">${q.hint}</p>
+                        </div>
+                        <button onclick="nextQuestion('${module}')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl font-extrabold text-xs ml-4 shrink-0">
+                            Câu tiếp theo <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                `;
             } else {
-                document.getElementById('tn-phan-loai-area').classList.add('hidden');
-                document.getElementById('tn-do-vui-area').classList.remove('hidden');
-                document.getElementById('btn-tn-1').className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-700';
-                document.getElementById('btn-tn-2').className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-500 text-white';
-                nextTnQuiz();
+                // Incorrect
+                playSound('wrong');
+                feedbackEl.classList.add('bg-rose-100', 'text-rose-800');
+                feedbackEl.innerHTML = `
+                    <p><i class="fa-solid fa-circle-xmark text-rose-600 mr-2"></i><strong>Tiếc quá, thử suy nghĩ lại chút nhé! 💡</strong></p>
+                    <p class="text-xs text-rose-700 mt-1">Gợi ý: ${q.hint}</p>
+                `;
             }
         }
 
-        function nextAnimal() {
-            currentAnimal = animalsList[Math.floor(Math.random() * animalsList.length)];
-            document.getElementById('tn-animal-emoji').innerText = currentAnimal.emoji;
-            document.getElementById('tn-animal-name').innerText = currentAnimal.name;
+        function nextQuestion(module) {
+            if (module === 'math') {
+                const total = mathQuestions[currentMathTopic].length;
+                currentMathIdx = (currentMathIdx + 1) % total;
+                renderMathQuestion();
+            } else if (module === 'tv') {
+                const total = vietQuestions[currentTvTopic].length;
+                currentTvIdx = (currentTvIdx + 1) % total;
+                renderTvQuestion();
+            } else if (module === 'tnxh') {
+                const total = tnxhQuestions[currentTnxhTopic].length;
+                currentTnxhIdx = (currentTnxhIdx + 1) % total;
+                renderTnxhQuestion();
+            }
         }
 
-        function checkAnimalHabitat(habitat) {
-            if (currentAnimal && habitat === currentAnimal.habitat) {
-                playSound('correct');
-                addStars(1);
-                nextAnimal();
+        /* State & Badges UI Refresh */
+        function updateStateUI() {
+            document.getElementById('user-stars').innerText = state.stars;
+
+            // Check badges
+            const b2 = document.getElementById('badge-card-2');
+            const b3 = document.getElementById('badge-card-3');
+            const b4 = document.getElementById('badge-card-4');
+
+            if (state.stars >= 50) {
+                b2.classList.remove('opacity-75');
+                document.getElementById('badge-status-2').className = "inline-block mt-3 px-3 py-1 bg-amber-100 text-amber-800 text-xs font-extrabold rounded-full";
+                document.getElementById('badge-status-2').innerText = "Đã Khóa 🥉";
+            }
+            if (state.stars >= 150) {
+                b3.classList.remove('opacity-75');
+                document.getElementById('badge-status-3').className = "inline-block mt-3 px-3 py-1 bg-slate-200 text-slate-800 text-xs font-extrabold rounded-full";
+                document.getElementById('badge-status-3').innerText = "Đã Khóa 🥈";
+            }
+            if (state.stars >= 300) {
+                b4.classList.remove('opacity-75');
+                document.getElementById('badge-status-4').className = "inline-block mt-3 px-3 py-1 bg-yellow-200 text-yellow-900 text-xs font-extrabold rounded-full";
+                document.getElementById('badge-status-4').innerText = "Đã Khóa 👑";
+            }
+
+            // Title badge header updates
+            if (state.stars >= 300) {
+                document.getElementById('user-badge-icon').innerText = '👑';
+                document.getElementById('user-badge-title').innerText = 'Siêu Sao Trí Tuệ';
+            } else if (state.stars >= 150) {
+                document.getElementById('user-badge-icon').innerText = '🥈';
+                document.getElementById('user-badge-title').innerText = 'Trí Tuệ Bạc';
+            } else if (state.stars >= 50) {
+                document.getElementById('user-badge-icon').innerText = '🥉';
+                document.getElementById('user-badge-title').innerText = 'Trí Tuệ Đồng';
+            }
+        }
+
+        /* Render Shop Avatars */
+        const shopItems = [
+            { icon: '🐱', name: 'Mèo Ú Thông Thái', price: 0 },
+            { icon: '🐶', name: 'Cún Cún Chăm Học', price: 30 },
+            { icon: '🦄', name: 'Kỳ Lân Rực Rỡ', price: 60 },
+            { icon: '🐲', name: 'Rồng Con Trí Tuệ', price: 100 }
+        ];
+
+        function renderShop() {
+            const grid = document.getElementById('shop-items-grid');
+            grid.innerHTML = shopItems.map((item, idx) => {
+                const unlocked = state.unlockedAvatars.includes(item.icon);
+                return `
+                    <div class="bg-slate-50 border-2 border-indigo-100 rounded-2xl p-4 text-center hover:shadow-md transition-all">
+                        <div class="text-5xl mb-2 animate-bounce-slow">${item.icon}</div>
+                        <h4 class="font-bold text-slate-800 text-sm mb-1">${item.name}</h4>
+                        <p class="text-xs text-amber-600 font-extrabold mb-3">Giá: ${item.price} ⭐</p>
+                        ${unlocked ? `
+                            <button class="w-full py-2 bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-sm">
+                                <i class="fa-solid fa-circle-check"></i> Đã Sở Hữu
+                            </button>
+                        ` : `
+                            <button onclick="buyAvatar('${item.icon}', ${item.price})" class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs rounded-xl shadow-md bounce-click">
+                                Đổi Ngay
+                            </button>
+                        `}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function buyAvatar(icon, price) {
+            if (state.stars >= price) {
+                state.stars -= price;
+                state.unlockedAvatars.push(icon);
+                playSound('win');
+                triggerFireworks();
+                updateStateUI();
+                renderShop();
             } else {
                 playSound('wrong');
+                alert(`Em chưa đủ Sao rồi! Cần thêm ${price - state.stars} Sao nữa nhé. Hãy chăm chỉ trả lời thêm câu hỏi nha!`);
             }
         }
 
-        const tnQuizList = [
-            { q: 'Bộ phận nào giúp cây hút nước và chất dinh dưỡng từ đất?', opts: ['Rễ cây', 'Lá cây', 'Hoa'], correct: 0 },
-            { q: 'Khi đi bộ qua đường, em cần đi ở đâu để an toàn?', opts: ['Vạch kẻ đường cho người đi bộ', 'Giữa đường', 'Bất kỳ chỗ nào'], correct: 0 },
-            { q: 'Đâu là việc làm giúp bảo vệ môi trường?', opts: ['Trồng cây xanh', 'Vứt rác bừa bãi', 'Bẻ cành cây'], correct: 0 },
-            { q: 'Cơ quan nào giúp chúng ta thở?', opts: ['Cơ quan hô hấp (Phổi)', 'Cơ quan tiêu hóa', 'Cơ quan vận động'], correct: 0 }
-        ];
-
-        function nextTnQuiz() {
-            const quiz = tnQuizList[Math.floor(Math.random() * tnQuizList.length)];
-            document.getElementById('tn-quiz-question').innerText = quiz.q;
-
-            const optsContainer = document.getElementById('tn-quiz-options');
-            optsContainer.innerHTML = '';
-
-            quiz.opts.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = 'bg-white hover:bg-emerald-100 text-emerald-900 border-2 border-emerald-300 p-4 rounded-2xl text-base font-bold btn-bounce shadow-sm transition-all';
-                btn.innerText = opt;
-                btn.onclick = () => {
-                    if (idx === quiz.correct) {
-                        playSound('correct');
-                        addStars(1);
-                        nextTnQuiz();
-                    } else {
-                        playSound('wrong');
-                    }
-                };
-                optsContainer.appendChild(btn);
-            });
-        }
-
-        /* -------------------------------------------------------------
-           6. BẢNG HUY HIỆU (BADGES)
-        ------------------------------------------------------------- */
-        const badgesData = [
-            { id: 'b1', name: 'Mầm Non Trí Tuệ', req: 5, emoji: '🌱', desc: 'Đạt 5 Sao ⭐' },
-            { id: 'b2', name: 'Dũng Sĩ Toán Học', req: 15, emoji: '🧮', desc: 'Đạt 15 Sao ⭐' },
-            { id: 'b3', name: 'Vua Tiếng Việt', req: 30, emoji: '📖', desc: 'Đạt 30 Sao ⭐' },
-            { id: 'b4', name: 'Nhà Khoa Học Nhí', req: 50, emoji: '🔬', desc: 'Đạt 50 Sao ⭐' },
-            { id: 'b5', name: 'Siêu Nhân Chăm Chỉ', req: 80, emoji: '⚡', desc: 'Đạt 80 Sao ⭐' },
-            { id: 'b6', name: 'Huyền Thoại Lớp 2', req: 100, emoji: '👑', desc: 'Đạt 100 Sao ⭐' }
-        ];
-
-        function renderBadges() {
-            const container = document.getElementById('badge-container');
-            container.innerHTML = '';
-
-            badgesData.forEach(b => {
-                const isUnlocked = totalStars >= b.req;
-                const card = document.createElement('div');
-                card.className = `p-4 rounded-2xl border-2 text-center transition-all ${
-                    isUnlocked 
-                    ? 'bg-gradient-to-b from-purple-50 to-pink-50 border-purple-300 shadow-md' 
-                    : 'bg-slate-100 border-slate-200 opacity-60 grayscale'
-                }`;
-
-                card.innerHTML = `
-                    <div class="text-4xl mb-2 ${isUnlocked ? 'animate-bounce' : ''}">${b.emoji}</div>
-                    <h4 class="font-bold text-slate-800 text-sm sm:text-base">${b.name}</h4>
-                    <p class="text-xs text-slate-500 font-semibold mt-1">${b.desc}</p>
-                    <span class="inline-block mt-2 text-[10px] px-2 py-0.5 rounded-full font-bold ${
-                        isUnlocked ? 'bg-purple-500 text-white' : 'bg-slate-300 text-slate-600'
-                    }">
-                        ${isUnlocked ? 'Đã Mở Khóa 🎉' : 'Chưa Khóa 🔒'}
-                    </span>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        /* -------------------------------------------------------------
-           KHỞI TẠO GAME KHI TẢI TRANG
-        ------------------------------------------------------------- */
+        /* Initial Setup */
         window.onload = function() {
-            generateMathQuestion();
-            generateTvQuestion();
-            nextAnimal();
-            renderBadges();
+            renderMathQuestion();
+            renderTvQuestion();
+            renderTnxhQuestion();
+            renderShop();
+            updateStateUI();
         };
     </script>
 </body>
