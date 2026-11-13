@@ -32,7 +32,7 @@
         }
 
         h1 { color: #ff6b6b; font-size: 32px; text-shadow: 2px 2px 0px #ffeaa7; }
-        h2 { color: #0984e3; }
+        h2 { color: #0984e3; margin-bottom: 25px; }
 
         /* Nút ở Màn hình chính */
         .subject-btn {
@@ -51,6 +51,7 @@
         }
         .subject-btn:active { transform: translateY(6px); box-shadow: none; }
         .btn-toan { background: #fdcb6e; color: #d63031; }
+        .btn-tuduy { background: #a29bfe; color: white; border: 3px dashed #6c5ce7; }
         .btn-tv { background: #74b9ff; color: #0984e3; }
         .btn-dovui { background: #55efc4; color: #00b894; }
         .btn-game { background: #ff7675; color: white; border: 3px dashed #fab1a0; }
@@ -105,19 +106,17 @@
 <body>
 
 <div class="game-container">
-        <!-- MÀN HÌNH CHÍNH -->
+    <!-- MÀN HÌNH CHÍNH -->
     <div id="home-screen">
         <h1>🏝️ ĐẢO TRI THỨC LỚP 2 🏝️</h1>
         <h2>Hôm nay con muốn làm gì nào?</h2>
         <button class="subject-btn btn-toan" onclick="startGame('Toan')">🧮 Thử thách Toán Học</button>
+        <button class="subject-btn btn-tuduy" onclick="startGame('ToanTuDuy')">🧠 Toán Tư Duy (Nâng cao)</button>
         <button class="subject-btn btn-tv" onclick="startGame('TiengViet')">📖 Khám phá Tiếng Việt</button>
-        
-        <!-- NÚT MỚI: TOÁN TƯ DUY -->
-        <button class="subject-btn" style="background: #ffeaa7; color: #d63031;" onclick="startGame('ToanTuDuy')">🧩 Toán Tư Duy (Nâng cao)</button>
-        
         <button class="subject-btn btn-dovui" onclick="startGame('DoVui')">🎯 Đố Vui Có Thưởng</button>
         <button class="subject-btn btn-game" onclick="startMiniGame()">🎮 Khu Vui Chơi (Giải trí)</button>
     </div>
+
     <!-- MÀN HÌNH HỌC TẬP (QUIZ) -->
     <div id="quiz-screen" style="display: none;">
         <div class="game-nav">
@@ -143,7 +142,7 @@
     <!-- MÀN HÌNH TRÒ CHƠI (MINI GAME) -->
     <div id="minigame-screen" style="display: none;">
         <div class="game-nav">
-            <button class="back-btn" onclick="goHome()">🔙 Quay lại học</button>
+            <button class="back-btn" onclick="goHome()">🔙 Thoát</button>
             <h3 style="margin:0; color:#e17055;">Lật Hình Động Vật 🐯</h3>
         </div>
         <p style="color:#636e72; font-size: 16px; margin-top:0;">Tìm 2 hình giống nhau để ghi điểm nhé!</p>
@@ -174,7 +173,7 @@
     }
 
     function startGame(subjectKey) {
-        // Trộn câu hỏi và lấy 10 câu để bé không bị ngợp
+        // Trộn câu hỏi và lấy 10 câu ngẫu nhiên từ file questions.js
         let shuffled = [...nganHangCauHoi[subjectKey]].sort(() => Math.random() - 0.5);
         currentSubject = shuffled.slice(0, 10); 
         currentIndex = 0;
