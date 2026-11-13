@@ -6250,7 +6250,7 @@ const nganHangCauHoi = {
         },
         {
             "baiHoc": "Toán đố logic (Trồng cây)",
-            "cauHoi": "Dũng trồng 5 cây thành một hàng thẳng. Khoảng cách giữa 2 cây liền nhau là 2 mét. Hỏi cây đầu cách cây cuối bao nhiêu mét? 🌳",
+            "cauHoi": "An trồng 5 cây thành một hàng thẳng. Khoảng cách giữa 2 cây liền nhau là 2 mét. Hỏi cây đầu cách cây cuối bao nhiêu mét? 🌳",
             "dapAn": [
                 "10 mét",
                 "8 mét",
@@ -6262,7 +6262,7 @@ const nganHangCauHoi = {
         },
         {
             "baiHoc": "Toán đố logic (Xếp hàng)",
-            "cauHoi": "Khang xếp hàng mua vé xem phim. Phía trước Khang có 3 người, phía sau Khang có 4 người. Hỏi hàng đó có tất cả bao nhiêu người? 🧍‍♂️",
+            "cauHoi": "Bình xếp hàng mua vé xem phim. Phía trước Bình có 3 người, phía sau Bình có 4 người. Hỏi hàng đó có tất cả bao nhiêu người? 🧍‍♂️",
             "dapAn": [
                 "7 người",
                 "8 người",
@@ -6270,7 +6270,7 @@ const nganHangCauHoi = {
                 "6 người"
             ],
             "dapAnDung": "8 người",
-            "giaiThich": "Tính cả Khang nữa: 3 (trước) + 1 (Khang) + 4 (sau) = 8 người."
+            "giaiThich": "Tính cả Bình nữa: 3 (trước) + 1 (Bình) + 4 (sau) = 8 người."
         },
         {
             "baiHoc": "Toán đố logic (Xếp hàng)",
@@ -6370,7 +6370,7 @@ const nganHangCauHoi = {
         },
         {
             "baiHoc": "Logic Tuổi",
-            "cauHoi": "Năm nay Huy 8 tuổi. Khang lớn hơn Huy 2 tuổi. Hỏi tổng số tuổi của cả hai anh em là bao nhiêu? 🎂",
+            "cauHoi": "Năm nay Huy 8 tuổi. Bình lớn hơn Huy 2 tuổi. Hỏi tổng số tuổi của cả hai anh em là bao nhiêu? 🎂",
             "dapAn": [
                 "10 tuổi",
                 "16 tuổi",
@@ -6378,7 +6378,7 @@ const nganHangCauHoi = {
                 "20 tuổi"
             ],
             "dapAnDung": "18 tuổi",
-            "giaiThich": "Tuổi Khang là 8+2=10. Tổng tuổi hai anh em là 8+10=18."
+            "giaiThich": "Tuổi Bình là 8+2=10. Tổng tuổi hai anh em là 8+10=18."
         },
         {
             "baiHoc": "Logic Số học",
@@ -6406,7 +6406,7 @@ const nganHangCauHoi = {
         },
         {
             "baiHoc": "Tư duy tính ngược",
-            "cauHoi": "Dũng nghĩ ra một số. Nếu lấy số đó cộng với 5 thì được 12. Hỏi Dũng đang nghĩ số mấy? 🧠",
+            "cauHoi": "An nghĩ ra một số. Nếu lấy số đó cộng với 5 thì được 12. Hỏi An đang nghĩ số mấy? 🧠",
             "dapAn": [
                 "6",
                 "7",
@@ -6430,7 +6430,7 @@ const nganHangCauHoi = {
         },
         {
             "baiHoc": "Toán hình học",
-            "cauHoi": "Dũng cắt một tờ giấy hình chữ nhật bằng 1 nhát kéo thẳng theo đường chéo. Hỏi Dũng thu được hình gì? ✂️",
+            "cauHoi": "An cắt một tờ giấy hình chữ nhật bằng 1 nhát kéo thẳng theo đường chéo. Hỏi An thu được hình gì? ✂️",
             "dapAn": [
                 "2 hình vuông",
                 "2 hình tam giác",
