@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vườn Trí Tuệ Lớp 2 - Đa Tài Khoản</title>
+    <title>Vườn Trí Tuệ Lớp 2 - Đa Tài Khoản & Vô Tận</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Nunito -->
@@ -455,8 +455,16 @@
                 `;
                 grid.appendChild(card);
             });
+
             let unlockedCount = state.badges.filter(Boolean).length;
-            document.getElementById('endless-unlock-status').innerText = `Tiến độ: ${unlockedCount}/4 Huy hiệu`;
+            const statusBox = document.getElementById('endless-unlock-status');
+            if (unlockedCount >= 4) {
+                statusBox.className = "bg-emerald-500 text-white rounded-xl p-2.5 text-center text-xs font-black shadow";
+                statusBox.innerText = "🎉 ĐÃ KÍCH HOẠT THÀNH CÔNG THẾ GIỚI VÔ TẬN ♾️!";
+            } else {
+                statusBox.className = "bg-white/20 rounded-xl p-2.5 text-center text-xs font-bold text-white";
+                statusBox.innerText = `Tiến độ: ${unlockedCount}/4 Huy hiệu`;
+            }
         }
 
         function updateHUD() {
@@ -468,10 +476,10 @@
             
             if (state.isEndlessMode) {
                 document.getElementById('user-level-status').innerText = "Cấp độ: Thám tử vô tận ♾️";
-                document.getElementById('world-status-text').innerText = "Thế giới vô tận (Đã mở khóa)";
+                document.getElementById('world-status-text').innerText = "Thế giới vô tận (Đã mở khóa ♾️)";
             } else {
                 document.getElementById('user-level-status').innerText = `Cấp độ: Thám tử tập sự (${unlockedCount}/4)`;
-                document.getElementById('world-status-text').innerText = `Đang chinh phục cơ bản (${unlockedCount}/4)`;
+                document.getElementById('world-status-text').innerText = `Đang chinh phục cơ bản (${unlockedCount}/4 Huy hiệu)`;
             }
         }
 
