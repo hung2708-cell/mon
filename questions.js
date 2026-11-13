@@ -6029,6 +6029,186 @@ const nganHangCauHoi = {
             ],
             "dapAnDung": "Cầu vồng",
             "giaiThich": "Đó là Cầu vồng."
+        },
+        {
+            "baiHoc": "Truyện cổ tích",
+            "cauHoi": "Quả gì thơm nức nhà bà, cô Tấm bước ra giúp bà việc nhà? 🍈",
+            "dapAn": [
+                "Quả thị",
+                "Quả bưởi",
+                "Quả dưa",
+                "Quả cam"
+            ],
+            "dapAnDung": "Quả thị",
+            "giaiThich": "Quả thị trong truyện Tấm Cám tỏa hương thơm ngát."
+        },
+        {
+            "baiHoc": "Đồ vật quanh ta",
+            "cauHoi": "Có cành, có lá, có cây, mà chẳng sinh trái, chẳng rụng lá bao giờ. Là gì? 🧹",
+            "dapAn": [
+                "Cây chổi",
+                "Cây cau",
+                "Cây tre",
+                "Cây nấm"
+            ],
+            "dapAnDung": "Cây chổi",
+            "giaiThich": "Chổi rễ hoặc chổi đót có cành, có lá để quét nhà."
+        },
+        {
+            "baiHoc": "Thế giới động vật",
+            "cauHoi": "Con gì ăn cỏ, đầu có 2 sừng, lỗ mũi buộc thừng, cày bừa rất giỏi? 🐃",
+            "dapAn": [
+                "Con trâu",
+                "Con bò",
+                "Con ngựa",
+                "Con dê"
+            ],
+            "dapAnDung": "Con trâu",
+            "giaiThich": "Trâu là người bạn thân thiết của nhà nông, giúp cày bừa."
+        },
+        {
+            "baiHoc": "Thế giới động vật",
+            "cauHoi": "Vừa bằng hạt đỗ, ăn giỗ cả làng. Là con gì? 🪰",
+            "dapAn": [
+                "Con ruồi",
+                "Con kiến",
+                "Con muỗi",
+                "Con ong"
+            ],
+            "dapAnDung": "Con ruồi",
+            "giaiThich": "Ruồi thường hay bay vào mâm cỗ dù không được mời."
+        },
+        {
+            "baiHoc": "Đồ dùng học tập",
+            "cauHoi": "Cái gì hai mặt nhẵn thinh, giúp bé soi mình chải tóc hằng ngày? 🪞",
+            "dapAn": [
+                "Cái gương",
+                "Cái lược",
+                "Cái bảng",
+                "Cái kính"
+            ],
+            "dapAnDung": "Cái gương",
+            "giaiThich": "Gương dùng để soi gương, chỉnh đốn quần áo, đầu tóc."
+        },
+        {
+            "baiHoc": "Cơ thể bé",
+            "cauHoi": "Cái gì lách cách suốt ngày, ăn no ngủ kỹ, không làm thì thôi? 🦷",
+            "dapAn": [
+                "Hàm răng",
+                "Cái lưỡi",
+                "Cái miệng",
+                "Bàn tay"
+            ],
+            "dapAnDung": "Hàm răng",
+            "giaiThich": "Hàm răng nhai thức ăn tạo ra tiếng lách cách."
+        },
+        {
+            "baiHoc": "Thế giới thực vật",
+            "cauHoi": "Hoa gì nở giữa mùa hè, trong đầm thơm mát, lá xòe che ô? 🪷",
+            "dapAn": [
+                "Hoa sen",
+                "Hoa súng",
+                "Hoa phượng",
+                "Hoa hồng"
+            ],
+            "dapAnDung": "Hoa sen",
+            "giaiThich": "Hoa sen mọc trong đầm lầy, lá to và rất thơm."
+        },
+        {
+            "baiHoc": "Thế giới động vật",
+            "cauHoi": "Con gì mào đỏ gáy te te, gọi người thức dậy đón ngày mới sang? 🐓",
+            "dapAn": [
+                "Gà trống",
+                "Gà mái",
+                "Con chim",
+                "Con chó"
+            ],
+            "dapAnDung": "Gà trống",
+            "giaiThich": "Gà trống gáy 'ò ó o' gọi bình minh thức giấc."
+        },
+        {
+            "baiHoc": "Đồ vật quanh ta",
+            "cauHoi": "Thân mình bằng sắt bằng đồng, quay đi quay lại quạt tung gió trời. Là gì? 🌬️",
+            "dapAn": [
+                "Cái quạt máy",
+                "Cái chong chóng",
+                "Cái ô",
+                "Cái máy sấy"
+            ],
+            "dapAnDung": "Cái quạt máy",
+            "giaiThich": "Quạt máy chạy bằng điện, cánh quạt quay tạo ra gió mát."
+        },
+        {
+            "baiHoc": "Phương tiện giao thông",
+            "cauHoi": "Xe gì nhiều bánh, chạy trên đường ray, xình xịch suốt ngày, kéo bao nhiêu toa? 🚂",
+            "dapAn": [
+                "Tàu hỏa (xe lửa)",
+                "Xe tải",
+                "Xe buýt",
+                "Xe máy"
+            ],
+            "dapAnDung": "Tàu hỏa (xe lửa)",
+            "giaiThich": "Tàu hỏa có nhiều toa xếp nối đuôi nhau chạy trên đường ray."
+        },
+        {
+            "baiHoc": "Thế giới động vật",
+            "cauHoi": "Con gì sủa gâu gâu, giữ nhà rất giỏi? 🐶",
+            "dapAn": [
+                "Con chó",
+                "Con chuột",
+                "Con heo",
+                "Con gà"
+            ],
+            "dapAnDung": "Con chó",
+            "giaiThich": "Con chó có đặc điểm như vậy đấy!"
+        },
+        {
+            "baiHoc": "Thế giới động vật",
+            "cauHoi": "Con gì bắt chuột tài ba, thích ăn cá? 🐱",
+            "dapAn": [
+                "Con mèo",
+                "Con chuột",
+                "Con heo",
+                "Con gà"
+            ],
+            "dapAnDung": "Con mèo",
+            "giaiThich": "Con mèo có đặc điểm như vậy đấy!"
+        },
+        {
+            "baiHoc": "Thế giới động vật",
+            "cauHoi": "Con gì ngồi đáy giếng, kêu ộp ộp? 🐸",
+            "dapAn": [
+                "Con ếch",
+                "Con chuột",
+                "Con heo",
+                "Con gà"
+            ],
+            "dapAnDung": "Con ếch",
+            "giaiThich": "Con ếch có đặc điểm như vậy đấy!"
+        },
+        {
+            "baiHoc": "Thế giới động vật",
+            "cauHoi": "Con gì thích leo trèo, ăn chuối rất giỏi? 🐒",
+            "dapAn": [
+                "Con khỉ",
+                "Con chuột",
+                "Con heo",
+                "Con gà"
+            ],
+            "dapAnDung": "Con khỉ",
+            "giaiThich": "Con khỉ có đặc điểm như vậy đấy!"
+        },
+        {
+            "baiHoc": "Thế giới động vật",
+            "cauHoi": "Con gì mai cứng như đá, bò chậm rì rì? 🐢",
+            "dapAn": [
+                "Con rùa",
+                "Con chuột",
+                "Con heo",
+                "Con gà"
+            ],
+            "dapAnDung": "Con rùa",
+            "giaiThich": "Con rùa có đặc điểm như vậy đấy!"
         }
     ],
     "ToanTuDuy": [
@@ -6070,7 +6250,7 @@ const nganHangCauHoi = {
         },
         {
             "baiHoc": "Toán đố logic (Trồng cây)",
-            "cauHoi": "Minh trồng 5 cây thành một hàng thẳng. Khoảng cách giữa 2 cây liền nhau là 2 mét. Hỏi cây đầu cách cây cuối bao nhiêu mét? 🌳",
+            "cauHoi": "Dũng trồng 5 cây thành một hàng thẳng. Khoảng cách giữa 2 cây liền nhau là 2 mét. Hỏi cây đầu cách cây cuối bao nhiêu mét? 🌳",
             "dapAn": [
                 "10 mét",
                 "8 mét",
@@ -6082,7 +6262,7 @@ const nganHangCauHoi = {
         },
         {
             "baiHoc": "Toán đố logic (Xếp hàng)",
-            "cauHoi": "Hoàng xếp hàng mua vé xem phim. Phía trước Hoàng có 3 người, phía sau Hoàng có 4 người. Hỏi hàng đó có tất cả bao nhiêu người? 🧍‍♂️",
+            "cauHoi": "Khang xếp hàng mua vé xem phim. Phía trước Khang có 3 người, phía sau Khang có 4 người. Hỏi hàng đó có tất cả bao nhiêu người? 🧍‍♂️",
             "dapAn": [
                 "7 người",
                 "8 người",
@@ -6090,7 +6270,7 @@ const nganHangCauHoi = {
                 "6 người"
             ],
             "dapAnDung": "8 người",
-            "giaiThich": "Tính cả Hoàng nữa: 3 (trước) + 1 (Hoàng) + 4 (sau) = 8 người."
+            "giaiThich": "Tính cả Khang nữa: 3 (trước) + 1 (Khang) + 4 (sau) = 8 người."
         },
         {
             "baiHoc": "Toán đố logic (Xếp hàng)",
@@ -6190,7 +6370,7 @@ const nganHangCauHoi = {
         },
         {
             "baiHoc": "Logic Tuổi",
-            "cauHoi": "Năm nay Huy 8 tuổi. Hoàng lớn hơn Huy 2 tuổi. Hỏi tổng số tuổi của cả hai anh em là bao nhiêu? 🎂",
+            "cauHoi": "Năm nay Huy 8 tuổi. Khang lớn hơn Huy 2 tuổi. Hỏi tổng số tuổi của cả hai anh em là bao nhiêu? 🎂",
             "dapAn": [
                 "10 tuổi",
                 "16 tuổi",
@@ -6198,7 +6378,7 @@ const nganHangCauHoi = {
                 "20 tuổi"
             ],
             "dapAnDung": "18 tuổi",
-            "giaiThich": "Tuổi Hoàng là 8+2=10. Tổng tuổi hai anh em là 8+10=18."
+            "giaiThich": "Tuổi Khang là 8+2=10. Tổng tuổi hai anh em là 8+10=18."
         },
         {
             "baiHoc": "Logic Số học",
@@ -6226,7 +6406,7 @@ const nganHangCauHoi = {
         },
         {
             "baiHoc": "Tư duy tính ngược",
-            "cauHoi": "Minh nghĩ ra một số. Nếu lấy số đó cộng với 5 thì được 12. Hỏi Minh đang nghĩ số mấy? 🧠",
+            "cauHoi": "Dũng nghĩ ra một số. Nếu lấy số đó cộng với 5 thì được 12. Hỏi Dũng đang nghĩ số mấy? 🧠",
             "dapAn": [
                 "6",
                 "7",
@@ -6250,7 +6430,7 @@ const nganHangCauHoi = {
         },
         {
             "baiHoc": "Toán hình học",
-            "cauHoi": "Minh cắt một tờ giấy hình chữ nhật bằng 1 nhát kéo thẳng theo đường chéo. Hỏi Minh thu được hình gì? ✂️",
+            "cauHoi": "Dũng cắt một tờ giấy hình chữ nhật bằng 1 nhát kéo thẳng theo đường chéo. Hỏi Dũng thu được hình gì? ✂️",
             "dapAn": [
                 "2 hình vuông",
                 "2 hình tam giác",
