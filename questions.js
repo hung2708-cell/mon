@@ -1,4 +1,3 @@
-// File: questions.js
 const nganHangCauHoi = {
     "Toan": [
         {
