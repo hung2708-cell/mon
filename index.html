@@ -105,16 +105,19 @@
 <body>
 
 <div class="game-container">
-    <!-- MÀN HÌNH CHÍNH -->
+        <!-- MÀN HÌNH CHÍNH -->
     <div id="home-screen">
         <h1>🏝️ ĐẢO TRI THỨC LỚP 2 🏝️</h1>
         <h2>Hôm nay con muốn làm gì nào?</h2>
         <button class="subject-btn btn-toan" onclick="startGame('Toan')">🧮 Thử thách Toán Học</button>
         <button class="subject-btn btn-tv" onclick="startGame('TiengViet')">📖 Khám phá Tiếng Việt</button>
+        
+        <!-- NÚT MỚI: TOÁN TƯ DUY -->
+        <button class="subject-btn" style="background: #ffeaa7; color: #d63031;" onclick="startGame('ToanTuDuy')">🧩 Toán Tư Duy (Nâng cao)</button>
+        
         <button class="subject-btn btn-dovui" onclick="startGame('DoVui')">🎯 Đố Vui Có Thưởng</button>
         <button class="subject-btn btn-game" onclick="startMiniGame()">🎮 Khu Vui Chơi (Giải trí)</button>
     </div>
-
     <!-- MÀN HÌNH HỌC TẬP (QUIZ) -->
     <div id="quiz-screen" style="display: none;">
         <div class="game-nav">
