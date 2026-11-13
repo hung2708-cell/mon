@@ -5982,7 +5982,7 @@ const nganHangCauHoi = {
     "TiengViet": [
         {
             "baiHoc": "Từ chỉ sự vật",
-            "cauHoi": "Từ nào chỉ đồ dùng học tập? 🎒",
+            "cauHoi": "Từ nào dưới đây chỉ đồ dùng học tập? 🎒",
             "dapAn": [
                 "Múa hát",
                 "Cái cặp",
@@ -5990,19 +5990,631 @@ const nganHangCauHoi = {
                 "Vui vẻ"
             ],
             "dapAnDung": "Cái cặp",
-            "giaiThich": "Cái cặp dùng để đựng sách vở."
+            "giaiThich": "Cái cặp là đồ dùng học tập."
+        },
+        {
+            "baiHoc": "Từ chỉ sự vật",
+            "cauHoi": "Từ nào dưới đây chỉ loài vật? 🐶",
+            "dapAn": [
+                "Cái bàn",
+                "Con chó",
+                "Chạy nhảy",
+                "Đỏ rực"
+            ],
+            "dapAnDung": "Con chó",
+            "giaiThich": "Con chó là từ chỉ loài vật."
+        },
+        {
+            "baiHoc": "Từ chỉ sự vật",
+            "cauHoi": "Từ nào dưới đây chỉ cây cối? 🌳",
+            "dapAn": [
+                "Cây bàng",
+                "Nhảy múa",
+                "Thong thả",
+                "Xanh ngắt"
+            ],
+            "dapAnDung": "Cây bàng",
+            "giaiThich": "Cây bàng là từ chỉ thực vật (cây cối)."
+        },
+        {
+            "baiHoc": "Từ chỉ sự vật",
+            "cauHoi": "Từ nào dưới đây chỉ người thân trong gia đình? 👨‍👩‍👦",
+            "dapAn": [
+                "Cái ghế",
+                "Cô giáo",
+                "Mẹ",
+                "Quyển vở"
+            ],
+            "dapAnDung": "Mẹ",
+            "giaiThich": "Mẹ là từ chỉ người trong gia đình."
+        },
+        {
+            "baiHoc": "Từ chỉ sự vật",
+            "cauHoi": "Tìm từ chỉ sự vật trong câu: 'Đàn chim đang bay lượn trên bầu trời.' 🐦",
+            "dapAn": [
+                "Đàn chim",
+                "đang bay",
+                "lượn",
+                "trên"
+            ],
+            "dapAnDung": "Đàn chim",
+            "giaiThich": "'Đàn chim' là từ chỉ sự vật (loài vật)."
+        },
+        {
+            "baiHoc": "Từ chỉ sự vật",
+            "cauHoi": "Từ nào chỉ đồ vật trong phòng khách? 🛋️",
+            "dapAn": [
+                "Bộ sofa",
+                "Cái cày",
+                "Cái liềm",
+                "Bảng đen"
+            ],
+            "dapAnDung": "Bộ sofa",
+            "giaiThich": "Bộ sofa là đồ vật thường được đặt ở phòng khách."
+        },
+        {
+            "baiHoc": "Từ chỉ sự vật",
+            "cauHoi": "Từ nào chỉ dụng cụ nhà nông? 🧑‍🌾",
+            "dapAn": [
+                "Cái cuốc",
+                "Cái thước",
+                "Cái bút",
+                "Tivi"
+            ],
+            "dapAnDung": "Cái cuốc",
+            "giaiThich": "Cái cuốc là dụng cụ làm ruộng của bác nông dân."
+        },
+        {
+            "baiHoc": "Từ chỉ sự vật",
+            "cauHoi": "Từ nào chỉ loại quả? 🍎",
+            "dapAn": [
+                "Quả táo",
+                "Cái bàn",
+                "Đá bóng",
+                "Chạy nhanh"
+            ],
+            "dapAnDung": "Quả táo",
+            "giaiThich": "Quả táo là từ chỉ trái cây (thực vật)."
+        },
+        {
+            "baiHoc": "Từ chỉ sự vật",
+            "cauHoi": "Từ nào chỉ phương tiện giao thông đường thủy? ⛵",
+            "dapAn": [
+                "Chiếc thuyền",
+                "Xe đạp",
+                "Ô tô",
+                "Máy bay"
+            ],
+            "dapAnDung": "Chiếc thuyền",
+            "giaiThich": "Thuyền di chuyển trên mặt nước (đường thủy)."
+        },
+        {
+            "baiHoc": "Từ chỉ sự vật",
+            "cauHoi": "Từ nào chỉ hiện tượng tự nhiên? 🌧️",
+            "dapAn": [
+                "Cơn mưa",
+                "Cái bảng",
+                "Quyển sách",
+                "Con mèo"
+            ],
+            "dapAnDung": "Cơn mưa",
+            "giaiThich": "Cơn mưa là hiện tượng tự nhiên của thời tiết."
+        },
+        {
+            "baiHoc": "Từ chỉ hoạt động",
+            "cauHoi": "Trong các từ sau, từ nào là từ chỉ hoạt động? ⚽",
+            "dapAn": [
+                "Đá bóng",
+                "Quả bóng",
+                "To lớn",
+                "Xanh mướt"
+            ],
+            "dapAnDung": "Đá bóng",
+            "giaiThich": "'Đá bóng' là hành động, hoạt động của con người."
+        },
+        {
+            "baiHoc": "Từ chỉ hoạt động",
+            "cauHoi": "Tìm từ chỉ hoạt động trong câu: 'Bé chăm chú đọc sách trong phòng.' 📖",
+            "dapAn": [
+                "Bé",
+                "đọc sách",
+                "trong phòng",
+                "chăm chú"
+            ],
+            "dapAnDung": "đọc sách",
+            "giaiThich": "'đọc sách' là hoạt động của bé."
+        },
+        {
+            "baiHoc": "Từ chỉ hoạt động",
+            "cauHoi": "Từ nào KHÔNG phải là từ chỉ hoạt động? 🏃",
+            "dapAn": [
+                "Chạy nhảy",
+                "Ca hát",
+                "Nhảy múa",
+                "Thông minh"
+            ],
+            "dapAnDung": "Thông minh",
+            "giaiThich": "'Thông minh' là từ chỉ đặc điểm trí tuệ, không phải hoạt động."
+        },
+        {
+            "baiHoc": "Từ chỉ hoạt động",
+            "cauHoi": "Hành động của tay khi viết bài được gọi là gì? ✍️",
+            "dapAn": [
+                "Viết",
+                "Ngủ",
+                "Ăn",
+                "Nghe"
+            ],
+            "dapAnDung": "Viết",
+            "giaiThich": "'Viết' là hoạt động dùng tay cầm bút tạo ra chữ viết."
+        },
+        {
+            "baiHoc": "Từ chỉ hoạt động",
+            "cauHoi": "Con cá di chuyển trong nước bằng hành động gì? 🐟",
+            "dapAn": [
+                "Bơi",
+                "Đi",
+                "Chạy",
+                "Nhảy"
+            ],
+            "dapAnDung": "Bơi",
+            "giaiThich": "Cá bơi lội dưới nước."
+        },
+        {
+            "baiHoc": "Từ chỉ hoạt động",
+            "cauHoi": "Chim bay trên trời dùng bộ phận nào để thực hiện hoạt động bay? 🦅",
+            "dapAn": [
+                "Đôi cánh",
+                "Đôi chân",
+                "Cái mỏ",
+                "Cái đuôi"
+            ],
+            "dapAnDung": "Đôi cánh",
+            "giaiThich": "Chim dùng đôi cánh để bay lượn."
+        },
+        {
+            "baiHoc": "Từ chỉ hoạt động",
+            "cauHoi": "Từ nào chỉ hoạt động về đêm của con người? 🌙",
+            "dapAn": [
+                "Ngủ",
+                "Học",
+                "Chạy",
+                "Đọc"
+            ],
+            "dapAnDung": "Ngủ",
+            "giaiThich": "'Ngủ' là trạng thái nghỉ ngơi quan trọng ban đêm."
+        },
+        {
+            "baiHoc": "Từ chỉ hoạt động",
+            "cauHoi": "Hoạt động nào giúp cơ thể sạch sẽ mỗi ngày? 🚿",
+            "dapAn": [
+                "Tắm rửa",
+                "Chạy nhảy",
+                "Ngủ nướng",
+                "Xem tivi"
+            ],
+            "dapAnDung": "Tắm rửa",
+            "giaiThich": "Tắm rửa giúp vệ sinh cơ thể sạch sẽ."
+        },
+        {
+            "baiHoc": "Từ chỉ hoạt động",
+            "cauHoi": "Hành động hít thở không khí trong lành buổi sáng gọi là gì? 🌳",
+            "dapAn": [
+                "Tập thể dục",
+                "Ngủ",
+                "Ăn",
+                "Uống"
+            ],
+            "dapAnDung": "Tập thể dục",
+            "giaiThich": "Tập thể dục giúp rèn luyện sức khỏe."
+        },
+        {
+            "baiHoc": "Từ chỉ hoạt động",
+            "cauHoi": "Khi cô giáo giảng bài, học sinh thực hiện hoạt động gì? 🧑‍🏫",
+            "dapAn": [
+                "Lắng nghe",
+                "Nói chuyện",
+                "Đùa nghịch",
+                "Ngủ gật"
+            ],
+            "dapAnDung": "Lắng nghe",
+            "giaiThich": "Học sinh ngoan cần lắng nghe cô giáo giảng bài."
+        },
+        {
+            "baiHoc": "Từ chỉ đặc điểm",
+            "cauHoi": "Từ nào dưới đây chỉ đặc điểm màu sắc? 🎨",
+            "dapAn": [
+                "Đỏ thắm",
+                "Chạy nhảy",
+                "Học bài",
+                "Cái bàn"
+            ],
+            "dapAnDung": "Đỏ thắm",
+            "giaiThich": "'Đỏ thắm' là từ chỉ đặc điểm màu sắc của sự vật."
+        },
+        {
+            "baiHoc": "Từ chỉ đặc điểm",
+            "cauHoi": "Từ nào chỉ tính nết của con người? 🌟",
+            "dapAn": [
+                "Chăm chỉ",
+                "Cái bút",
+                "Bay lượn",
+                "Chạy nhanh"
+            ],
+            "dapAnDung": "Chăm chỉ",
+            "giaiThich": "'Chăm chỉ' là từ chỉ tính nết, đặc điểm của con người."
+        },
+        {
+            "baiHoc": "Từ chỉ đặc điểm",
+            "cauHoi": "Quả ớt có vị gì mà được gọi là từ chỉ đặc điểm vị? 🌶️",
+            "dapAn": [
+                "Cay",
+                "Ngọt",
+                "Chua",
+                "Bùi"
+            ],
+            "dapAnDung": "Cay",
+            "giaiThich": "'Cay' là từ chỉ đặc điểm vị giác của quả ớt."
+        },
+        {
+            "baiHoc": "Từ chỉ đặc điểm",
+            "cauHoi": "Tìm từ chỉ đặc điểm trong câu: 'Dòng sông quê em rất hiền hòa.' 🌊",
+            "dapAn": [
+                "Dòng sông",
+                "quê em",
+                "hiền hòa",
+                "đang chảy"
+            ],
+            "dapAnDung": "hiền hòa",
+            "giaiThich": "'hiền hòa' là từ chỉ đặc điểm của dòng sông."
+        },
+        {
+            "baiHoc": "Từ chỉ đặc điểm",
+            "cauHoi": "Từ nào chỉ hình dáng của một vật? 📏",
+            "dapAn": [
+                "Tròn xoe",
+                "Ngọt lịm",
+                "Đỏ chót",
+                "Thơm phức"
+            ],
+            "dapAnDung": "Tròn xoe",
+            "giaiThich": "'Tròn xoe' miêu tả hình dáng."
+        },
+        {
+            "baiHoc": "Từ chỉ đặc điểm",
+            "cauHoi": "Mật ong có đặc điểm hương vị gì nổi bật? 🍯",
+            "dapAn": [
+                "Ngọt ngào",
+                "Đắng ngắt",
+                "Chua lòm",
+                "Mặn chát"
+            ],
+            "dapAnDung": "Ngọt ngào",
+            "giaiThich": "Mật ong có vị ngọt ngào."
+        },
+        {
+            "baiHoc": "Từ chỉ đặc điểm",
+            "cauHoi": "Áo mới mua có đặc điểm gì về thời gian sử dụng? 👕",
+            "dapAn": [
+                "Mới tinh",
+                "Cũ kỹ",
+                "Rách rưới",
+                "Nhàu nát"
+            ],
+            "dapAnDung": "Mới tinh",
+            "giaiThich": "'Mới tinh' chỉ tình trạng đồ vật vừa mới sản xuất hoặc mua."
+        },
+        {
+            "baiHoc": "Từ chỉ đặc điểm",
+            "cauHoi": "Thời tiết mùa đông có đặc điểm gì? ❄️",
+            "dapAn": [
+                "Lạnh buốt",
+                "Nóng nực",
+                "Ấm áp",
+                "Oi bức"
+            ],
+            "dapAnDung": "Lạnh buốt",
+            "giaiThich": "Mùa đông thời tiết rất lạnh buốt."
+        },
+        {
+            "baiHoc": "Mẫu câu Tiếng Việt",
+            "cauHoi": "Câu nào dưới đây theo mẫu 'Ai là gì?' 👨‍🏫",
+            "dapAn": [
+                "Bố em là bác sĩ.",
+                "Bố em đang nấu cơm.",
+                "Bố em rất cao lớn.",
+                "Bố chở em đi học."
+            ],
+            "dapAnDung": "Bố em là bác sĩ.",
+            "giaiThich": "Câu dùng từ 'là' để giới thiệu nghề nghiệp theo mẫu 'Ai là gì?'."
+        },
+        {
+            "baiHoc": "Mẫu câu Tiếng Việt",
+            "cauHoi": "Câu nào dưới đây theo mẫu 'Ai làm gì?' 🏃‍♂️",
+            "dapAn": [
+                "Cô giáo em rất hiền.",
+                "Học sinh đang chăm chú nghe giảng.",
+                "Lan là học sinh giỏi.",
+                "Bầu trời rất cao."
+            ],
+            "dapAnDung": "Học sinh đang chăm chú nghe giảng.",
+            "giaiThich": "Câu chỉ hoạt động của học sinh theo mẫu 'Ai làm gì?'."
+        },
+        {
+            "baiHoc": "Mẫu câu Tiếng Việt",
+            "cauHoi": "Câu nào dưới đây theo mẫu 'Ai thế nào?' 🌸",
+            "dapAn": [
+                "Bông hồng đỏ thắm.",
+                "Mẹ em là cô giáo.",
+                "Em đang quét nhà.",
+                "Chim hót trên cành."
+            ],
+            "dapAnDung": "Bông hồng đỏ thắm.",
+            "giaiThich": "Câu dùng từ chỉ đặc điểm 'đỏ thắm' theo mẫu 'Ai thế nào?'."
+        },
+        {
+            "baiHoc": "Mẫu câu Tiếng Việt",
+            "cauHoi": "Trong câu 'Em là học sinh lớp 2.', bộ phận trả lời cho câu hỏi 'Ai?' là từ nào? 🎒",
+            "dapAn": [
+                "Em",
+                "là học sinh",
+                "lớp 2",
+                "học sinh lớp 2"
+            ],
+            "dapAnDung": "Em",
+            "giaiThich": "'Em' là từ chỉ người, trả lời câu hỏi 'Ai?'."
+        },
+        {
+            "baiHoc": "Mẫu câu Tiếng Việt",
+            "cauHoi": "Trong câu 'Chim hót líu lo trên cành.', bộ phận trả lời cho câu hỏi 'Làm gì?' là gì? 🐦",
+            "dapAn": [
+                "hót líu lo trên cành",
+                "Chim",
+                "trên cành",
+                "líu lo"
+            ],
+            "dapAnDung": "hót líu lo trên cành",
+            "giaiThich": "Chỉ hoạt động và vị trí của chim."
+        },
+        {
+            "baiHoc": "Chính tả",
+            "cauHoi": "Điền chữ thích hợp vào chỗ trống: 'Bức ...anh' 🎨",
+            "dapAn": [
+                "tr",
+                "ch",
+                "s",
+                "x"
+            ],
+            "dapAnDung": "tr",
+            "giaiThich": "Chữ đúng chính tả là 'Bức tranh'."
+        },
+        {
+            "baiHoc": "Chính tả",
+            "cauHoi": "Điền chữ thích hợp vào chỗ trống: 'Ngôi ...ao' ✨",
+            "dapAn": [
+                "s",
+                "x",
+                "ch",
+                "tr"
+            ],
+            "dapAnDung": "s",
+            "giaiThich": "Chữ đúng chính tả là 'Ngôi sao'."
+        },
+        {
+            "baiHoc": "Chính tả",
+            "cauHoi": "Điền chữ thích hợp vào chỗ trống: '...ạch sẽ' 🧹",
+            "dapAn": [
+                "s",
+                "x",
+                "tr",
+                "ch"
+            ],
+            "dapAnDung": "s",
+            "giaiThich": "Từ đúng chính tả là 'sạch sẽ'."
+        },
+        {
+            "baiHoc": "Chính tả",
+            "cauHoi": "Điền chữ thích hợp vào chỗ trống: '...ụ hoa' 🌷",
+            "dapAn": [
+                "n",
+                "l",
+                "ch",
+                "tr"
+            ],
+            "dapAnDung": "n",
+            "giaiThich": "Từ đúng chính tả là 'nụ hoa'."
+        },
+        {
+            "baiHoc": "Chính tả",
+            "cauHoi": "Điền vần thích hợp: 'màu v... (vàng hay vờ? Hoặc m... áo - màu áo)' -> 'Cây c... - cây cầu'",
+            "dapAn": [
+                "ầu",
+                "âu",
+                "an",
+                "ang"
+            ],
+            "dapAnDung": "ầu",
+            "giaiThich": "Từ đúng là 'cây cầu'."
         },
         {
             "baiHoc": "Từ trái nghĩa",
-            "cauHoi": "Từ trái nghĩa với 'chăm chỉ' là? 🐢",
+            "cauHoi": "Từ trái nghĩa với 'Cao' là gì? 🦒",
+            "dapAn": [
+                "Thấp",
+                "Dài",
+                "To",
+                "Rộng"
+            ],
+            "dapAnDung": "Thấp",
+            "giaiThich": "Trái ngược với chiều cao 'cao' là 'thấp'."
+        },
+        {
+            "baiHoc": "Từ trái nghĩa",
+            "cauHoi": "Từ trái nghĩa với 'Nhanh' là gì? 🐇",
+            "dapAn": [
+                "Chậm",
+                "Vội",
+                "Mau",
+                "Kíp"
+            ],
+            "dapAnDung": "Chậm",
+            "giaiThich": "Trái ngược với tốc độ nhanh là chậm chạp."
+        },
+        {
+            "baiHoc": "Từ trái nghĩa",
+            "cauHoi": "Từ trái nghĩa với từ 'Sáng' là gì? ☀️",
+            "dapAn": [
+                "Tối",
+                "Đen",
+                "Trắng",
+                "Mờ"
+            ],
+            "dapAnDung": "Tối",
+            "giaiThich": "Trái nghĩa với sáng là tối."
+        },
+        {
+            "baiHoc": "Từ trái nghĩa",
+            "cauHoi": "Từ trái nghĩa với từ 'Vui' là gì? 😊",
+            "dapAn": [
+                "Buồn",
+                "Khỏe",
+                "Đẹp",
+                "Ngoan"
+            ],
+            "dapAnDung": "Buồn",
+            "giaiThich": "Trái ngược với vui vẻ là buồn bã."
+        },
+        {
+            "baiHoc": "Từ đồng nghĩa",
+            "cauHoi": "Từ nào đồng nghĩa với từ 'Chăm chỉ'? 🐝",
             "dapAn": [
                 "Siêng năng",
                 "Lười biếng",
-                "Cần cù",
-                "Nhanh nhẹn"
+                "Chậm chạp",
+                "Mệt mỏi"
             ],
-            "dapAnDung": "Lười biếng",
-            "giaiThich": "Trái ngược chăm chỉ là lười biếng."
+            "dapAnDung": "Siêng năng",
+            "giaiThich": "'Siêng năng' và 'chăm chỉ' có nghĩa giống nhau."
+        },
+        {
+            "baiHoc": "Từ đồng nghĩa",
+            "cauHoi": "Từ nào đồng nghĩa với từ 'Bố'? 👨",
+            "dapAn": [
+                "Ba",
+                "Mẹ",
+                "Bà",
+                "Cô"
+            ],
+            "dapAnDung": "Ba",
+            "giaiThich": "'Ba' và 'Bố' đều chỉ người sinh ra mình."
+        },
+        {
+            "baiHoc": "Từ đồng nghĩa",
+            "cauHoi": "Từ nào đồng nghĩa với từ 'Mẹ'? 👩",
+            "dapAn": [
+                "Má",
+                "Bố",
+                "Ông",
+                "Anh"
+            ],
+            "dapAnDung": "Má",
+            "giaiThich": "'Má' và 'Mẹ' đều đồng nghĩa chỉ người sinh ra mình."
+        },
+        {
+            "baiHoc": "Dấu câu",
+            "cauHoi": "Cuối câu kể sự việc, ta thường dùng dấu gì? ✍️",
+            "dapAn": [
+                "Dấu chấm (.)",
+                "Dấu phẩy (,)",
+                "Dấu chấm hỏi (?)",
+                "Dấu chấm than (!)"
+            ],
+            "dapAnDung": "Dấu chấm (.)",
+            "giaiThich": "Kết thúc một câu kể, ta dùng dấu chấm."
+        },
+        {
+            "baiHoc": "Dấu câu",
+            "cauHoi": "Cuối câu thể hiện cảm xúc ngạc nhiên, vui sướng, ta dùng dấu gì? 🌟",
+            "dapAn": [
+                "Dấu chấm than (!)",
+                "Dấu chấm (.)",
+                "Dấu phẩy (,)",
+                "Dấu hỏi (?)"
+            ],
+            "dapAnDung": "Dấu chấm than (!)",
+            "giaiThich": "Dấu chấm than dùng ở cuối câu cảm thán, bộc lộ cảm xúc."
+        },
+        {
+            "baiHoc": "Dấu câu",
+            "cauHoi": "Trong câu: 'Mẹ mua cho em bút chì, thước kẻ và tẩy.', dấu phẩy dùng để làm gì? 📝",
+            "dapAn": [
+                "Ngăn cách các từ cùng chức vụ",
+                "Kết thúc câu",
+                "Để hỏi",
+                "Biểu lộ cảm xúc"
+            ],
+            "dapAnDung": "Ngăn cách các từ cùng chức vụ",
+            "giaiThich": "Dấu phẩy liệt kê các đồ dùng học tập cùng loại."
+        },
+        {
+            "baiHoc": "Dấu câu",
+            "cauHoi": "Cuối câu hỏi điều chưa biết, ta dùng dấu gì? ❓",
+            "dapAn": [
+                "Dấu hỏi (?)",
+                "Dấu chấm (.)",
+                "Dấu phẩy (,)",
+                "Dấu chấm than (!)"
+            ],
+            "dapAnDung": "Dấu hỏi (?)",
+            "giaiThich": "Câu hỏi luôn kết thúc bằng dấu chấm hỏi."
+        },
+        {
+            "baiHoc": "Thành ngữ & Tục ngữ",
+            "cauHoi": "Câu tục ngữ nào khuyên chúng ta phải biết ơn người dạy dỗ mình? 🧑‍🏫",
+            "dapAn": [
+                "Uống nước nhớ nguồn",
+                "Ăn quả nhớ kẻ trồng cây",
+                "Muốn sang thì bắc cầu kiều / Muốn con hay chữ phải yêu lấy thầy",
+                "Cả ba câu trên đều đúng"
+            ],
+            "dapAnDung": "Cả ba câu trên đều đúng",
+            "giaiThich": "Tất cả các câu trên đều dạy về lòng biết ơn."
+        },
+        {
+            "baiHoc": "Thành ngữ & Tục ngữ",
+            "cauHoi": "Câu 'Ăn quả nhớ kẻ trồng cây' nhắc nhở chúng ta điều gì? 🌳",
+            "dapAn": [
+                "Biết ơn người mang lại thành quả cho mình",
+                "Nhớ ăn nhiều trái cây",
+                "Phải chăm trồng cây xanh",
+                "Không được ăn quả xanh"
+            ],
+            "dapAnDung": "Biết ơn người mang lại thành quả cho mình",
+            "giaiThich": "Ý nghĩa sâu xa là lòng biết ơn những người đi trước."
+        },
+        {
+            "baiHoc": "Thành ngữ & Tục ngữ",
+            "cauHoi": "Câu tục ngữ nào nói về tình đoàn kết? 🤝",
+            "dapAn": [
+                "Một cây làm chẳng nên non / Ba cây chụm lại nên hòn núi cao",
+                "Học ăn, học nói, học gói, học mở",
+                "Có công mài sắt, có ngày nên kim",
+                "Chớ thấy sóng ngã mà ngã tay chèo"
+            ],
+            "dapAnDung": "Một cây làm chẳng nên non / Ba cây chụm lại nên hòn núi cao",
+            "giaiThich": "Đoàn kết giúp sức mạnh lớn lên gấp bội."
+        },
+        {
+            "baiHoc": "Thành ngữ & Tục ngữ",
+            "cauHoi": "Câu 'Có công mài sắt, có ngày nên kim' khuyên chúng ta đức tính gì? 💪",
+            "dapAn": [
+                "Kiên trì, nhẫn nại",
+                "Chăm chỉ làm việc nhà",
+                "Biết ơn thầy cô",
+                "Yêu quý bạn bè"
+            ],
+            "dapAnDung": "Kiên trì, nhẫn nại",
+            "giaiThich": "Sự kiên trì, nỗ lực sẽ mang lại thành công."
         }
     ],
     "DoVui": [
