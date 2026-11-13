@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vườn Trí Tuệ Lớp 2 - Vừa Chơi Vừa Học</title>
+    <title>Vườn Trí Tuệ Lớp 2 - Đa Tài Khoản & Vô Tận</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Nunito -->
@@ -14,7 +14,6 @@
             user-select: none;
             -webkit-user-select: none;
         }
-        /* Custom animations & touch optimization */
         .tap-highlight-none {
             -webkit-tap-highlight-color: transparent;
         }
@@ -32,21 +31,24 @@
     <!-- HEADER / STATS BAR -->
     <header class="bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-4 py-3 sticky top-0 z-50 shadow-md flex justify-between items-center rounded-b-2xl">
         <div class="flex items-center space-x-2">
-            <span class="text-2xl">🎒</span>
+            <span class="text-2xl cursor-pointer" onclick="openAccountModal()" title="Đổi tài khoản">👤</span>
             <div>
-                <h1 class="font-extrabold text-base tracking-wide">Vườn Trí Tuệ Lớp 2</h1>
-                <p class="text-xs text-indigo-200" id="user-level-status">Cấp độ: Nhà thám tử tập sự</p>
+                <h1 class="font-extrabold text-sm tracking-wide flex items-center space-x-1">
+                    <span id="current-user-name">Bé Yêu</span>
+                    <button onclick="openAccountModal()" class="text-[10px] bg-white/20 px-1.5 py-0.5 rounded ml-1 underline">Đổi</button>
+                </h1>
+                <p class="text-[10px] text-indigo-200" id="user-level-status">Cấp độ: Thám tử tập sự</p>
             </div>
         </div>
-        <div class="flex items-center space-x-3 bg-white/15 px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/20">
+        <div class="flex items-center space-x-2 bg-white/15 px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/20">
             <div class="flex items-center space-x-1">
-                <span class="text-yellow-300 text-lg">⭐</span>
-                <span id="score-display" class="font-black text-sm">0</span>
+                <span class="text-yellow-300 text-sm">⭐</span>
+                <span id="score-display" class="font-black text-xs">0</span>
             </div>
-            <div class="h-4 w-[1px] bg-white/30"></div>
+            <div class="h-3.5 w-[1px] bg-white/30"></div>
             <div class="flex items-center space-x-1">
-                <span class="text-lg">🛡️</span>
-                <span id="badge-count" class="font-black text-sm">0/4</span>
+                <span class="text-sm">🛡️</span>
+                <span id="badge-count" class="font-black text-xs">0/4</span>
             </div>
         </div>
     </header>
@@ -58,8 +60,8 @@
             <!-- Welcome Banner -->
             <div class="bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl p-5 text-white shadow-lg relative overflow-hidden">
                 <div class="absolute right-[-10px] bottom-[-10px] text-7xl opacity-25">🚀</div>
-                <h2 class="text-xl font-black mb-1">Chào bé thông minh! 👋</h2>
-                <p class="text-xs text-amber-100 mb-3 leading-relaxed">Hôm nay chúng ta cùng chinh phục kho tàng tri thức lớp 2 và mở khóa các huy hiệu siêu đẳng nhé!</p>
+                <h2 class="text-xl font-black mb-1">Chào bé <span id="banner-user-name">Bé Yêu</span>! 👋</h2>
+                <p class="text-xs text-amber-100 mb-3 leading-relaxed">Cùng chinh phục kho tàng tri thức lớp 2 và mở khóa thế giới câu hỏi vô tận nhé!</p>
                 <button onclick="switchTab('play')" class="bg-white text-orange-600 font-extrabold px-4 py-2 rounded-xl text-sm shadow-md active:scale-95 transition-transform flex items-center space-x-2">
                     <span>🎮 Bắt đầu thử thách ngay</span>
                 </button>
@@ -68,10 +70,10 @@
             <!-- Quick Stats & Endless Status -->
             <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex items-center justify-between">
                 <div>
-                    <h3 class="font-bold text-sm text-slate-700">Trạng thái thế giới:</h3>
-                    <p class="text-xs text-indigo-600 font-semibold" id="world-status-text">Đang chinh phục cơ bản</p>
+                    <h3 class="font-bold text-xs text-slate-700">Trạng thái tài khoản:</h3>
+                    <p class="text-[11px] text-indigo-600 font-semibold" id="world-status-text">Đang chinh phục cơ bản</p>
                 </div>
-                <button onclick="switchTab('badges')" class="bg-indigo-100 text-indigo-700 font-bold text-xs px-3 py-1.5 rounded-lg active:scale-95">Xem Huy Hiệu 🏅</button>
+                <button onclick="switchTab('badges')" class="bg-indigo-100 text-indigo-700 font-bold text-xs px-3 py-1.5 rounded-lg active:scale-95">Huy Hiệu 🏅</button>
             </div>
 
             <!-- Subject Grid -->
@@ -126,7 +128,7 @@
             <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 space-y-4 relative">
                 <div class="flex justify-between items-center text-xs font-bold text-slate-400">
                     <span id="question-progress">Câu hỏi 1/10</span>
-                    <span id="endless-mode-tag" class="hidden text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md">Chế độ Vô Tận ♾️</span>
+                    <span id="endless-mode-tag" class="hidden text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md font-bold">Chế độ Vô Tận ♾️</span>
                 </div>
 
                 <div id="question-text" class="text-base font-black text-slate-800 leading-snug min-h-[50px] flex items-center">
@@ -135,7 +137,7 @@
 
                 <!-- Options Grid -->
                 <div id="options-container" class="space-y-2.5">
-                    <!-- Dynamic Options Inserted Here -->
+                    <!-- Dynamic Options -->
                 </div>
             </div>
             
@@ -159,15 +161,35 @@
 
             <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-4 text-white shadow-md">
                 <h3 class="font-black text-sm mb-1">Mở khóa Thế Giới Vô Tận ♾️</h3>
-                <p class="text-xs text-purple-100 leading-relaxed mb-3">Khi bạn sưu tầm đủ 4 huy hiệu cơ bản, hệ thống sẽ tự động kích hoạt kho tàng câu hỏi vô tận, tăng cấp độ thông thái không giới hạn!</p>
+                <p class="text-xs text-purple-100 leading-relaxed mb-3">Khi tài khoản sưu tầm đủ 4 huy hiệu cơ bản, hệ thống sẽ tự động kích hoạt kho tàng câu hỏi vô tận, tự sinh câu hỏi liên tục không bao giờ kết thúc!</p>
                 <div class="bg-white/20 rounded-xl p-2.5 text-center text-xs font-bold" id="endless-unlock-status">
-                    Tiến độ: 0/4 Huy hiệu
+                    Tiến độ tài khoản: 0/4 Huy hiệu
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- BOTTOM NAVIGATION BAR (Mobile First) -->
+    <!-- ACCOUNT SELECTION / MANAGEMENT MODAL -->
+    <div id="account-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="font-black text-base text-slate-800">👥 Chọn hoặc Tạo Tài Khoản</h3>
+                <button onclick="closeAccountModal()" class="text-slate-400 font-bold text-lg px-2">✕</button>
+            </div>
+            <p class="text-xs text-slate-500">Mỗi tài khoản lưu điểm số và tiến trình riêng biệt, không ảnh hưởng lẫn nhau.</p>
+            
+            <div id="account-list" class="space-y-2 max-h-48 overflow-y-auto">
+                <!-- Rendered dynamically -->
+            </div>
+
+            <div class="pt-2 border-t border-slate-100 space-y-2">
+                <input type="text" id="new-account-name" placeholder="Nhập tên bé mới..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-indigo-600">
+                <button onclick="createNewAccount()" class="w-full bg-indigo-600 text-white font-bold py-2.5 rounded-xl text-sm shadow-md active:scale-95">✨ Tạo tài khoản mới</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION BAR -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 px-6 py-2.5 flex justify-around items-center z-50 max-w-md mx-auto rounded-t-2xl shadow-lg">
         <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-indigo-600 transition">
             <span class="text-xl">🏠</span>
@@ -222,30 +244,43 @@
             }
         }
 
-        // App State
+        // Multi-Account & App State Management
+        let accounts = JSON.parse(localStorage.getItem('vuan_accounts') || '["Bé Yêu"]');
+        let currentAccount = localStorage.getItem('vuan_current_account') || accounts[0];
+
+        // Ensure account exists in list
+        if (!accounts.includes(currentAccount)) {
+            currentAccount = accounts[0];
+        }
+
+        // Get account-specific localstorage keys
+        function getAccKey(key) {
+            return `vuan_${currentAccount}_${key}`;
+        }
+
         let state = {
-            score: parseInt(localStorage.getItem('vuan_score') || '0'),
-            badges: JSON.parse(localStorage.getItem('vuan_badges') || '[false, false, false, false]'),
+            score: parseInt(localStorage.getItem(getAccKey('score')) || '0'),
+            badges: JSON.parse(localStorage.getItem(getAccKey('badges')) || '[false, false, false, false]'),
             currentCategory: 'math',
             currentQuestionIndex: 0,
-            isEndlessMode: JSON.parse(localStorage.getItem('vuan_endless') || 'false'),
+            isEndlessMode: JSON.parse(localStorage.getItem(getAccKey('endless')) || 'false'),
             questions: []
         };
 
         const badgeData = [
-            { id: 0, name: "Thám Tử Toán Học", icon: "🔢", desc: "Hoàn thành 10 câu hỏi Toán chuẩn Lớp 2", req: 1 },
-            { id: 1, name: "Bút Vàng Tiếng Việt", icon: "📖", desc: "Vượt qua thử thách chính tả và từ loại", req: 2 },
-            { id: 2, name: "Nhà Khoa Học Nhí", icon: "🌿", desc: "Khám phá thế giới tự nhiên và giao thông", req: 3 },
-            { id: 3, name: "Siêu Sao Trí Tuệ", icon: "🧠", desc: "Chinh phục toàn bộ câu hỏi IQ & Logic", req: 4 }
+            { id: 0, name: "Thám Tử Toán Học", icon: "🔢", desc: "Hoàn thành thử thách Toán chuẩn Lớp 2" },
+            { id: 1, name: "Bút Vàng Tiếng Việt", icon: "📖", desc: "Vượt qua thử thách chính tả và từ loại" },
+            { id: 2, name: "Nhà Khoa Học Nhí", icon: "🌿", desc: "Khám phá thế giới tự nhiên và giao thông" },
+            { id: 3, name: "Siêu Sao Trí Tuệ", icon: "🧠", desc: "Chinh phục toàn bộ câu hỏi IQ & Logic" }
         ];
 
-        // Question Bank with Deep Grade 2 Curriculum & Endless Generator
+        // Base Question Bank
         const baseQuestionBank = {
             math: [
                 { q: "Kết quả của phép tính: 48 + 27 bằng bao nhiêu?", options: ["65", "75", "85", "74"], correct: 1, exp: "48 + 27: 8+7=15 viết 5 nhớ 1; 4+2=6 thêm 1 là 7. Kết quả là 75." },
                 { q: "Mẹ mua 1 bao gạo nặng 35kg, mẹ dùng hết 14kg. Hỏi bao gạo còn lại bao nhiêu ki-lô-gam?", options: ["21kg", "19kg", "25kg", "20kg"], correct: 0, exp: "Lấy 35kg trừ đi 14kg bằng 21kg." },
                 { q: "Độ dài 2m bằng bao nhiêu xăng-ti-mét (cm)?", options: ["20cm", "200cm", "2000cm", "2cm"], correct: 1, exp: "Vì 1m = 100cm, nên 2m = 200cm." },
-                { q: "Tìm số thích hợp điền vào chỗ chấm: 5 x 4 = ... ? phim", options: ["15", "25", "20", "30"], correct: 2, exp: "5 nhân 4 bằng 20." },
+                { q: "Tìm số thích hợp điền vào chỗ chấm: 5 x 4 = ... ?", options: ["15", "25", "20", "30"], correct: 2, exp: "5 nhân 4 bằng 20." },
                 { q: "Hình vuông có mấy góc vuông và các cạnh như thế nào?", options: ["4 góc vuông, 4 cạnh bằng nhau", "3 góc vuông, 3 cạnh bằng nhau", "4 góc vuông, 2 cạnh dài 2 cạnh ngắn", "Không có góc vuông"], correct: 0, exp: "Hình vuông có 4 góc vuông và 4 cạnh dài bằng nhau." }
             ],
             vietnamese: [
@@ -266,19 +301,19 @@
             ]
         };
 
-        // Algorithmic Endless Question Generator for Endless Mode
+        // Algorithmic Endless Question Generator
         function generateEndlessQuestion() {
             const types = ['math', 'vietnamese', 'iq'];
             const t = types[Math.floor(Math.random() * types.length)];
             if (t === 'math') {
-                const a = Math.floor(Math.random() * 50) + 10;
+                const a = Math.floor(Math.random() * 60) + 10;
                 const b = Math.floor(Math.random() * 40) + 10;
                 const op = Math.random() > 0.5 ? '+' : '-';
                 const ans = op === '+' ? a + b : a - b;
                 let wrong1 = ans + 2, wrong2 = ans - 3, wrong3 = ans + 5;
                 let opts = [ans.toString(), wrong1.toString(), wrong2.toString(), wrong3.toString()].sort(() => Math.random() - 0.5);
                 return {
-                    q: `[Vô Tận ♾️] Tính nhanh kết quả: ${a} ${op} ${b} = ?`,
+                    q: `[Vô Tận ♾️] Tính kết quả: ${a} ${op} ${b} = ?`,
                     options: opts,
                     correct: opts.indexOf(ans.toString()),
                     exp: `Thực hiện phép tính ${a} ${op} ${b} = ${ans}.`
@@ -287,7 +322,8 @@
                 const words = [
                     { w: "sạch sẽ", exp: "Viết đúng chính tả với s/ch." },
                     { w: "chăm chỉ", exp: "Từ chỉ tính cách chăm chỉ học tập." },
-                    { w: "thông minh", exp: "Từ chỉ sự nhanh trí." }
+                    { w: "thông minh", exp: "Từ chỉ sự nhanh trí." },
+                    { w: "trường học", exp: "Viết đúng với tr/h." }
                 ];
                 let chosen = words[Math.floor(Math.random() * words.length)];
                 let opts = [chosen.w, chosen.w.replace('s', 'x'), chosen.w.replace('ch', 'tr'), "sai hết"].sort(() => Math.random() - 0.5);
@@ -309,6 +345,76 @@
                     correct: opts.indexOf(ans.toString()),
                     exp: `Quy luật dãy số cộng thêm ${step} mỗi bước. Số cần tìm là ${ans}.`
                 };
+            }
+        }
+
+        // Account Management Functions
+        function openAccountModal() {
+            playSound('click');
+            renderAccountList();
+            document.getElementById('account-modal').classList.remove('hidden');
+        }
+
+        function closeAccountModal() {
+            playSound('click');
+            document.getElementById('account-modal').classList.add('hidden');
+        }
+
+        function renderAccountList() {
+            const listContainer = document.getElementById('account-list');
+            listContainer.innerHTML = '';
+            accounts.forEach(acc => {
+                const item = document.createElement('div');
+                item.className = `flex items-center justify-between p-3 rounded-xl border ${acc === currentAccount ? 'bg-indigo-50 border-indigo-200 font-bold text-indigo-700' : 'bg-slate-50 border-slate-200 text-slate-700'}`;
+                item.innerHTML = `
+                    <span class="cursor-pointer flex-1" onclick="switchAccount('${acc}')">👤 ${acc} ${acc === currentAccount ? '(Đang chọn)' : ''}</span>
+                    ${accounts.length > 1 ? `<button onclick="deleteAccount('${acc}')" class="text-xs text-rose-500 font-bold px-2 py-1">Xóa</button>` : ''}
+                `;
+                listContainer.appendChild(item);
+            });
+        }
+
+        function switchAccount(accName) {
+            playSound('click');
+            currentAccount = accName;
+            localStorage.setItem('vuan_current_account', currentAccount);
+            
+            // Reload state for this account
+            state.score = parseInt(localStorage.getItem(getAccKey('score')) || '0');
+            state.badges = JSON.parse(localStorage.getItem(getAccKey('badges')) || '[false, false, false, false]');
+            state.isEndlessMode = JSON.parse(localStorage.getItem(getAccKey('endless')) || 'false');
+            
+            closeAccountModal();
+            updateHUD();
+            switchTab('home');
+        }
+
+        function createNewAccount() {
+            const input = document.getElementById('new-account-name');
+            const name = input.value.trim();
+            if (!name) {
+                alert("Vui lòng nhập tên tài khoản!");
+                return;
+            }
+            if (accounts.includes(name)) {
+                alert("Tên tài khoản này đã tồn tại!");
+                return;
+            }
+            accounts.push(name);
+            localStorage.setItem('vuan_accounts', JSON.stringify(accounts));
+            input.value = '';
+            switchAccount(name);
+        }
+
+        function deleteAccount(accName) {
+            if (accounts.length <= 1) {
+                alert("Cần giữ lại ít nhất một tài khoản!");
+                return;
+            }
+            if (confirm(`Bạn có chắc muốn xóa tài khoản "${accName}" không?`)) {
+                accounts = accounts.filter(a => a !== accName);
+                localStorage.setItem('vuan_accounts', JSON.stringify(accounts));
+                switchAccount(accounts[0]);
             }
         }
 
@@ -377,7 +483,6 @@
             const qObj = state.questions[state.currentQuestionIndex];
             const buttons = document.getElementById('options-container').children;
             
-            // Disable all buttons after choice
             for (let b of buttons) { b.disabled = true; }
 
             if (selectedIdx === qObj.correct) {
@@ -391,15 +496,13 @@
                 buttons[qObj.correct].className = "w-full text-left p-3.5 rounded-2xl bg-emerald-500 text-white font-bold text-sm shadow-md flex items-center justify-between";
             }
 
-            // Show Explanation
             document.getElementById('explanation-text').innerText = qObj.exp;
             document.getElementById('explanation-box').classList.remove('hidden');
 
-            // Save score
-            localStorage.setItem('vuan_score', state.score);
+            // Save specific account score
+            localStorage.setItem(getAccKey('score'), state.score);
             updateHUD();
 
-            // Next Question Timeout
             setTimeout(() => {
                 state.currentQuestionIndex++;
                 loadQuestion();
@@ -413,24 +516,22 @@
             switchTab('home');
         }
 
-        // Check & Unlock Badges automatically
+        // Check & Unlock Badges & Endless Mode per account
         function checkBadgeUnlock() {
             let unlockedCount = state.badges.filter(Boolean).length;
             if (unlockedCount < 4) {
-                // Unlock sequentially based on score or completed categories
                 let nextIdx = state.badges.indexOf(false);
                 if (nextIdx !== -1 && state.score >= (nextIdx + 1) * 30) {
                     state.badges[nextIdx] = true;
-                    localStorage.setItem('vuan_badges', JSON.stringify(state.badges));
-                    alert(`🏆 Chúc mừng bé đã mở khóa huy hiệu mới: ${badgeData[nextIdx].name}!`);
+                    localStorage.setItem(getAccKey('badges'), JSON.stringify(state.badges));
+                    alert(`🏆 Chúc mừng tài khoản ${currentAccount} đã mở khóa huy hiệu: ${badgeData[nextIdx].name}!`);
                 }
             }
 
-            // Check if all badges unlocked -> activate Endless Mode
             if (state.badges.every(Boolean) && !state.isEndlessMode) {
                 state.isEndlessMode = true;
-                localStorage.setItem('vuan_endless', 'true');
-                alert("🌟 SIÊU KỲ DIỆU! Bé đã mở khóa THẾ GIỚI VÔ TẬN với kho câu hỏi thông minh không giới hạn!");
+                localStorage.setItem(getAccKey('endless'), 'true');
+                alert(`🌟 SIÊU KỲ DIỆU! Tài khoản ${currentAccount} đã mở khóa THẾ GIỚI VÔ TẬN với kho câu hỏi tự động mở rộng không giới hạn!`);
             }
             updateHUD();
         }
@@ -455,20 +556,22 @@
             });
 
             let unlockedCount = state.badges.filter(Boolean).length;
-            document.getElementById('endless-unlock-status').innerText = `Tiến độ: ${unlockedCount}/4 Huy hiệu`;
+            document.getElementById('endless-unlock-status').innerText = `Tiến độ của ${currentAccount}: ${unlockedCount}/4 Huy hiệu`;
         }
 
         // Update HUD display
         function updateHUD() {
+            document.getElementById('current-user-name').innerText = currentAccount;
+            document.getElementById('banner-user-name').innerText = currentAccount;
             document.getElementById('score-display').innerText = state.score;
             let unlockedCount = state.badges.filter(Boolean).length;
             document.getElementById('badge-count').innerText = `${unlockedCount}/4`;
             
             if (state.isEndlessMode) {
-                document.getElementById('user-level-status').innerText = "Cấp độ: Nhà thám tử vô tận ♾️";
-                document.getElementById('world-status-text').innerText = "Thế giới vô tận (Đã mở khóa)";
+                document.getElementById('user-level-status').innerText = "Cấp độ: Thám tử vô tận ♾️";
+                document.getElementById('world-status-text').innerText = "Thế giới vô tận (Đã mở khóa ♾️)";
             } else {
-                document.getElementById('user-level-status').innerText = `Cấp độ: Nhà thám tử tập sự (${unlockedCount}/4)`;
+                document.getElementById('user-level-status').innerText = `Cấp độ: Thám tử tập sự (${unlockedCount}/4)`;
                 document.getElementById('world-status-text').innerText = `Đang chinh phục cơ bản (${unlockedCount}/4 Huy hiệu)`;
             }
         }
