@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vườn Trí Tuệ Lớp 2 - Đa Tài Khoản & Vô Tận</title>
+    <title>Vườn Trí Tuệ Lớp 2 - Đa Tài Khoản</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Nunito -->
@@ -31,7 +31,7 @@
     <!-- HEADER / STATS BAR -->
     <header class="bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-4 py-3 sticky top-0 z-50 shadow-md flex justify-between items-center rounded-b-2xl">
         <div class="flex items-center space-x-2">
-            <span class="text-2xl cursor-pointer" onclick="openAccountModal()" title="Đổi tài khoản">👤</span>
+            <span class="text-2xl cursor-pointer" onclick="openAccountModal()">👤</span>
             <div>
                 <h1 class="font-extrabold text-sm tracking-wide flex items-center space-x-1">
                     <span id="current-user-name">Bé Yêu</span>
@@ -57,17 +57,15 @@
     <main class="max-w-md mx-auto px-4 pt-4 pb-6" id="app-container">
         <!-- VIEW: HOME / DASHBOARD -->
         <section id="view-home" class="space-y-4">
-            <!-- Welcome Banner -->
             <div class="bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl p-5 text-white shadow-lg relative overflow-hidden">
                 <div class="absolute right-[-10px] bottom-[-10px] text-7xl opacity-25">🚀</div>
                 <h2 class="text-xl font-black mb-1">Chào bé <span id="banner-user-name">Bé Yêu</span>! 👋</h2>
-                <p class="text-xs text-amber-100 mb-3 leading-relaxed">Cùng chinh phục kho tàng tri thức lớp 2 và mở khóa thế giới câu hỏi vô tận nhé!</p>
+                <p class="text-xs text-amber-100 mb-3 leading-relaxed">Cùng chinh phục kho tàng tri thức lớp 2 ngay nào!</p>
                 <button onclick="switchTab('play')" class="bg-white text-orange-600 font-extrabold px-4 py-2 rounded-xl text-sm shadow-md active:scale-95 transition-transform flex items-center space-x-2">
                     <span>🎮 Bắt đầu thử thách ngay</span>
                 </button>
             </div>
 
-            <!-- Quick Stats & Endless Status -->
             <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex items-center justify-between">
                 <div>
                     <h3 class="font-bold text-xs text-slate-700">Trạng thái tài khoản:</h3>
@@ -76,7 +74,6 @@
                 <button onclick="switchTab('badges')" class="bg-indigo-100 text-indigo-700 font-bold text-xs px-3 py-1.5 rounded-lg active:scale-95">Huy Hiệu 🏅</button>
             </div>
 
-            <!-- Subject Grid -->
             <h3 class="font-black text-slate-700 text-sm px-1">Chủ đề bài học & trò chơi</h3>
             <div class="grid grid-cols-2 gap-3">
                 <div onclick="startCategory('math')" class="bg-white p-4 rounded-2xl shadow-sm border border-indigo-50 active:scale-95 transition cursor-pointer flex flex-col items-center text-center">
@@ -100,34 +97,18 @@
                     <p class="text-[11px] text-slate-400 mt-0.5">Suy luận logic, Thám tử nhí</p>
                 </div>
             </div>
-
-            <!-- Theory Reference Card -->
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                <h3 class="font-black text-slate-700 text-sm mb-2 flex items-center">
-                    <span class="mr-1.5">💡</span> Góc ôn tập nhanh Lớp 2
-                </h3>
-                <div class="space-y-2 text-xs text-slate-600">
-                    <div class="p-2.5 bg-indigo-50/70 rounded-xl">
-                        <strong class="text-indigo-700 block mb-0.5">Mẹo Toán học:</strong> Phép cộng/trừ có nhớ trong phạm vi 100 và 1000. Đơn vị đo: $1m = 10dm = 100cm$.
-                    </div>
-                    <div class="p-2.5 bg-pink-50/70 rounded-xl">
-                        <strong class="text-pink-700 block mb-0.5">Mẹo Tiếng Việt:</strong> Từ chỉ sự vật (bàn, ghế), từ chỉ hoạt động (chạy, nhảy), từ chỉ đặc điểm (xanh, đẹp).
-                    </div>
-                </div>
-            </div>
         </section>
 
         <!-- VIEW: PLAY / QUIZ ARENA -->
         <section id="view-play" class="hidden space-y-4">
             <div class="flex items-center justify-between">
-                <button onclick="switchTab('home')" class="text-xs font-bold text-indigo-600 bg-white px-3 py-1.5 rounded-xl border border-indigo-100 shadow-sm active:scale-95">← Quay lại</button>
+                <button onclick="switchTab('home')" class="text-xs font-bold text-indigo-600 bg-white px-3 py-1.5 rounded-xl border border-indigo-100 shadow-sm">← Quay lại</button>
                 <span id="quiz-category-badge" class="text-xs font-black bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full">Chủ đề</span>
             </div>
 
-            <!-- Quiz Card -->
             <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 space-y-4 relative">
                 <div class="flex justify-between items-center text-xs font-bold text-slate-400">
-                    <span id="question-progress">Câu hỏi 1/10</span>
+                    <span id="question-progress">Câu hỏi 1/5</span>
                     <span id="endless-mode-tag" class="hidden text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md font-bold">Chế độ Vô Tận ♾️</span>
                 </div>
 
@@ -135,53 +116,42 @@
                     Đang tải câu hỏi...
                 </div>
 
-                <!-- Options Grid -->
-                <div id="options-container" class="space-y-2.5">
-                    <!-- Dynamic Options -->
-                </div>
+                <div id="options-container" class="space-y-2.5"></div>
             </div>
             
-            <!-- Explanation Box -->
             <div id="explanation-box" class="hidden bg-emerald-50 border border-emerald-200 rounded-2xl p-3 text-xs text-emerald-800">
                 <strong class="block font-bold mb-0.5">🌟 Giải thích:</strong>
                 <span id="explanation-text">...</span>
             </div>
         </section>
 
-        <!-- VIEW: BADGES & SHOP -->
+        <!-- VIEW: BADGES -->
         <section id="view-badges" class="hidden space-y-4">
             <div class="flex items-center justify-between">
                 <h2 class="font-black text-slate-700 text-base">Bộ Sưu Tập Huy Hiệu 🏅</h2>
                 <button onclick="switchTab('home')" class="text-xs font-bold text-indigo-600 bg-white px-3 py-1.5 rounded-xl border border-indigo-100 shadow-sm">Trang chủ</button>
             </div>
 
-            <div class="grid grid-cols-2 gap-3" id="badge-grid">
-                <!-- Rendered dynamically -->
-            </div>
+            <div class="grid grid-cols-2 gap-3" id="badge-grid"></div>
 
             <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-4 text-white shadow-md">
                 <h3 class="font-black text-sm mb-1">Mở khóa Thế Giới Vô Tận ♾️</h3>
-                <p class="text-xs text-purple-100 leading-relaxed mb-3">Khi tài khoản sưu tầm đủ 4 huy hiệu cơ bản, hệ thống sẽ tự động kích hoạt kho tàng câu hỏi vô tận, tự sinh câu hỏi liên tục không bao giờ kết thúc!</p>
+                <p class="text-xs text-purple-100 leading-relaxed mb-3">Sưu tầm đủ 4 huy hiệu để kích hoạt kho câu hỏi vô tận tự động sinh liên tục!</p>
                 <div class="bg-white/20 rounded-xl p-2.5 text-center text-xs font-bold" id="endless-unlock-status">
-                    Tiến độ tài khoản: 0/4 Huy hiệu
+                    Tiến độ: 0/4 Huy hiệu
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- ACCOUNT SELECTION / MANAGEMENT MODAL -->
+    <!-- ACCOUNT MODAL -->
     <div id="account-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-4">
             <div class="flex justify-between items-center">
                 <h3 class="font-black text-base text-slate-800">👥 Chọn hoặc Tạo Tài Khoản</h3>
                 <button onclick="closeAccountModal()" class="text-slate-400 font-bold text-lg px-2">✕</button>
             </div>
-            <p class="text-xs text-slate-500">Mỗi tài khoản lưu điểm số và tiến trình riêng biệt, không ảnh hưởng lẫn nhau.</p>
-            
-            <div id="account-list" class="space-y-2 max-h-48 overflow-y-auto">
-                <!-- Rendered dynamically -->
-            </div>
-
+            <div id="account-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
             <div class="pt-2 border-t border-slate-100 space-y-2">
                 <input type="text" id="new-account-name" placeholder="Nhập tên bé mới..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-indigo-600">
                 <button onclick="createNewAccount()" class="w-full bg-indigo-600 text-white font-bold py-2.5 rounded-xl text-sm shadow-md active:scale-95">✨ Tạo tài khoản mới</button>
@@ -189,7 +159,7 @@
         </div>
     </div>
 
-    <!-- BOTTOM NAVIGATION BAR -->
+    <!-- BOTTOM NAVIGATION -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 px-6 py-2.5 flex justify-around items-center z-50 max-w-md mx-auto rounded-t-2xl shadow-lg">
         <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-indigo-600 transition">
             <span class="text-xl">🏠</span>
@@ -205,10 +175,9 @@
         </button>
     </nav>
 
-    <!-- SOUND & CONFETTI UTILS -->
+    <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
-        // Web Audio API Sound Synthesizer
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playSound(type) {
             if (!audioCtx) return;
@@ -217,46 +186,33 @@
             const gain = audioCtx.createGain();
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-
             if (type === 'correct') {
                 osc.type = 'triangle';
                 osc.frequency.setValueAtTime(440, audioCtx.currentTime);
                 osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15);
                 gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.3);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.3);
             } else if (type === 'wrong') {
                 osc.type = 'sawtooth';
                 osc.frequency.setValueAtTime(200, audioCtx.currentTime);
-                osc.frequency.setValueAtTime(150, audioCtx.currentTime + 0.1);
                 gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.25);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.25);
             } else if (type === 'click') {
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(600, audioCtx.currentTime);
                 gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.05);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.05);
             }
         }
 
-        // Multi-Account & App State Management
         let accounts = JSON.parse(localStorage.getItem('vuan_accounts') || '["Bé Yêu"]');
         let currentAccount = localStorage.getItem('vuan_current_account') || accounts[0];
+        if (!accounts.includes(currentAccount)) currentAccount = accounts[0];
 
-        // Ensure account exists in list
-        if (!accounts.includes(currentAccount)) {
-            currentAccount = accounts[0];
-        }
-
-        // Get account-specific localstorage keys
-        function getAccKey(key) {
-            return `vuan_${currentAccount}_${key}`;
-        }
+        function getAccKey(key) { return `vuan_${currentAccount}_${key}`; }
 
         let state = {
             score: parseInt(localStorage.getItem(getAccKey('score')) || '0'),
@@ -268,97 +224,64 @@
         };
 
         const badgeData = [
-            { id: 0, name: "Thám Tử Toán Học", icon: "🔢", desc: "Hoàn thành thử thách Toán chuẩn Lớp 2" },
-            { id: 1, name: "Bút Vàng Tiếng Việt", icon: "📖", desc: "Vượt qua thử thách chính tả và từ loại" },
-            { id: 2, name: "Nhà Khoa Học Nhí", icon: "🌿", desc: "Khám phá thế giới tự nhiên và giao thông" },
-            { id: 3, name: "Siêu Sao Trí Tuệ", icon: "🧠", desc: "Chinh phục toàn bộ câu hỏi IQ & Logic" }
+            { name: "Thám Tử Toán Học", icon: "🔢", desc: "Hoàn thành thử thách Toán chuẩn Lớp 2" },
+            { name: "Bút Vàng Tiếng Việt", icon: "📖", desc: "Vượt qua thử thách chính tả và từ loại" },
+            { name: "Nhà Khoa Học Nhí", icon: "🌿", desc: "Khám phá thế giới tự nhiên và giao thông" },
+            { name: "Siêu Sao Trí Tuệ", icon: "🧠", desc: "Chinh phục toàn bộ câu hỏi IQ & Logic" }
         ];
 
-        // Base Question Bank
         const baseQuestionBank = {
             math: [
-                { q: "Kết quả của phép tính: 48 + 27 bằng bao nhiêu?", options: ["65", "75", "85", "74"], correct: 1, exp: "48 + 27: 8+7=15 viết 5 nhớ 1; 4+2=6 thêm 1 là 7. Kết quả là 75." },
-                { q: "Mẹ mua 1 bao gạo nặng 35kg, mẹ dùng hết 14kg. Hỏi bao gạo còn lại bao nhiêu ki-lô-gam?", options: ["21kg", "19kg", "25kg", "20kg"], correct: 0, exp: "Lấy 35kg trừ đi 14kg bằng 21kg." },
-                { q: "Độ dài 2m bằng bao nhiêu xăng-ti-mét (cm)?", options: ["20cm", "200cm", "2000cm", "2cm"], correct: 1, exp: "Vì 1m = 100cm, nên 2m = 200cm." },
-                { q: "Tìm số thích hợp điền vào chỗ chấm: 5 x 4 = ... ?", options: ["15", "25", "20", "30"], correct: 2, exp: "5 nhân 4 bằng 20." },
-                { q: "Hình vuông có mấy góc vuông và các cạnh như thế nào?", options: ["4 góc vuông, 4 cạnh bằng nhau", "3 góc vuông, 3 cạnh bằng nhau", "4 góc vuông, 2 cạnh dài 2 cạnh ngắn", "Không có góc vuông"], correct: 0, exp: "Hình vuông có 4 góc vuông và 4 cạnh dài bằng nhau." }
+                { q: "Kết quả của phép tính: 48 + 27 bằng bao nhiêu?", options: ["65", "75", "85", "74"], correct: 1, exp: "48 + 27 = 75." },
+                { q: "Mẹ mua 1 bao gạo nặng 35kg, mẹ dùng hết 14kg. Hỏi còn lại bao nhiêu kg?", options: ["21kg", "19kg", "25kg", "20kg"], correct: 0, exp: "35 - 14 = 21kg." },
+                { q: "Độ dài 2m bằng bao nhiêu xăng-ti-mét (cm)?", options: ["20cm", "200cm", "2000cm", "2cm"], correct: 1, exp: "1m = 100cm, nên 2m = 200cm." },
+                { q: "Tìm số thích hợp điền vào chỗ chấm: 5 x 4 = ... ?", options: ["15", "25", "20", "30"], correct: 2, exp: "5 x 4 = 20." },
+                { q: "Hình vuông có mấy góc vuông và các cạnh thế nào?", options: ["4 góc vuông, 4 cạnh bằng nhau", "3 góc vuông", "4 góc vuông, 2 cạnh dài", "Không có góc vuông"], correct: 0, exp: "Hình vuông có 4 góc vuông và 4 cạnh bằng nhau." }
             ],
             vietnamese: [
-                { q: 'Từ nào dưới đây là từ chỉ hoạt động?', options: ["Cái bàn", "Chạy nhảy", "Xinh đẹp", "Quyển vở"], correct: 1, exp: "Chạy nhảy là từ chỉ hành động của cơ thể." },
-                { q: 'Điền chữ thích hợp vào chỗ trống: Chú ...ên (l hay n)?', options: ["lên", "nên", "lên/nên đều sai", "Cả hai đều đúng"], correct: 0, exp: "Ta dùng chữ 'l' để có từ 'Chú lùn' hoặc 'Lên đường'." },
-                { q: 'Câu hỏi "Ai làm gì?" dùng để làm gì?', options: ["Giới thiệu sự vật", "Hỏi về hoạt động của người hoặc con vật", "Hỏi về tính chất đặc điểm", "Miêu tả đồ vật"], correct: 1, exp: "Mẫu câu 'Ai làm gì?' dùng để hỏi về hoạt động." },
-                { q: 'Tìm từ viết đúng chính tả trong các từ sau:', options: ["sẻ chia", "xẻ chia", "sẻ chia/xẻ chia đều sai", "xẽ chia"], correct: 0, exp: "'Sẻ chia' viết với chữ 's'." }
+                { q: 'Từ nào dưới đây là từ chỉ hoạt động?', options: ["Cái bàn", "Chạy nhảy", "Xinh đẹp", "Quyển vở"], correct: 1, exp: "Chạy nhảy là từ chỉ hành động." },
+                { q: 'Điền chữ thích hợp vào chỗ trống: Chú ...ên (l hay n)?', options: ["lên", "nên", "sai hết", "cả hai đúng"], correct: 0, exp: "Dùng chữ 'l'." },
+                { q: 'Câu hỏi "Ai làm gì?" dùng để làm gì?', options: ["Giới thiệu", "Hỏi về hoạt động", "Hỏi tính chất", "Miêu tả"], correct: 1, exp: "Hỏi về hoạt động của người hoặc con vật." },
+                { q: 'Tìm từ viết đúng chính tả:', options: ["sẻ chia", "xẻ chia", "cả hai sai", "xẽ chia"], correct: 0, exp: "'Sẻ chia' viết với 's'." }
             ],
             science: [
-                { q: "Khi tham gia giao thông trên đường bộ bằng xe máy, quy định bắt buộc đối với học sinh/người lớn là gì?", options: ["Đội mũ bảo hiểm", "Không cần đội mũ", "Ngồi phía trước", "Đi vào làn đường ô tô"], correct: 0, exp: "Đội mũ bảo hiểm đạt chuẩn giúp bảo vệ an toàn khi đi xe máy." },
-                { q: "Bộ phận nào của cây làm nhiệm vụ hút nước và chất khoáng?", options: ["Lá cây", "Rễ cây", "Hoa", "Quả"], correct: 1, exp: "Rễ cây cắm sâu xuống đất để hút nước nuôi cây." },
-                { q: "Mùa nào trong năm ở miền Bắc thời tiết lạnh giá nhất?", options: ["Mùa hè", "Mùa xuân", "Mùa đông", "Mùa thu"], correct: 2, exp: "Mùa đông có nhiệt độ thấp và thời tiết lạnh giá." }
+                { q: "Khi đi xe máy, quy định bắt buộc đối với mọi người là gì?", options: ["Đội mũ bảo hiểm", "Không cần đội mũ", "Ngồi trước", "Đi làn ô tô"], correct: 0, exp: "Đội mũ bảo hiểm bảo vệ an toàn." },
+                { q: "Bộ phận nào của cây làm nhiệm vụ hút nước?", options: ["Lá cây", "Rễ cây", "Hoa", "Quả"], correct: 1, exp: "Rễ cây hút nước nuôi cây." },
+                { q: "Mùa nào trong năm ở miền Bắc lạnh giá nhất?", options: ["Mùa hè", "Mùa xuân", "Mùa đông", "Mùa thu"], correct: 2, exp: "Mùa đông lạnh giá." }
             ],
             iq: [
-                { q: "Tìm số tiếp theo trong dãy số quy luật sau: 2, 4, 6, 8, ... ?", options: ["9", "10", "12", "11"], correct: 1, exp: "Dãy số tăng đều 2 đơn vị: 2, 4, 6, 8, 10." },
-                { q: "Bố 35 tuổi, con 7 tuổi. Hỏi bố hơn con bao nhiêu tuổi?", options: ["28 tuổi", "30 tuổi", "42 tuổi", "25 tuổi"], correct: 0, exp: "Hiệu số tuổi của hai bố con luôn không đổi: 35 - 7 = 28 tuổi." },
-                { q: "Có 3 con chim đang đậu trên cành cây, thợ săn bắn rơi 1 con. Hỏi trên cành còn lại mấy con?", options: ["2 con", "0 con (vì sợ bay mất)", "1 con", "3 con"], correct: 1, exp: "Tiếng súng nổ làm 2 con còn lại hoảng sợ bay mất!" }
+                { q: "Tìm số tiếp theo trong dãy: 2, 4, 6, 8, ... ?", options: ["9", "10", "12", "11"], correct: 1, exp: "Dãy số tăng đều 2 đơn vị: 10." },
+                { q: "Bố 35 tuổi, con 7 tuổi. Bố hơn con mấy tuổi?", options: ["28 tuổi", "30 tuổi", "42 tuổi", "25 tuổi"], correct: 0, exp: "35 - 7 = 28 tuổi." },
+                { q: "Có 3 con chim đang đậu, thợ săn bắn rơi 1 con. Còn lại mấy con?", options: ["2 con", "0 con", "1 con", "3 con"], correct: 1, exp: "Tiếng súng làm 2 con bay mất!" }
             ]
         };
 
-        // Algorithmic Endless Question Generator
         function generateEndlessQuestion() {
             const types = ['math', 'vietnamese', 'iq'];
             const t = types[Math.floor(Math.random() * types.length)];
             if (t === 'math') {
-                const a = Math.floor(Math.random() * 60) + 10;
-                const b = Math.floor(Math.random() * 40) + 10;
-                const op = Math.random() > 0.5 ? '+' : '-';
-                const ans = op === '+' ? a + b : a - b;
-                let wrong1 = ans + 2, wrong2 = ans - 3, wrong3 = ans + 5;
-                let opts = [ans.toString(), wrong1.toString(), wrong2.toString(), wrong3.toString()].sort(() => Math.random() - 0.5);
-                return {
-                    q: `[Vô Tận ♾️] Tính kết quả: ${a} ${op} ${b} = ?`,
-                    options: opts,
-                    correct: opts.indexOf(ans.toString()),
-                    exp: `Thực hiện phép tính ${a} ${op} ${b} = ${ans}.`
-                };
+                const a = Math.floor(Math.random() * 50) + 10;
+                const b = Math.floor(Math.random() * 30) + 5;
+                const ans = a + b;
+                let opts = [ans.toString(), (ans+2).toString(), (ans-3).toString(), (ans+5).toString()].sort(() => Math.random() - 0.5);
+                return { q: `[Vô Tận ♾️] Tính nhanh: ${a} + ${b} = ?`, options: opts, correct: opts.indexOf(ans.toString()), exp: `${a} + ${b} = ${ans}.` };
             } else if (t === 'vietnamese') {
-                const words = [
-                    { w: "sạch sẽ", exp: "Viết đúng chính tả với s/ch." },
-                    { w: "chăm chỉ", exp: "Từ chỉ tính cách chăm chỉ học tập." },
-                    { w: "thông minh", exp: "Từ chỉ sự nhanh trí." },
-                    { w: "trường học", exp: "Viết đúng với tr/h." }
-                ];
-                let chosen = words[Math.floor(Math.random() * words.length)];
-                let opts = [chosen.w, chosen.w.replace('s', 'x'), chosen.w.replace('ch', 'tr'), "sai hết"].sort(() => Math.random() - 0.5);
-                return {
-                    q: `[Vô Tận ♾️] Chọn từ viết ĐÚNG chính tả:`,
-                    options: opts,
-                    correct: opts.indexOf(chosen.w),
-                    exp: chosen.exp
-                };
+                return { q: `[Vô Tận ♾️] Chọn từ đúng chính tả:`, options: ["chăm chỉ", "trăm chỉ", "chăm chỷ", "trăm chỷ"], correct: 0, exp: "Chăm chỉ viết đúng chính tả." };
             } else {
-                const step = Math.floor(Math.random() * 3) + 2;
-                const start = Math.floor(Math.random() * 10) + 1;
-                const seq = [start, start + step, start + step*2, start + step*3];
-                const ans = start + step*4;
-                let opts = [ans, ans+1, ans-2, ans+3].map(String).sort(() => Math.random() - 0.5);
-                return {
-                    q: `[Vô Tận ♾️] Tìm số điền vào dấu ? trong dãy: ${seq.join(', ')}, ?`,
-                    options: opts,
-                    correct: opts.indexOf(ans.toString()),
-                    exp: `Quy luật dãy số cộng thêm ${step} mỗi bước. Số cần tìm là ${ans}.`
-                };
+                const step = 2;
+                const start = Math.floor(Math.random() * 5) + 1;
+                const ans = start + step * 4;
+                let opts = [ans, ans+1, ans-1, ans+2].map(String).sort(() => Math.random() - 0.5);
+                return { q: `[Vô Tận ♾️] Tìm số thích hợp: ${start}, ${start+2}, ${start+4}, ${start+6}, ?`, options: opts, correct: opts.indexOf(ans.toString()), exp: `Quy luật cộng 2, đáp án là ${ans}.` };
             }
         }
 
-        // Account Management Functions
         function openAccountModal() {
             playSound('click');
             renderAccountList();
             document.getElementById('account-modal').classList.remove('hidden');
         }
-
-        function closeAccountModal() {
-            playSound('click');
-            document.getElementById('account-modal').classList.add('hidden');
-        }
+        function closeAccountModal() { document.getElementById('account-modal').classList.add('hidden'); }
 
         function renderAccountList() {
             const listContainer = document.getElementById('account-list');
@@ -378,12 +301,9 @@
             playSound('click');
             currentAccount = accName;
             localStorage.setItem('vuan_current_account', currentAccount);
-            
-            // Reload state for this account
             state.score = parseInt(localStorage.getItem(getAccKey('score')) || '0');
             state.badges = JSON.parse(localStorage.getItem(getAccKey('badges')) || '[false, false, false, false]');
             state.isEndlessMode = JSON.parse(localStorage.getItem(getAccKey('endless')) || 'false');
-            
             closeAccountModal();
             updateHUD();
             switchTab('home');
@@ -392,14 +312,8 @@
         function createNewAccount() {
             const input = document.getElementById('new-account-name');
             const name = input.value.trim();
-            if (!name) {
-                alert("Vui lòng nhập tên tài khoản!");
-                return;
-            }
-            if (accounts.includes(name)) {
-                alert("Tên tài khoản này đã tồn tại!");
-                return;
-            }
+            if (!name) return alert("Vui lòng nhập tên bé!");
+            if (accounts.includes(name)) return alert("Tên đã tồn tại!");
             accounts.push(name);
             localStorage.setItem('vuan_accounts', JSON.stringify(accounts));
             input.value = '';
@@ -407,18 +321,14 @@
         }
 
         function deleteAccount(accName) {
-            if (accounts.length <= 1) {
-                alert("Cần giữ lại ít nhất một tài khoản!");
-                return;
-            }
-            if (confirm(`Bạn có chắc muốn xóa tài khoản "${accName}" không?`)) {
+            if (accounts.length <= 1) return alert("Cần giữ lại ít nhất một tài khoản!");
+            if (confirm(`Xóa tài khoản "${accName}"?`)) {
                 accounts = accounts.filter(a => a !== accName);
                 localStorage.setItem('vuan_accounts', JSON.stringify(accounts));
                 switchAccount(accounts[0]);
             }
         }
 
-        // Navigation & Tab Controller
         function switchTab(tabId) {
             playSound('click');
             ['home', 'play', 'badges'].forEach(id => {
@@ -433,14 +343,13 @@
             if (tabId === 'badges') renderBadges();
         }
 
-        // Start Category Quiz
         function startCategory(cat) {
             playSound('click');
             state.currentCategory = cat;
             state.currentQuestionIndex = 0;
             
             if (state.isEndlessMode) {
-                state.questions = Array.from({length: 10}, () => generateEndlessQuestion());
+                state.questions = Array.from({length: 5}, () => generateEndlessQuestion());
                 document.getElementById('endless-mode-tag').classList.remove('hidden');
             } else {
                 state.questions = baseQuestionBank[cat] || baseQuestionBank.math;
@@ -454,7 +363,6 @@
             loadQuestion();
         }
 
-        // Load Question into UI
         function loadQuestion() {
             const qObj = state.questions[state.currentQuestionIndex];
             if (!qObj) {
@@ -471,25 +379,23 @@
 
             qObj.options.forEach((opt, idx) => {
                 const btn = document.createElement('button');
-                btn.className = "w-full text-left p-3.5 rounded-2xl bg-indigo-50/60 hover:bg-indigo-100 font-bold text-sm text-slate-700 transition border border-indigo-100/80 active:scale-98 flex items-center justify-between";
-                btn.innerHTML = `<span>${String.fromCharCode(65 + idx)}. ${opt}</span> <span class="text-xs opacity-50">👉</span>`;
+                btn.className = "w-full text-left p-3.5 rounded-2xl bg-indigo-50/60 hover:bg-indigo-100 font-bold text-sm text-slate-700 transition border border-indigo-100/80 flex items-center justify-between";
+                btn.innerHTML = `<span>${String.fromCharCode(65 + idx)}. ${opt}</span>`;
                 btn.onclick = () => selectAnswer(idx, btn);
                 container.appendChild(btn);
             });
         }
 
-        // Answer Validation
         function selectAnswer(selectedIdx, btnElement) {
             const qObj = state.questions[state.currentQuestionIndex];
             const buttons = document.getElementById('options-container').children;
-            
             for (let b of buttons) { b.disabled = true; }
 
             if (selectedIdx === qObj.correct) {
                 playSound('correct');
                 btnElement.className = "w-full text-left p-3.5 rounded-2xl bg-emerald-500 text-white font-bold text-sm shadow-md flex items-center justify-between animate-bounce-short";
                 state.score += 10;
-                confetti({ particleCount: 40, spread: 60, origin: { y: 0.6 } });
+                confetti({ particleCount: 30, spread: 50, origin: { y: 0.6 } });
             } else {
                 playSound('wrong');
                 btnElement.className = "w-full text-left p-3.5 rounded-2xl bg-rose-500 text-white font-bold text-sm shadow-md flex items-center justify-between";
@@ -499,24 +405,21 @@
             document.getElementById('explanation-text').innerText = qObj.exp;
             document.getElementById('explanation-box').classList.remove('hidden');
 
-            // Save specific account score
             localStorage.setItem(getAccKey('score'), state.score);
             updateHUD();
 
             setTimeout(() => {
                 state.currentQuestionIndex++;
                 loadQuestion();
-            }, 3000);
+            }, 2500);
         }
 
-        // Finish Quiz Session
         function finishQuizSession() {
-            alert("🎉 Tuyệt vời! Bé đã hoàn thành xuất sắc thử thách!");
+            alert("🎉 Tuyệt vời! Bé đã hoàn thành phần thi!");
             checkBadgeUnlock();
             switchTab('home');
         }
 
-        // Check & Unlock Badges & Endless Mode per account
         function checkBadgeUnlock() {
             let unlockedCount = state.badges.filter(Boolean).length;
             if (unlockedCount < 4) {
@@ -524,19 +427,17 @@
                 if (nextIdx !== -1 && state.score >= (nextIdx + 1) * 30) {
                     state.badges[nextIdx] = true;
                     localStorage.setItem(getAccKey('badges'), JSON.stringify(state.badges));
-                    alert(`🏆 Chúc mừng tài khoản ${currentAccount} đã mở khóa huy hiệu: ${badgeData[nextIdx].name}!`);
+                    alert(`🏆 Mở khóa huy hiệu mới: ${badgeData[nextIdx].name}!`);
                 }
             }
-
             if (state.badges.every(Boolean) && !state.isEndlessMode) {
                 state.isEndlessMode = true;
                 localStorage.setItem(getAccKey('endless'), 'true');
-                alert(`🌟 SIÊU KỲ DIỆU! Tài khoản ${currentAccount} đã mở khóa THẾ GIỚI VÔ TẬN với kho câu hỏi tự động mở rộng không giới hạn!`);
+                alert("🌟 Đã mở khóa THẾ GIỚI VÔ TẬN!");
             }
             updateHUD();
         }
 
-        // Render Badges View
         function renderBadges() {
             const grid = document.getElementById('badge-grid');
             grid.innerHTML = '';
@@ -549,17 +450,15 @@
                     <h4 class="font-black text-xs text-slate-800 mb-1">${badge.name}</h4>
                     <p class="text-[10px] text-slate-500 mb-2">${badge.desc}</p>
                     <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${isUnlocked ? 'bg-amber-500 text-white' : 'bg-slate-200 text-slate-600'}">
-                        ${isUnlocked ? 'Đã sở hữu 🌟' : 'Chưa mở khóa 🔒'}
+                        ${isUnlocked ? 'Đã sở hữu 🌟' : 'Khóa 🔒'}
                     </span>
                 `;
                 grid.appendChild(card);
             });
-
             let unlockedCount = state.badges.filter(Boolean).length;
-            document.getElementById('endless-unlock-status').innerText = `Tiến độ của ${currentAccount}: ${unlockedCount}/4 Huy hiệu`;
+            document.getElementById('endless-unlock-status').innerText = `Tiến độ: ${unlockedCount}/4 Huy hiệu`;
         }
 
-        // Update HUD display
         function updateHUD() {
             document.getElementById('current-user-name').innerText = currentAccount;
             document.getElementById('banner-user-name').innerText = currentAccount;
@@ -569,17 +468,14 @@
             
             if (state.isEndlessMode) {
                 document.getElementById('user-level-status').innerText = "Cấp độ: Thám tử vô tận ♾️";
-                document.getElementById('world-status-text').innerText = "Thế giới vô tận (Đã mở khóa ♾️)";
+                document.getElementById('world-status-text').innerText = "Thế giới vô tận (Đã mở khóa)";
             } else {
                 document.getElementById('user-level-status').innerText = `Cấp độ: Thám tử tập sự (${unlockedCount}/4)`;
-                document.getElementById('world-status-text').innerText = `Đang chinh phục cơ bản (${unlockedCount}/4 Huy hiệu)`;
+                document.getElementById('world-status-text').innerText = `Đang chinh phục cơ bản (${unlockedCount}/4)`;
             }
         }
 
-        // Initialize App on load
-        window.onload = () => {
-            updateHUD();
-        };
+        window.onload = () => { updateHUD(); };
     </script>
 </body>
 </html>
